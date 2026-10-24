@@ -1,0 +1,1064 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<script>/* VERA web: entorno de solo lectura (exportado el 24/10/2026) */
+(function(){
+  const DOCS={"control/linea_base": {"entradas": {"elacestrant": {"bifimed": {"cns": ["764674"], "estado": "Sí, con restricción: progresión tras >=1 línea endocrina con iCDK4/6 y exposición >12 meses a iCDK4/6"}, "ema": {"producto": "Orserdu", "ultima_actualizacion": ""}, "esmo": {"ensayo": "EMERALD", "fecha": "02/07/2025", "g": "3"}, "ipt": {"cod": "IPT-335/V1", "fecha": "07/01/2025"}}, "ev-pembro": {"bifimed": {"cns": ["736060", "712570"], "estado": "Padcev y Keytruda 1.ª línea urotelial: Sí, financiada indicación autorizada"}, "ema": {"producto": "Padcev", "ultima_actualizacion": ""}, "esmo": {"ensayo": "EV-302", "fecha": "26/01/2026", "g": "4"}, "ipt": {"cod": "IPT-384/V1", "fecha": "07/08/2025"}}, "guselkumab-crohn": {"bifimed": {"cns": ["720058"], "estado": "Crohn: Sí, con restricción tras fracaso a convencional y anti-TNFα o contraindicación"}, "ema": {"producto": "Tremfya", "ultima_actualizacion": ""}, "esmo": null, "ipt": {"cod": "IPT-425/V1", "fecha": "02/02/2026"}}, "guselkumab-cu": {"bifimed": {"cns": ["720058"], "estado": "CU: Sí, con restricción tras fracaso a convencional y anti-TNFα o contraindicación"}, "ema": {"producto": "Tremfya", "ultima_actualizacion": ""}, "esmo": null, "ipt": {"cod": "IPT-421/V1", "fecha": "22/12/2025"}}, "ribociclib-adyuvante": {"bifimed": {"cns": ["768068"], "estado": "Adyuvante: No incluida"}, "ema": {"producto": "Kisqali", "ultima_actualizacion": ""}, "esmo": {"ensayo": "NATALEE", "fecha": "08/06/2026", "g": "A (AT)"}, "ipt": {"cod": "IPT-404/V1", "fecha": "27/10/2025"}}, "ribociclib-metastasico": {"bifimed": {"cns": ["768068"], "estado": "Metastásico: Sí, financiada indicación autorizada"}, "ema": {"producto": "Kisqali", "ultima_actualizacion": ""}, "esmo": {"ensayo": "MONALEESA-2", "fecha": "02/07/2025", "g": "4"}, "ipt": {"cod": "IPT 24/2018 V2", "fecha": "10/03/2020"}}, "sacituzumab-pembro": {"bifimed": {"cns": ["732220", "712570"], "estado": "Trodelvy + pembrolizumab CMTN 1.ª línea CPS>=10: En estudio. Keytruda: sin indicación en combinación con sacituzumab."}, "ema": {"producto": "Trodelvy", "ultima_actualizacion": ""}, "esmo": {"ensayo": "ASCENT-04", "fecha": "18/09/2026", "g": "3"}, "ipt": {"cod": "ninguno para esta indicación (IPT-096 es CMTN pretratado)", "fecha": ""}}, "tdxd-her2low": {"bifimed": {"cns": ["730318"], "estado": "HER2-low tras quimioterapia: Sí, con restricción (sin sacituzumab previo; RH+ tras >=1 terapia hormonal y sin candidatura a nueva línea hormonal). DESTINY-Breast06: No incluida"}, "ema": {"producto": "Enhertu", "ultima_actualizacion": ""}, "esmo": {"ensayo": "DESTINY-Breast04", "fecha": "02/07/2025", "g": "4"}, "ipt": {"cod": "IPT-225/V1", "fecha": "29/01/2024"}}}, "fecha": "2026-10-24", "nota": "Línea base de la revisión semanal. Cada entrada de la portada con lo comprobado a mano el 24/10/2026. La tarea compara con esto, crea avisos en 'avisos' si algo cambia y actualiza esta línea base."}};
+  const snap=(id,data)=>({id,exists:data!=null,data:()=>data});
+  const doc=p=>({onSnapshot(cb){setTimeout(()=>cb(snap(p.split('/').pop(),DOCS[p]??null)),0);return()=>{};},
+    get:async()=>snap(p.split('/').pop(),DOCS[p]??null),
+    set:async()=>{throw new Error('Solo lectura');},update:async()=>{throw new Error('Solo lectura');}});
+  const col=c=>({onSnapshot(cb){const ds=Object.keys(DOCS).filter(k=>k.startsWith(c+'/')&&k.split('/').length===c.split('/').length+1).map(k=>snap(k.split('/').pop(),DOCS[k]));
+    setTimeout(()=>cb({docs:ds,size:ds.length,empty:!ds.length}),0);return()=>{};}});
+  const caps={
+    db:{doc,collection:col},
+    user:{isOwner:async()=>false,id:async()=>null},
+    downloads:{save:async({filename,data})=>{const u=URL.createObjectURL(data);const a=document.createElement('a');a.href=u;a.download=filename;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4000);}}
+  };
+  window.claude={use:async n=>{if(caps[n])return caps[n];throw new Error('No disponible en la web');}};
+})();</script>
+</head>
+<body>
+<title>VERA</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: buscador centrado arriba; debajo filtros + lista de resultados a la izquierda y ficha del fármaco a la derecha; al final, aportar un fármaco nuevo y cola de solicitudes */
+:root{
+  --bg:#f6f7f8; --surface:#ffffff; --sunk:#eef0f2; --fg:#1b2430; --muted:#5b6675; --line:#d9dde3;
+  --accent:#1f4e79; --accent-soft:#e3ecf5;
+  --ok:#1d6b45; --ok-bg:#e1f1e8; --warn:#8a5a00; --warn-bg:#fbefd6; --bad:#a3302a; --bad-bg:#f8e3e1;
+  --calc:#1f4e79; --calc-bg:#e3ecf5; --draft:#6b3f8a; --draft-bg:#efe6f5;
+  --f-display:"Newsreader",Georgia,"Times New Roman",serif;
+  --f-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#12161c; --surface:#1a2029; --sunk:#151a21; --fg:#e4e8ee; --muted:#9aa5b4; --line:#2c3440;
+  --accent:#8db8e3; --accent-soft:#1f2c3b; --ok:#7fcfa2; --ok-bg:#183126; --warn:#e8bd63; --warn-bg:#3a2e14; --bad:#ef9a93; --bad-bg:#3b1f1d;
+  --calc:#8db8e3; --calc-bg:#1f2c3b; --draft:#c9a6e6; --draft-bg:#2c2236; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12161c; --surface:#1a2029; --sunk:#151a21; --fg:#e4e8ee; --muted:#9aa5b4; --line:#2c3440;
+  --accent:#8db8e3; --accent-soft:#1f2c3b; --ok:#7fcfa2; --ok-bg:#183126; --warn:#e8bd63; --warn-bg:#3a2e14; --bad:#ef9a93; --bad-bg:#3b1f1d;
+  --calc:#8db8e3; --calc-bg:#1f2c3b; --draft:#c9a6e6; --draft-bg:#2c2236; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:15px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 48px}
+h1,h2,h3{font-family:var(--f-display);font-weight:600;margin:0;text-wrap:balance;letter-spacing:-.01em}
+p{margin:0}
+a{color:var(--accent)}
+.eyebrow{font-size:11.5px;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);font-weight:600}
+.mono,.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+header.top{max-width:1180px;margin:0 auto;padding-block:28px 22px;display:grid;gap:14px}
+.searchbox{position:relative;max-width:760px}
+.searchbox input{width:100%;font-size:18px;padding:14px 16px 14px 46px;border:1.5px solid var(--line);border-radius:12px;background:var(--surface)}
+.searchbox input:focus{border-color:var(--accent);outline:none;box-shadow:0 0 0 3px var(--accent-soft)}
+.searchbox svg{position:absolute;left:15px;top:50%;transform:translateY(-50%);width:20px;height:20px;stroke:var(--muted);fill:none;stroke-width:2}
+.hints{display:flex;flex-wrap:wrap;gap:8px;font-size:13px;color:var(--muted);align-items:center}
+.hints button{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:3px 10px;cursor:pointer;font-size:13px}
+.hints button:hover{border-color:var(--accent);color:var(--accent)}
+.hints a{margin-left:auto;font-weight:600;text-decoration:none}
+
+.layout{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:minmax(0,400px) minmax(0,1fr);gap:28px;align-items:start}
+@media (max-width:920px){.layout{grid-template-columns:minmax(0,1fr)}}
+.count{font-size:13px;color:var(--muted);margin-bottom:8px}
+.results{display:grid;gap:8px}
+.card{display:grid;gap:6px;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:13px 15px;cursor:pointer;width:100%}
+.card:hover{border-color:var(--accent)}
+.card[aria-current="true"]{border-color:var(--accent);box-shadow:inset 3px 0 0 var(--accent)}
+.card .t{font-weight:600;font-size:15.5px}
+.card .t small{font-weight:400;color:var(--muted);font-size:13px}
+.card .i{font-size:13.5px;color:var(--muted);line-height:1.4}
+.card .row{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.card mark{background:var(--warn-bg);color:inherit;border-radius:2px}
+.badge{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:600;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.badge::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.b-full{color:var(--ok);background:var(--ok-bg)}
+.b-pre{color:var(--warn);background:var(--warn-bg)}
+.b-draft{color:var(--draft);background:var(--draft-bg)}
+.b-queue{color:var(--muted);background:var(--sunk)}
+.b-bad{color:var(--bad);background:var(--bad-bg)}
+.b-area{color:var(--muted);background:var(--sunk)}
+.b-area::before{display:none}
+.b-calc{color:var(--calc);background:var(--calc-bg)}
+.empty{padding:22px;border:1px dashed var(--line);border-radius:10px;color:var(--muted);display:grid;gap:8px}
+
+.detail{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:22px 24px;display:grid;gap:20px;min-width:0;position:sticky;top:max(12px,env(safe-area-inset-top,0px))}
+@media (max-width:920px){.detail{position:static}}
+@media (max-width:520px){.detail{padding:18px 16px}}
+.d-head{display:grid;gap:8px}
+.d-head h2{font-size:28px;line-height:1.15}
+.d-head .ind{color:var(--muted);max-width:70ch}
+.ficha{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.ficha>div{background:var(--surface);padding:12px 14px;display:grid;gap:3px;align-content:start}
+.ficha .v{font-family:var(--f-display);font-size:19px;font-weight:600;line-height:1.2}
+.ficha .s{font-size:12.5px;color:var(--muted)}
+.d-sec{display:grid;gap:8px}
+.d-sec h3{font-family:var(--f-body);font-size:14px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:600}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:520px}
+th,td{text-align:left;padding:8px 11px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--sunk);font-weight:600}
+tr:last-child td{border-bottom:0}
+td.num{white-space:nowrap}
+.pg{font-family:var(--f-mono);font-size:11.5px;color:var(--draft);background:var(--draft-bg);border-radius:4px;padding:0 5px;white-space:nowrap}
+.alerts{display:grid;gap:8px}
+.alert{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;font-size:14px;align-items:start}
+.alert .dot{width:10px;height:10px;border-radius:50%;margin-top:6px;background:var(--warn)}
+.alert.bad .dot{background:var(--bad)}
+.alert.ok .dot{background:var(--ok)}
+.actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:14px;padding:9px 15px;border-radius:8px;border:1px solid var(--line);background:var(--surface);text-decoration:none;color:var(--fg);cursor:pointer}
+.btn:hover{border-color:var(--accent)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+.btn[aria-disabled="true"],.btn:disabled{opacity:.55;cursor:not-allowed}
+.srcs{margin:0;padding-left:18px;font-size:13.5px;display:grid;gap:4px}
+.note{font-size:13px;color:var(--muted)}
+.banner{border:1px solid var(--draft);background:var(--draft-bg);color:var(--fg);border-radius:10px;padding:11px 14px;font-size:13.5px;display:grid;gap:4px}
+.banner b{color:var(--draft)}
+
+/* Seguimiento de una solicitud */
+.track{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;list-style:none;margin:0;padding:0}
+@media (max-width:520px){.track{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.track li{border-top:3px solid var(--line);padding-top:6px;font-size:12.5px;color:var(--muted);line-height:1.3}
+.track li.done{border-color:var(--ok);color:var(--fg)}
+.track li.now{border-color:var(--accent);color:var(--fg);font-weight:600}
+.files{display:grid;gap:6px;margin:0;padding:0;list-style:none}
+.files li{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:13.5px}
+.files .ty{font-size:11.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-weight:600;min-width:120px}
+
+/* Aportar un fármaco */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;list-style:none;margin:0;padding:0;counter-reset:st}
+.steps li{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px;display:grid;gap:4px;font-size:14px;counter-increment:st}
+.steps b{font-size:13px;color:var(--accent)}
+.steps b::before{content:counter(st) " · "}
+.split{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:28px;align-items:start}
+@media (max-width:920px){.split{grid-template-columns:minmax(0,1fr)}}
+form.new{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px 22px;display:grid;gap:16px;min-width:0}
+@media (max-width:520px){form.new{padding:16px}}
+.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 14px}
+@media (max-width:620px){.fields{grid-template-columns:minmax(0,1fr)}}
+.fld{display:grid;gap:5px;min-width:0}
+.fld.wide{grid-column:1/-1}
+.fld label,.fld .lab{font-size:13px;font-weight:600}
+.fld .lab small,.fld label small{font-weight:400;color:var(--muted)}
+.fld input[type=text],.fld select,.fld textarea{width:100%;padding:9px 11px;border:1px solid var(--line);border-radius:8px;background:var(--bg)}
+.fld textarea{resize:vertical;min-height:70px}
+.fld input:focus,.fld select:focus,.fld textarea:focus{border-color:var(--accent);outline:none;box-shadow:0 0 0 3px var(--accent-soft)}
+.drop{position:relative;font-weight:400;display:grid;gap:4px;justify-items:start;border:1.5px dashed var(--line);border-radius:10px;padding:14px 16px;background:var(--bg);cursor:pointer;font-size:14px}
+.drop:hover,.drop.over{border-color:var(--accent);background:var(--accent-soft)}
+.drop .big{font-weight:600}
+.drop .sm{font-size:12.5px;color:var(--muted)}
+.drop input{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.flist{display:grid;gap:6px;margin:0;padding:0;list-style:none}
+.flist li{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:8px;align-items:center;font-size:13.5px;background:var(--sunk);border-radius:8px;padding:6px 8px 6px 11px}
+.flist .nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.flist .nm small{color:var(--muted);font-family:var(--f-mono);font-size:11.5px;margin-left:6px}
+.flist select{padding:4px 6px;border:1px solid var(--line);border-radius:6px;background:var(--surface);font-size:12.5px;max-width:150px}
+.x{border:0;background:none;cursor:pointer;color:var(--muted);font-size:18px;line-height:1;padding:2px 6px;border-radius:6px}
+.x:hover{color:var(--bad);background:var(--bad-bg)}
+.check{display:flex;gap:9px;align-items:flex-start;font-size:14px}
+.check input{margin-top:4px}
+.check small{display:block;color:var(--muted);font-size:12.5px}
+.err{color:var(--bad);font-size:13.5px;font-weight:500}
+.lock{border:1px dashed var(--line);border-radius:10px;padding:14px 16px;font-size:14px;color:var(--muted);display:grid;gap:4px}
+.lock b{color:var(--fg)}
+.prog{list-style:none;margin:0;padding:0;display:grid;gap:6px;font-size:13.5px}
+.prog li{display:grid;grid-template-columns:18px minmax(0,1fr);gap:8px;align-items:start;color:var(--muted)}
+.prog li::before{content:"";width:10px;height:10px;border-radius:50%;border:2px solid var(--line);margin-top:5px}
+.prog li[data-s="run"]{color:var(--fg)}
+.prog li[data-s="run"]::before{border-color:var(--accent);border-top-color:transparent;animation:spin .9s linear infinite}
+.prog li[data-s="ok"]{color:var(--fg)}
+.prog li[data-s="ok"]::before{background:var(--ok);border-color:var(--ok)}
+.prog li[data-s="err"]{color:var(--bad)}
+.prog li[data-s="err"]::before{background:var(--bad);border-color:var(--bad)}
+.prog li[data-s="skip"]::before{border-style:dashed}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.qitem{display:grid;gap:4px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:11px 14px;text-align:left;cursor:pointer;width:100%}
+.qitem:hover{border-color:var(--accent)}
+.qitem .t{font-weight:600}
+.qitem .m{font-size:12.5px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center}
+.own{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:13px;background:var(--sunk);border-radius:8px;padding:8px 11px}
+.own select{padding:4px 6px;border:1px solid var(--line);border-radius:6px;background:var(--surface)}
+
+.brand{display:grid;gap:10px;padding-block:8px 6px}
+.logo{display:flex;align-items:center;gap:14px}
+.mark{width:52px;height:52px;flex:none}
+.mark circle{fill:none;stroke:var(--accent);stroke-width:2.2}
+.mark path{fill:none;stroke:var(--accent);stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round}
+.word{font-family:var(--f-display);font-weight:600;font-size:clamp(46px,7vw,64px);letter-spacing:.16em;line-height:1;color:var(--fg)}
+.expand{font-size:15px;color:var(--muted);letter-spacing:.01em}
+.expand b{color:var(--accent);font-weight:600;font-size:16px}
+.claim{font-family:var(--f-display);font-size:clamp(19px,2.4vw,23px);line-height:1.35;max-width:46ch;margin-top:6px}
+.stats{display:flex;flex-wrap:wrap;gap:8px 22px;font-size:13.5px;color:var(--muted);margin-top:4px}
+.stats b{font-family:var(--f-mono);font-size:15px;color:var(--fg);font-weight:500;margin-right:4px}
+footer .fb{font-family:var(--f-display);font-weight:600;letter-spacing:.12em;color:var(--fg);margin-right:6px}
+footer{max-width:1180px;margin:28px auto 0;font-size:12.5px;color:var(--muted)}
+
+/* Navegación entre secciones */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--surface)}
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--surface);border-bottom:1px solid var(--line);margin-left:calc(-1 * max(16px,env(safe-area-inset-left,0px)));margin-right:calc(-1 * max(16px,env(safe-area-inset-right,0px)));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.nav-in{max-width:1180px;margin:0 auto;display:flex;align-items:center;gap:18px;min-height:56px;position:relative}
+.nav-brand{display:flex;align-items:center;gap:9px;text-decoration:none;color:var(--fg);font-family:var(--f-display);font-weight:600;letter-spacing:.14em;font-size:20px}
+.nav-brand svg{width:26px;height:26px}
+.nav-brand circle{fill:none;stroke:var(--accent);stroke-width:2.6}
+.nav-brand path{fill:none;stroke:var(--accent);stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+.nav-menu{display:flex;gap:4px;list-style:none;margin:0 0 0 auto;padding:0}
+.nav-menu a{display:flex;align-items:center;gap:7px;padding:8px 13px;border-radius:8px;text-decoration:none;color:var(--muted);font-weight:500;font-size:14.5px}
+.nav-menu a:hover{color:var(--fg);background:var(--sunk)}
+.nav-menu a[aria-current="page"]{color:var(--accent);background:var(--accent-soft);font-weight:600}
+.nav-n{font-family:var(--f-mono);font-size:11.5px;background:var(--accent);color:var(--bg);border-radius:999px;padding:0 7px;line-height:18px}
+.nav-toggle{display:none;margin-left:auto;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:7px 11px;font-weight:600;font-size:14px;cursor:pointer}
+.nav-toggle svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;transition:transform .15s}
+.nav-toggle[aria-expanded="true"] svg{transform:rotate(180deg)}
+@media (max-width:720px){
+  .nav-toggle{display:inline-flex}
+  .nav-menu{display:none;position:absolute;right:0;top:calc(100% + 6px);flex-direction:column;min-width:230px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:6px;box-shadow:0 10px 30px rgba(0,0,0,.12)}
+  .nav-menu.open{display:flex}
+}
+.view{display:block}
+.vhead{max-width:1180px;margin:0 auto;padding-block:32px 22px;display:grid;gap:8px}
+.vhead h1{font-size:clamp(28px,4vw,36px);line-height:1.1}
+.vhead .note{font-size:14.5px;max-width:72ch}
+.cta{max-width:1180px;margin:36px auto 0;display:flex;flex-wrap:wrap;gap:14px 24px;align-items:center;justify-content:space-between;border:1px dashed var(--line);border-radius:12px;padding:16px 20px}
+.cta div{display:grid;gap:2px;max-width:70ch;font-size:14px;color:var(--muted)}
+.cta b{color:var(--fg);font-size:15px}
+#v-aportar .split{max-width:1180px;margin:0 auto}
+.how{display:grid;gap:12px;align-content:start;position:sticky;top:calc(env(safe-area-inset-top,0px) + 76px)}
+@media (max-width:920px){.how{position:static}}
+.how h3{font-family:var(--f-body);font-size:14px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:600}
+.how .steps{grid-template-columns:minmax(0,1fr)}
+#v-solicitudes .queue{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr));gap:10px}
+#v-solicitudes .queue .empty{grid-column:1/-1}
+
+/* Financiación SNS (BIFIMED) */
+.fin{display:grid;grid-template-columns:minmax(150px,210px) minmax(0,1fr);gap:4px 14px;border:1px solid var(--line);border-left:4px solid var(--fin-c,var(--muted));border-radius:10px;padding:12px 14px;background:var(--surface)}
+.fin.si{--fin-c:var(--ok)} .fin.restr{--fin-c:var(--warn)} .fin.no{--fin-c:var(--bad)} .fin.estudio,.fin.nd{--fin-c:var(--muted)}
+.fin .fl{grid-row:span 3;display:grid;gap:2px;align-content:start;min-width:120px}
+.fin .fl .eyebrow{font-size:10.5px}
+.fin .fs{font-family:var(--f-display);font-weight:600;font-size:19px;line-height:1.15;color:var(--fin-c)}
+.fin .fd{font-size:14px}
+.fin .fc{font-size:12.5px;color:var(--muted)}
+@media (max-width:520px){.fin{grid-template-columns:minmax(0,1fr)}.fin .fl{grid-row:auto}}
+.b-fin-si{color:var(--ok);background:var(--ok-bg)}
+.b-fin-restr{color:var(--warn);background:var(--warn-bg)}
+.b-fin-no{color:var(--bad);background:var(--bad-bg)}
+.b-fin-estudio{color:var(--muted);background:var(--sunk)}
+
+/* Especialidades */
+.esps{max-width:1180px;margin:6px auto 30px;display:grid;gap:12px}
+.esp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,240px),1fr));gap:12px}
+.esp{display:grid;gap:4px;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;cursor:pointer;align-content:start}
+.esp:hover{border-color:var(--accent)}
+.esp[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.esp .en{font-family:var(--f-display);font-weight:600;font-size:22px;line-height:1.15}
+.esp .ec{font-size:13px;color:var(--accent);font-weight:500}
+.esp .es{font-size:13px;color:var(--muted)}
+.esp .ef{font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:7px;margin-top:4px}
+.back{order:-1;display:inline-flex;align-items:center;gap:4px;border:0;background:none;color:var(--accent);font-weight:600;font-size:13.5px;cursor:pointer;padding:2px 0}
+.back svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2}
+.letter{font-family:var(--f-display);font-weight:600;font-size:15px;color:var(--muted);padding:6px 2px 0;border-bottom:1px solid var(--line)}
+
+/* Niveles del buscador */
+.lv{max-width:880px;margin:0 auto;padding-block:24px 0;display:grid;gap:16px}
+.crumbs{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;font-size:13.5px;color:var(--muted)}
+.crumbs a{color:var(--accent);font-weight:600;text-decoration:none}
+.crumbs a:hover{text-decoration:underline}
+.crumbs [aria-current]{color:var(--fg);font-weight:500}
+.crumbs .sep{color:var(--line)}
+#lvList .lhead{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 14px;margin:0}
+#lvList .lhead h1{font-size:clamp(28px,4vw,36px);line-height:1.1}
+.searchbox.small{max-width:none}
+.searchbox.small input{font-size:16px;padding:11px 14px 11px 42px}
+.searchbox.small svg{left:13px;width:18px;height:18px}
+#lvList .results{grid-template-columns:minmax(0,1fr)}
+#lvFicha .detail{position:static}
+
+.official{display:grid;gap:10px}
+.fin.ipt-pref{--fin-c:var(--ok)} .fin.ipt-opc{--fin-c:var(--accent)} .fin.ipt-none{--fin-c:var(--muted)}
+
+/* ESMO-MCBS */
+.esmo{display:flex;gap:14px;align-items:flex-start;border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.esmo-g{flex:none;display:grid;place-items:center;width:46px;height:46px;border-radius:10px;font-family:var(--f-display);font-weight:600;font-size:26px;background:var(--sunk);color:var(--fg)}
+.esmo-g.g5,.esmo-g.g4,.esmo-g.gA{background:var(--ok-bg);color:var(--ok)}
+.esmo-g.g3{background:var(--warn-bg);color:var(--warn)}
+.esmo-g.g2,.esmo-g.g1{background:var(--bad-bg);color:var(--bad)}
+.esmo .ed{display:grid;gap:2px;font-size:14px;min-width:0}
+.mdet summary{cursor:pointer;color:var(--accent);font-weight:600;font-size:14px;padding:4px 0}
+.mcbs-calc{display:grid;gap:12px;border:1px dashed var(--line);border-radius:10px;padding:14px;margin-top:8px}
+.mrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px}
+.mf{display:grid;gap:4px;align-content:end;font-size:12.5px;color:var(--muted);font-weight:600}
+.mf input,.mf select{font:inherit;font-size:14px;font-weight:400;color:var(--fg);padding:7px 9px;border:1px solid var(--line);border-radius:7px;background:var(--bg);width:100%;font-variant-numeric:tabular-nums}
+.mchecks{display:grid;gap:6px}
+.mchecks .check{font-size:13.5px}
+.mout{display:flex;gap:12px;align-items:flex-start}
+.msteps{margin:6px 0 0;padding-left:18px;font-size:13px;color:var(--muted);display:grid;gap:2px}
+
+.aviso{border:1px solid var(--bad);background:var(--bad-bg);border-radius:10px;padding:11px 14px;display:grid;gap:6px;font-size:14px}
+.aviso b{color:var(--bad)}
+.aviso ul{margin:0;padding-left:18px;display:grid;gap:4px}
+.linkbtn{border:0;background:none;color:var(--accent);font-weight:600;cursor:pointer;padding:0;font-size:13px;text-decoration:underline}
+.rev{margin-top:4px}
+</style>
+
+<nav class="nav" aria-label="Secciones de VERA">
+  <div class="nav-in">
+    <a class="nav-brand" href="#buscar" data-view="buscar"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="21"/><path d="M13 16 L24 35 L36 11"/></svg><span>VERA</span></a>
+    <button class="nav-toggle" type="button" id="navToggle" aria-expanded="false" aria-controls="navMenu"><span id="navCurrent">Buscador</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></button>
+    <ul class="nav-menu" id="navMenu">
+      <li><a href="#buscar" data-view="buscar">Buscador de fármacos</a></li>
+      <li><a href="#aportar" data-view="aportar">Aportar un fármaco</a></li>
+      <li><a href="#solicitudes" data-view="solicitudes">Solicitudes <span class="nav-n" id="navN" hidden></span></a></li>
+    </ul>
+  </div>
+</nav>
+
+<main class="view" id="v-buscar" data-name="Buscador">
+<div id="lvHome">
+<header class="top">
+  <div class="brand">
+    <div class="logo">
+      <svg class="mark" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="21"/><path d="M13 16 L24 35 L36 11"/></svg>
+      <span class="word">VERA</span>
+    </div>
+    <p class="expand"><b>V</b>aloración de la <b>E</b>videncia y <b>R</b>elevancia <b>A</b>sistencial</p>
+    <p class="claim">Informes de evaluación de medicamentos hospitalarios en los que cada cifra está verificada frente a su fuente original.</p>
+    <div class="stats" id="stats"></div>
+  </div>
+  <div class="searchbox">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+    <input id="q" type="search" placeholder="Busca un fármaco, una marca, una indicación o un ensayo…" aria-label="Buscar fármaco o indicación" autocomplete="off">
+  </div>
+  <div class="hints"><span>Prueba:</span>
+    <button data-q="colitis ulcerosa">colitis ulcerosa</button>
+    <button data-q="adyuvante">adyuvante</button>
+    <button data-q="triple negativo">triple negativo</button>
+    <button data-q="Kisqali">Kisqali</button>
+    <button data-q="urotelial">urotelial</button>
+  </div>
+</header>
+
+<section class="esps" aria-labelledby="espT">
+  <h2 id="espT" class="eyebrow">Especialidades</h2>
+  <div class="esp-grid" id="esps"></div>
+  <div id="revLine"></div>
+</section>
+
+<aside class="cta">
+  <div><b>¿No está el fármaco que buscas?</b><span>Aporta su EPAR: VERA prepara un borrador con cada cifra enlazada a su página y lo deja en cola para el informe completo.</span></div>
+  <a class="btn primary" href="#aportar" data-view="aportar">Aportar un fármaco</a>
+</aside>
+</div>
+
+<div class="lv" id="lvList" hidden>
+  <nav class="crumbs" aria-label="Ruta" id="cList"></nav>
+  <header class="lhead"><h1 id="lTitle"></h1><span class="count" id="count" role="status"></span></header>
+  <div class="searchbox small">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+    <input id="q2" type="search" aria-label="Buscar en la lista" autocomplete="off">
+  </div>
+  <div class="results" id="results"></div>
+</div>
+
+<div class="lv" id="lvFicha" hidden>
+  <nav class="crumbs" aria-label="Ruta" id="cFicha"></nav>
+  <article class="detail" id="detail" aria-live="polite"></article>
+</div>
+</main>
+
+<section class="view" id="v-aportar" data-name="Aportar un fármaco" aria-labelledby="newT" hidden>
+  <header class="vhead">
+    <span class="eyebrow">Nuevo informe</span>
+    <h1 id="newT">Aportar un fármaco</h1>
+    <p class="note">Sube el EPAR y los documentos que tengas. VERA genera al momento un borrador con cada cifra enlazada a su página del EPAR, y la solicitud queda en cola para elaborar el informe completo con la plantilla habitual.</p>
+  </header>
+  <div class="split">
+    <form class="new" id="fNew" novalidate>
+      <div class="lock" id="lock"><b>Comprobando permisos…</b><span>Un momento.</span></div>
+      <div id="formBody" hidden>
+        <div style="display:grid;gap:16px">
+          <div class="fields">
+            <div class="fld"><label for="nFarmaco">Fármaco <small>(obligatorio)</small></label><input type="text" id="nFarmaco" placeholder="p. ej. Datopotamab deruxtecán" autocomplete="off"></div>
+            <div class="fld"><label for="nArea">Especialidad</label><select id="nArea"></select></div>
+            <div class="fld wide"><label for="nInd">Indicación a evaluar</label><input type="text" id="nInd" placeholder="p. ej. CM RH+/HER2− tras hormonoterapia y una línea de quimioterapia" autocomplete="off"></div>
+            <div class="fld"><label for="nEnsayo">Ensayo pivotal</label><input type="text" id="nEnsayo" placeholder="p. ej. TROPION-Breast01" autocomplete="off"></div>
+            <div class="fld"><label for="nMarca">Nombre comercial</label><input type="text" id="nMarca" placeholder="p. ej. Datroway" autocomplete="off"></div>
+          </div>
+          <div class="fld">
+            <span class="lab" id="epLab">EPAR o informe de variación de la EMA <small>(PDF, obligatorio)</small></span>
+            <label class="drop" id="dropEpar" for="nEpar">
+              <input type="file" id="nEpar" accept="application/pdf,.pdf" aria-labelledby="epLab">
+              <span class="big">Arrastra aquí el PDF o pulsa para elegirlo</span>
+              <span class="sm">Hasta 20 MB. Es la fuente principal del borrador.</span>
+            </label>
+            <ul class="flist" id="eparList"></ul>
+          </div>
+          <div class="fld">
+            <span class="lab" id="otLab">Otros documentos <small>(opcional)</small></span>
+            <label class="drop" id="dropOtros" for="nOtros">
+              <input type="file" id="nOtros" multiple accept="application/pdf,.pdf,.csv,text/csv,.txt,text/plain,.md,image/png,image/jpeg" aria-labelledby="otLab">
+              <span class="big">Ficha técnica, publicación del ensayo, precios…</span>
+              <span class="sm">PDF, CSV, TXT o imagen. Si tienes un Excel o un Word, guárdalo antes como PDF o CSV.</span>
+            </label>
+            <ul class="flist" id="otrosList"></ul>
+          </div>
+          <div class="fld"><label for="nNotas">Indicaciones para el informe <small>(opcional)</small></label>
+            <textarea id="nNotas" placeholder="Comparador habitual en tu hospital, pacientes candidatas al año, precio notificado, dudas concretas…"></textarea></div>
+          <label class="check" for="nAuto"><input type="checkbox" id="nAuto" checked><span>Generar el borrador automático ahora<small>Claude lee el EPAR en tu navegador; usa tu cuota de Claude y tarda uno o dos minutos.</small></span></label>
+          <p class="err" id="nErr" role="alert" hidden></p>
+          <div class="actions"><button class="btn primary" type="submit" id="nSend">Enviar solicitud</button><span class="note" id="nHint"></span></div>
+          <ol class="prog" id="prog" hidden></ol>
+        </div>
+      </div>
+    </form>
+    <aside class="how">
+      <h3>Qué pasa después</h3>
+      <ol class="steps">
+        <li><b>Aporta la fuente</b>EPAR o informe de variación de la EMA (obligatorio), y si los tienes, ficha técnica, publicación del ensayo y precios.</li>
+        <li><b>Borrador automático</b>Se lee el EPAR y se extraen las cifras principales con su página. Todo queda sin verificar.</li>
+        <li><b>Informe completo</b>Se elabora con la plantilla: RAR y NNT, subgrupos con checklist de Gil-Sierra, comparaciones indirectas y área económica.</li>
+        <li><b>Verificación</b>El evaluador confirma cada cifra frente a su página y añade la conclusión.</li>
+      </ol>
+      <p class="note">Puedes seguir el estado de lo que envíes en <a href="#solicitudes" data-view="solicitudes">Solicitudes</a>.</p>
+    </aside>
+  </div>
+</section>
+
+<section class="view" id="v-solicitudes" data-name="Solicitudes" aria-labelledby="solT" hidden>
+  <header class="vhead">
+    <span class="eyebrow">Cola de trabajo</span>
+    <h1 id="solT">Solicitudes</h1>
+    <p class="note">Fármacos aportados por los usuarios, con su borrador automático y el estado del informe completo. Pulsa una solicitud para abrir su ficha en el buscador.</p>
+  </header>
+  <div class="queue" id="queue"><div class="empty"><b>Aún no hay solicitudes</b><span>Cuando alguien aporte un EPAR aparecerá aquí con su estado. <a href="#aportar" data-view="aportar">Aportar un fármaco</a></span></div></div>
+</section>
+
+<footer><span class="fb">VERA</span> Valoración de la Evidencia y Relevancia Asistencial · prototipo. Las fichas preliminares proceden de publicaciones y notas de congreso, no del EPAR, y no están verificadas. Los borradores automáticos se extraen del EPAR aportado y tampoco están verificados. Herramienta de apoyo: no sustituye el criterio de la Comisión de Farmacia y Terapéutica.</footer>
+
+<script>
+(function(){
+/* Base de datos (prototipo). nnt: [etiqueta, % tratamiento, % control] => RAR/NNT calculados */
+const DB=[
+{id:'sacituzumab-pembro',esmo:{g:'3',form:'2b',sc:584,f:'18/09/2026',pend:'Calidad de vida y SG pendientes',calc:{form:'2b',ctrl:7.75,exp:11.24,lci:0.508}},ipt:{p:'none',t:'Sin IPT para esta indicación',d:'No hay IPT publicado de la combinación con pembrolizumab en 1.ª línea con PD-L1 CPS ≥10. Sí existe IPT de sacituzumab en monoterapia en CMTN pretratado.',cod:'IPT-096 (otra indicación)',f:'14/02/2023',u:'https://www.aemps.gob.es/medicamentosUsoHumano/informesPublicos/docs/2023/IPT-096-2023-Trodelvy.pdf'},fin:{e:'estudio',t:'En estudio',d:'La indicación de Trodelvy en combinación con pembrolizumab (CMTN en 1.ª línea con PD-L1 CPS ≥10) tiene el expediente de financiación en estudio. En Keytruda aún no figura la indicación en combinación con sacituzumab.',c:'Trodelvy: uso hospitalario; acuerdo precio/volumen; Seguimed.',cn:[['Trodelvy','732220'],['Keytruda','712570']]},url:'informes/sacituzumab-pembrolizumab.html',farmaco:'Sacituzumab govitecán + pembrolizumab',marca:'Trodelvy + Keytruda',area:'Oncología · mama',
+ ind:'CMTN avanzado PD-L1 CPS ≥10 sin tratamiento previo para la enfermedad metastásica',linea:'1.ª línea',estado:'completo',
+ ensayo:'ASCENT-04 / KEYNOTE-D19',diseno:'Fase 3, abierto, n=443',comp:'Quimioterapia + pembrolizumab',var:'SLP (BICR)',
+ ficha:[['Variable principal','SLP 11,2 vs 7,8 m','HR 0,654 (0,508–0,842)'],['Supervivencia global','Sin beneficio','HR 0,915 (0,69–1,21), 46 % madurez'],['Toxicidad grado ≥3','71,5 % vs 70,0 %','Abandono 11,8 % vs 30,9 %']],
+ res:[['SLP mediana','11,24 m','7,75 m','HR 0,654 (0,508–0,842)'],['SG mediana (IA1)','31,2 m','28,4 m','HR 0,915 (0,694–1,206)'],['SLP2 (IA1)','26,4 m','17,7 m','HR 0,720 (0,560–0,925)'],['Respuesta objetiva','59,7 %','53,2 %','OR 1,31 (0,90–1,90)']],
+ nnt:['Libres de progresión a 12 meses',48.3,32.9],
+ alertas:[['bad','Sin beneficio en SG y curvas cruzadas en los primeros 6 meses.'],['bad','Solo 1,4 % con anti-PD-(L)1 previo: casi sin datos tras pembrolizumab neoadyuvante.'],['warn','55 % del control recibió SG en 2.ª línea: la pregunta real es de secuencia.']],
+ ema:'Autorización UE: 24/08/2026',fuente:'EPAR (EMA/VR/0000320818)',
+ src:[['EPAR de la EMA, informe de variación','https://www.ema.europa.eu/en/documents/variation-report/trodelvy-vr-0000320818-epar-assessment-report-variation_en.pdf']],
+ kw:'sg trodelvy keytruda cmtn triple negativo tnbc pd-l1 cps adc trop-2 ascent kn-d19'},
+{id:'elacestrant',url:'informes/elacestrant.html',esmo:{g:'3',form:'2b',sc:372,f:'02/07/2025',pend:'Calidad de vida y SG pendientes',calc:{form:'2b',ctrl:1.9,exp:3.8,lci:0.39}},ipt:{p:'opc',t:'Opción de tratamiento',d:'En RE+/HER2− con mutación ESR1 tras terapia endocrina con iCDK4/6. Mejora la SLP frente a fulvestrant, con relevancia clínica modesta; no se comparó con combinaciones como hormonoterapia + everolimus.',cod:'IPT-335/V1',f:'07/01/2025',u:'https://www.aemps.gob.es/medicamentosUsoHumano/informesPublicos/docs/2025/IPT-335-orserdu-elacestrant.pdf'},fin:{e:'restr',t:'Financiado con restricción',d:'Solo en pacientes que han progresado tras al menos una línea endocrina con un iCDK4/6 y que han estado expuestos a iCDK4/6 durante más de 12 meses.',c:'Diagnóstico hospitalario; descuento adicional; devolución de la diferencia entre el PVL financiado y el precio por medicamentos en situaciones especiales; Seguimed; techo de gasto. Alta en financiación: 01/06/2026.',cn:[['Orserdu','764674']],inf:'https://www.sanidad.gob.es/areas/farmacia/precios/comisionInteministerial/informesPublicos/docs/InformePublicoOrserdu.pdf'},farmaco:'Elacestrant',marca:'Orserdu',area:'Oncología · mama',
+ ind:'CM RE+/HER2− avanzado con mutación activadora de ESR1, en progresión tras al menos una línea endocrina que incluya un iCDK4/6',linea:'2.ª línea o posterior',estado:'completo',
+ ensayo:'EMERALD',diseno:'Fase 3, abierto, n=478 (228 con ESR1 mutado)',comp:'Fulvestrant o inhibidor de aromatasa en monoterapia',var:'SLP (BICR) en ESR1-mut y en población global',
+ ficha:[['Variable principal (ESR1-mut)','SLP 3,8 vs 1,9 m','HR 0,546 (0,387–0,768)'],['Supervivencia global (ESR1-mut)','24,2 vs 23,5 m','HR 0,903 (0,629–1,298)'],['Toxicidad grado 3–4','27,0 % vs 20,5 %','Náuseas, dolor lumbar']],
+ res:[['SLP mediana (ESR1-mut)','3,78 m','1,87 m','HR 0,546 (0,387–0,768)'],['SLP a 12 m (ESR1-mut)','26,8 %','8,2 %','—'],['SLP (población global)','2,79 m','1,91 m','HR 0,697 (0,552–0,880)'],['SLP con ≥12 m de iCDK4/6 previo (ESR1-mut)','8,61 m','1,91 m','HR 0,41 (0,26–0,64), post hoc'],['SG final (ESR1-mut)','24,18 m','23,49 m','HR 0,903 (0,629–1,298)']],
+ nnt:['Libres de progresión a 12 meses (ESR1-mut)',26.76,8.19],
+ alertas:[['warn','Comparador débil: hormonoterapia en monoterapia tras iCDK4/6.'],['warn','Ganancia mediana de 1,9 meses; el beneficio se concentra en quien respondió ≥12 meses a iCDK4/6 (análisis post hoc). La financiación del SNS se restringe precisamente a ese grupo.'],['bad','Sin beneficio en supervivencia global.'],['warn','Requiere determinar ESR1 (biopsia líquida); valorar coste del test.']],
+ ema:'Autorización UE: septiembre de 2023',fuente:'EPAR (EMA/CHMP/358130/2023)',
+ src:[['EPAR de la EMA (EMA/CHMP/358130/2023)','https://www.ema.europa.eu/en/documents/assessment-report/orserdu-epar-public-assessment-report_en.pdf'],['EMERALD: resultados principales (ASCO Post)','https://ascopost.com/news/may-2022/emerald-trial-elacestrant-vs-standard-endocrine-therapy-in-previously-treated-patients-with-er-positive-her2-negative-advanced-breast-cancer/'],['Medianas en ESR1-mut y SG (OncLive)','https://www.onclive.com/view/elacestrant-secures-a-place-for-er-her2-esr1-mutated-advanced-metastatic-breast-cancer'],['Autorización de la Comisión Europea (OncLive)','https://onclive.com/view/european-commission-approves-elacestrant-for-pretreated-esr1-er-her2-breast-cancer']],
+ kw:'orserdu serd esr1 receptor estrogenos hormonal luminal rh+ re+ her2 negativo metastasico emerald oral'},
+{id:'ribociclib-metastasico',url:'informes/ribociclib-metastasico.html',esmo:{g:'4',form:'2a',sc:9,f:'02/07/2025',pend:'',calc:{form:'2a',ctrl:51.4,exp:63.9,lci:0.63}},ipt:{p:'opc',t:'Opción equivalente a palbociclib y abemaciclib',d:'En 1.ª línea con inhibidor de aromatasa o fulvestrant (premenopáusicas con supresión ovárica) y con fulvestrant tras hormonoterapia previa. Los tres iCDK4/6 se consideran equivalentes; elegir según toxicidad y eficiencia. Reservar para enfermedad sin compromiso visceral grave ni progresión rápida. Informe anterior a los datos finales de SG.',cod:'IPT 24/2018 V2',f:'10/03/2020',u:'https://www.aemps.gob.es/medicamentosUsoHumano/informesPublicos/docs/IPT-ribociclib-Kisqali-cancer-mama-ERH-v2.pdf'},fin:{e:'si',t:'Financiado',d:'Indicación autorizada financiada, en combinación con inhibidor de aromatasa o fulvestrant, sin restricciones adicionales.',c:'Diagnóstico hospitalario; Seguimed.',cn:[['Kisqali','768068']]},farmaco:'Ribociclib',marca:'Kisqali',area:'Oncología · mama',
+ ind:'CM RH+/HER2− localmente avanzado o metastásico, en combinación con inhibidor de aromatasa o fulvestrant',linea:'1.ª línea (metastásico)',estado:'completo',
+ ensayo:'MONALEESA-2 (también MONALEESA-3 y -7)',diseno:'Tres fases 3 doble ciego: ML-2 (n=668), ML-7 (n=672), ML-3 (n=726)',comp:'Placebo + letrozol',var:'SLP (investigador)',
+ ficha:[['Variable principal','SLP 25,3 vs 16,0 m','HR 0,57 (0,46–0,70)'],['Supervivencia global','63,9 vs 51,4 m','HR 0,76 (0,63–0,93)'],['Beneficio absoluto a 6 años (ML-2)','RAR 12,2 % · NNT 9','Vivas a 72 meses'],['ML-7 y ML-3 (SG)','HR 0,71 y 0,72','Premenopáusicas y combinación con fulvestrant']],
+ res:[['SLP mediana','25,3 m','16,0 m','HR 0,57 (0,46–0,70)'],['SG mediana (final)','63,9 m','51,4 m','HR 0,76 (0,63–0,93)'],['ML-7: SLP mediana','23,8 m','13,0 m','HR 0,55 (0,44–0,69)'],['ML-3: SLP mediana','20,5 m','12,8 m','HR 0,59 (0,48–0,73)']],
+ nnt:['Vivas a 6 años (ML-2)',44.2,32.0],
+ alertas:[['ok','Beneficio en SG demostrado en MONALEESA-2 (HR 0,76), -7 (HR 0,71) y -3 (HR 0,72).'],['warn','Comparar con palbociclib y abemaciclib: diferencias en SG entre iCDK4/6 sin comparación directa.'],['warn','Vigilar QT y hepatotoxicidad; muy alto impacto por número de pacientes y duración.']],
+ ema:'CHMP 22/06/2017 (EMA/CHMP/506968/2017) y variación II/0004 15/11/2018',fuente:'Informes de evaluación de la EMA y publicaciones de SG final',
+ src:[['MONALEESA-2, análisis final de SG (ASCO Post)','https://ascopost.com/news/march-2022/final-overall-survival-analysis-of-monaleesa-2/']],
+ kw:'kisqali icdk4/6 cdk4/6 cdk luminal rh+ re+ her2 negativo letrozol fulvestrant monaleesa metastasico avanzado oral'},
+{id:'ribociclib-adyuvante',esmo:{g:'A',ann:'AT · 20 % de abandonos por efectos adversos relacionados con el tratamiento',form:'1a',sc:468,f:'08/06/2026',pend:'SG pendiente',calc:null},ipt:{p:'pref',t:'Preferente en algunos pacientes',d:'Opción preferente en N0 de alto riesgo y en N1 con tumor <5 cm y grado <3. En el resto de N+ de alto riesgo, alternativa a abemaciclib; con mutación germinal BRCA1/2 tras quimioterapia (neo)adyuvante, junto a abemaciclib y olaparib. Exige datos de SLEi y SG a 5 años.',cod:'IPT-404/V1',f:'27/10/2025',u:'https://www.aemps.gob.es/medicamentosUsoHumano/informesPublicos/docs/2025/IPT-404-Kisqali-ribociclib.pdf'},fin:{e:'no',t:'No incluida',d:'El expediente de la indicación adyuvante (cáncer de mama precoz RH+/HER2− con alto riesgo de recaída) está resuelto como no incluida en la prestación del SNS.',c:'Kisqali solo está financiado en la indicación metastásica.',cn:[['Kisqali','768068']]},url:'informes/ribociclib-adyuvante.html',farmaco:'Ribociclib',marca:'Kisqali',area:'Oncología · mama',
+ ind:'CM precoz RH+/HER2− estadio II–III con alto riesgo de recaída (incluye N0 de alto riesgo), en adyuvancia con inhibidor de aromatasa',linea:'Adyuvante',estado:'completo',
+ ensayo:'NATALEE',diseno:'Fase 3, abierto, n=5.101',comp:'Inhibidor de aromatasa no esteroideo solo',var:'Supervivencia libre de enfermedad invasiva (SLEi)',
+ ficha:[['Variable principal (3 años)','SLEi 90,7 vs 87,6 %','HR 0,749 (0,628–0,892)'],['Supervivencia global','Inmadura','HR 0,892 (0,661–1,203), 3,4 % de eventos'],['Toxicidad grado ≥3','63,2 % vs 19,0 %','Abandono por toxicidad 20,8 % vs 5,5 %']],
+ res:[['SLEi a 3 años (análisis final)','90,7 %','87,6 %','HR 0,749 (0,628–0,892)'],['SLEi a 4 años','86,2 %','79,5 %','—'],['Supervivencia libre de recaída a 3 años','92,1 %','89,1 %','HR 0,727 (0,602–0,887)'],['SG a 3 años','97,0 %','96,1 %','HR 0,892 (0,661–1,203)'],['SLEi a 5 años (ESMO 2025, secundaria)','85,5 %','81,0 %','HR 0,716 (0,618–0,829)']],
+ nnt:['Libres de enfermedad invasiva a 3 años',90.7,87.6],
+ alertas:[['bad','El IPT la considera preferente en N0 de alto riesgo y en algunos N1, pero la indicación figura como no incluida en la financiación del SNS (BIFIMED, octubre de 2026).'],['warn','Beneficio absoluto de 3,1 puntos a 3 años (NNT 33); unos 4,5 a 5 años según datos de congreso.'],['bad','Supervivencia global inmadura: la EMA exige datos a 5 años antes de junio de 2027.'],['warn','Solo 42,8 % completó los 3 años y 19,5 % abandonó por efectos adversos.'],['warn','Comparación indirecta con abemaciclib: HR ≈1,05, con poblaciones distintas.']],
+ ema:'Autorización UE: 27/11/2024',fuente:'Informe de evaluación de la EMA (EMA/CHMP/512303/2024)',
+ src:[['EMA, informe de la variación II/0045','https://www.ema.europa.eu/en/documents/variation-report/kisqali-h-c-004213-ii-0045-epar-assessment-report-variation_en.pdf'],['NATALEE, análisis a 5 años (OncLive, ESMO 2025)','https://www.onclive.com/view/adjuvant-ribociclib-plus-ai-therapy-has-long-term-activity-in-hr-her2-negative-early-breast-cancer']],
+ kw:'kisqali icdk4/6 cdk4/6 cdk adyuvancia adyuvante precoz temprano early luminal rh+ re+ her2 negativo natalee oral abemaciclib monarche'},
+{id:'guselkumab-cu',url:'informes/guselkumab-colitis-ulcerosa.html',ipt:{p:'opc',t:'Opción al mismo nivel que sus comparadores',d:'Equiparable a anti-TNF, vedolizumab, inhibidores de JAK, moduladores S1P, ustekinumab, mirikizumab y risankizumab. La elección debe individualizarse según beneficio-riesgo, comorbilidades y las advertencias de la EMA sobre inhibidores de JAK.',cod:'IPT-421/V1',f:'22/12/2025',u:'https://www.aemps.gob.es/medicamentosUsoHumano/informesPublicos/docs/2025/IPT-421-Tremfya.pdf'},fin:{e:'restr',t:'Financiado con restricción',d:'Solo en adultos con respuesta inadecuada, pérdida de respuesta o intolerancia al tratamiento convencional y a un anti-TNFα, o con contraindicación a estos.',c:'Diagnóstico hospitalario; Seguimed; umbral de ventas.',cn:[['Tremfya','720058']]},farmaco:'Guselkumab',marca:'Tremfya',area:'Digestivo · EII',
+ ind:'Colitis ulcerosa activa moderada a grave en adultos con respuesta inadecuada, pérdida de respuesta o intolerancia al tratamiento convencional o biológico',linea:'Inducción y mantenimiento',estado:'completo',
+ ensayo:'QUASAR',diseno:'Fase 3, doble ciego; inducción n=701, mantenimiento n=568 respondedores',comp:'Placebo',var:'Remisión clínica (semana 12 y semana 44)',
+ ficha:[['Inducción (sem 12)','Remisión 23 % vs 8 %','200 mg IV semanas 0, 4 y 8'],['Mantenimiento (sem 44)','50 % / 45 % vs 19 %','200 mg c/4 sem / 100 mg c/8 sem SC'],['Beneficio absoluto en inducción','RAR 14,7 % · NNT 7','Remisión clínica a la semana 12'],['Tras fracaso a terapia avanzada','Remisión 12,5 % vs 3,7 %','Menor beneficio en inducción; se conserva en mantenimiento']],
+ res:[['Remisión clínica sem 12 (inducción)','22,6 %','7,9 %','p<0,001'],['Remisión clínica sem 44 (200 mg c/4 sem)','50,0 %','18,9 %','p<0,001'],['Remisión clínica sem 44 (100 mg c/8 sem)','45,2 %','18,9 %','p<0,001'],['Curación endoscópica sem 12 (inducción)','26,8 %','11,1 %','p<0,001']],
+ nnt:['Remisión clínica en inducción (semana 12)',22.6,7.9],
+ alertas:[['warn','Solo frente a placebo: sin comparación directa con mirikizumab, risankizumab o ustekinumab.'],['warn','Mantenimiento con retirada aleatorizada en respondedores: tiende a ampliar diferencias.'],['warn','Clase con eficacia similar: el posicionamiento dependerá sobre todo del precio.']],
+ ema:'CHMP 27/02/2025 (EMA/95032/2025)',fuente:'Informe de evaluación de la EMA',
+ src:[['QUASAR, Lancet 2025 (resumen en Links Medicus)','https://www.linksmedicus.com/news/phase-2b-3-quasar-program-guselkumab-for-induction-and-maintenance-therapy-in-moderate-to-severe-ulcerative-colitis/'],['Autorización de la Comisión Europea en CU (J&J)','https://www.jnj.com/innovativemedicine/emea/newsroom/tremfya-guselkumab-receives-european-commission-approval-for-adults-with-moderately-to-severely-active-ulcerative-colitis-strengthening-johnson-johnsons-leadership-in-inflammatory-bowel-disease']],
+ kw:'tremfya il-23 il23 anti-il-23 colitis ulcerosa cu eii enfermedad inflamatoria intestinal quasar biologico'},
+{id:'guselkumab-crohn',url:'informes/guselkumab-crohn.html',ipt:{p:'opc',t:'Opción de tratamiento, no preferente',d:'Se incorpora al conjunto terapéutico de la EC (upadacitinib, anti-TNF, vedolizumab, ustekinumab, risankizumab, mirikizumab). Su superioridad frente a ustekinumab en variables endoscópicas se considera insuficiente para posicionarlo como preferente.',cod:'IPT-425/V1',f:'02/02/2026',u:'https://www.aemps.gob.es/medicamentosUsoHumano/informesPublicos/docs/2026/IPT-425-Tremfya-guselkumab.pdf'},fin:{e:'restr',t:'Financiado con restricción',d:'Solo en adultos con respuesta inadecuada, pérdida de respuesta o intolerancia al tratamiento convencional y a un anti-TNFα, o con contraindicación a estos.',c:'Diagnóstico hospitalario; Seguimed; umbral de ventas.',cn:[['Tremfya','720058']]},farmaco:'Guselkumab',marca:'Tremfya',area:'Digestivo · EII',
+ ind:'Enfermedad de Crohn activa moderada a grave en adultos con respuesta inadecuada, pérdida de respuesta o intolerancia al tratamiento convencional o biológico',linea:'Inducción y mantenimiento',estado:'completo',
+ ensayo:'GALAXI-2 y GALAXI-3',diseno:'Dos fases 3 idénticas, doble ciego, triple simulación; agrupados: guselkumab 582, ustekinumab 291, placebo 148',comp:'Placebo y ustekinumab',var:'Coprimarias frente a placebo: respuesta clínica sem 12 + remisión clínica o respuesta endoscópica sem 48',
+ ficha:[['Frente a placebo (sem 12)','Remisión 47,1 % vs 18,9 % · NNT 4','Respuesta endoscópica 36,9 % vs 12,2 %'],['Frente a ustekinumab (sem 48)','Respuesta endoscópica 48–53 % vs 37 %','Remisión clínica 65–70 % vs 63 %, sin diferencia significativa'],['Pauta','200 mg IV inducción','Mantenimiento 200 mg c/4 sem o 100 mg c/8 sem SC']],
+ res:[['Remisión clínica sem 48 (200 mg c/4 sem / 100 mg c/8 sem vs ustekinumab)','70,3 % / 65,4 %','62,9 %','p=0,058 / p=0,512'],['Remisión clínica + respuesta endoscópica sem 48','47,3 % / 41,6 %','33,7 %','p<0,001 / p=0,049'],['Respuesta endoscópica sem 48 (200 / 100 mg vs ustekinumab)','52,7 % / 47,9 %','37,1 %','—'],['Remisión endoscópica (SES-CD ≤2) sem 48','21,3 % / 25,2 %','16,5 %','—']],
+ nnt:['Remisión clínica sem 12 frente a placebo',47.1,18.9],
+ alertas:[['warn','Superior a ustekinumab en variables endoscópicas, pero no en remisión clínica.'],['bad','Ustekinumab ya tiene biosimilares a bajo precio: el coste incremental será determinante.'],['warn','Posible ventaja clínica frente a ustekinumab solo tras fracaso a biológico (hipótesis, coherente con SEQUENCE).']],
+ ema:'Informe CHMP 27/03/2025 (EMA/CHMP/444643/2024)',fuente:'Informe de evaluación de la EMA',
+ src:[['GALAXI 2 y 3 frente a ustekinumab (HCPLive)','https://www.hcplive.com/view/galaxi-guselkumab-superior-ustekinumab-crohns-disease'],['Coprimarias frente a placebo (Healio)','https://www.healio.com/news/gastroenterology/20240604/promise-of-lasting-efficacy-guselkumab-outperforms-placebo-ustekinumab-in-crohns'],['Panaccione et al., Lancet 2025 (referencia)','https://gutsandgrowth.com/2025/08/13/guselkumab-for-crohns-disease-galaxi-2-and-galaxi-3-48-week-results/'],['Autorización de la Comisión Europea en Crohn (J&J)','https://www.jnj.com/innovativemedicine/emea/newsroom/european-commission-approves-tremfya-guselkumab-the-first-dual-acting-il-23-inhibitor-offering-both-subcutaneous-and-intravenous-induction-options-for-adult-patients-with-moderately-to-severely-active-crohns-disease']],
+ kw:'tremfya il-23 il23 anti-il-23 crohn ec eii enfermedad inflamatoria intestinal galaxi ustekinumab stelara biologico'},
+{id:'tdxd-her2low',url:'informes/trastuzumab-deruxtecan-her2-low.html',esmo:{g:'4',form:'2a',sc:351,f:'02/07/2025',pend:'',calc:{form:'2a',ctrl:16.8,exp:23.4,lci:0.49}},ipt:{p:'opc',t:'Opción terapéutica a considerar',d:'Superior a la quimioterapia estándar en HER2-low tratado con quimioterapia previa. En CMTN, sacituzumab es la opción preferente en 2.ª línea y T-DXd queda para quien no pueda recibirlo o progrese. La secuencia entre conjugados no se ha estudiado.',cod:'IPT-225/V1',f:'29/01/2024',u:'https://www.aemps.gob.es/medicamentosUsoHumano/informesPublicos/docs/2024/IPT-225-Enhertu-trastuzumab-deruxtecan.pdf'},fin:{e:'restr',t:'Financiado con restricción',d:'Solo en pacientes no tratadas antes con sacituzumab govitecán y, si son RH+, que hayan recibido al menos una terapia hormonal y no sean candidatas a una nueva línea hormonal.',c:'Uso hospitalario; acuerdo precio/volumen; Seguimed. La indicación posterior en HER2-low o ultralow RH+ tras hormonoterapia (DESTINY-Breast06) figura como no incluida.',cn:[['Enhertu','730318']]},farmaco:'Trastuzumab deruxtecán',marca:'Enhertu',area:'Oncología · mama',
+ ind:'CM HER2-low (IHC 1+ o 2+/ISH−) irresecable o metastásico tratado previamente con quimioterapia para la enfermedad metastásica o con recaída precoz tras adyuvancia',linea:'2.ª línea o posterior',estado:'completo',
+ ensayo:'DESTINY-Breast04',diseno:'Fase 3, abierto, 2:1, n=557 (494 RH+, 63 RH−)',comp:'Quimioterapia a elección del investigador',var:'SLP (BICR) en cohorte RH+',
+ ficha:[['Variable principal (RH+)','SLP 10,1 vs 5,4 m','HR 0,51 (0,40–0,64)'],['Supervivencia global (RH+)','23,9 vs 17,5 m','HR 0,64 (0,48–0,86)'],['Beneficio absoluto a 12 meses','RAR 11,1 % · NNT 10','Vivas a 12 meses (RH+)'],['Riesgo clave','Enfermedad pulmonar intersticial','Requiere vigilancia activa']],
+ res:[['SLP mediana (RH+)','10,1 m','5,4 m','HR 0,51 (0,40–0,64)'],['SLP mediana (todas)','9,9 m','5,1 m','HR 0,50 (0,40–0,63)'],['SG mediana (RH+)','23,9 m','17,5 m','HR 0,64 (0,48–0,86)'],['SG mediana (primaria, todas)','23,4 m','16,8 m','HR 0,64 (0,49–0,84)'],['SG mediana (final, todas)','22,9 m','16,8 m','HR 0,69 (0,55–0,86)']],
+ nnt:['Vivas a 12 meses (RH+)',80.7,69.6],
+ alertas:[['ok','Beneficio en SG mantenido en el análisis final.'],['warn','Neumonitis intersticial 12,1 % (mortal 0,8 %): protocolo de vigilancia y manejo.'],['warn','Cohorte RH− pequeña (n=63): beneficio con incertidumbre.'],['warn','Secuenciación con otros conjugados (sacituzumab, datopotamab) sin datos comparativos.']],
+ ema:'CHMP 15/12/2022 · autorización UE 01/2023 (EMA/CHMP/14752/2023)',fuente:'Informe de evaluación de la EMA',
+ src:[['DESTINY-Breast04, análisis primario y final (Oncology News Central)','https://www.oncologynewscentral.com/breast-cancer/overall-survival-data-establish-standard-of-care-in-her2-low-breast-cancer']],
+ kw:'enhertu t-dxd tdxd her2 low her2-low bajo adc conjugado destiny db-04 metastasico'},
+{id:'ev-pembro',url:'informes/enfortumab-vedotina-pembrolizumab.html',esmo:{g:'4',form:'2a',sc:433,f:'26/01/2026',pend:'SG pendiente de actualizar',calc:{form:'2a',ctrl:16.1,exp:31.5,lci:0.38}},ipt:{p:'pref',t:'Opción preferente',d:'Preferente frente a cualquier alternativa en 1.ª línea en candidatos a platino, incluidos platino + avelumab de mantenimiento y nivolumab + quimioterapia. Sin datos en metástasis cerebrales; mayor beneficio en ECOG 0.',cod:'IPT-384/V1',f:'07/08/2025',u:'https://www.aemps.gob.es/medicamentosUsoHumano/informesPublicos/docs/2025/IPT-384-keytruda-pembrolizumab-padcev-enfortumab-vedotina.pdf'},fin:{e:'si',t:'Financiado',d:'Padcev y Keytruda tienen financiada la indicación combinada en 1.ª línea del carcinoma urotelial irresecable o metastásico.',c:'Uso hospitalario; acuerdo precio/volumen; descuento adicional; Seguimed. La combinación en cáncer de vejiga músculo invasivo está en estudio (Padcev) y sin petición de financiación (Keytruda).',cn:[['Padcev','736060'],['Keytruda','712570']]},farmaco:'Enfortumab vedotina + pembrolizumab',marca:'Padcev + Keytruda',area:'Oncología · urología',
+ ind:'Carcinoma urotelial irresecable o metastásico sin tratamiento previo',linea:'1.ª línea',estado:'completo',
+ ensayo:'EV-302 / KEYNOTE-A39',diseno:'Fase 3, abierto, 1:1, n=886',comp:'Gemcitabina + cisplatino o carboplatino',var:'Coprimarias: SLP (BICR) y SG',
+ ficha:[['SG (actualización 3,5 años)','33,6 vs 15,9 m','HR 0,53 (0,45–0,63)'],['SLP (análisis primario)','12,5 vs 6,3 m','HR 0,45 (0,38–0,54)'],['Beneficio absoluto a 12 meses','RAR 16,8 % · NNT 6','Vivos a 12 meses (análisis primario)'],['Toxicidad grado ≥3','73,0 % vs 78,8 %','Neuropatía, piel, hiperglucemia, neumonitis']],
+ res:[['SG mediana (primaria)','31,5 m','16,1 m','HR 0,47 (0,38–0,58)'],['SG mediana (3,5 años)','33,6 m','15,9 m','HR 0,53 (0,45–0,63)'],['SG a 42 meses','44,0 %','24,6 %','—'],['SLP mediana (primaria)','12,5 m','6,3 m','HR 0,45 (0,38–0,54)'],['Respuesta objetiva (actualización)','67,5 %','44,2 %','RC 30,4 % vs 14,5 %']],
+ nnt:['Vivos a 42 meses',44.0,24.6],
+ alertas:[['ok','Beneficio en SG de gran magnitud y mantenido.'],['warn','No todo el brazo control recibió avelumab de mantenimiento (30 %), estándar actual tras platino.'],['warn','Más beneficio con ECOG 0; casi sin datos con ECOG 2 ni metástasis cerebrales.'],['bad','Muy alto impacto: dos fármacos de alto precio y duración prolongada.']],
+ ema:'CHMP 25/07/2024 (EMA/CHMP/310405/2024)',fuente:'Informe de evaluación de la EMA',
+ src:[['EV-302, actualización ASCO 2026 (OncLive)','https://www.onclive.com/view/updated-ev-302-data-reinforce-enfortumab-vedotin-combo-s-durability-in-urothelial-carcinoma-at-asco-2026']],
+ kw:'padcev keytruda ev ev+p enfortumab nectina-4 adc conjugado urotelial vejiga carcinoma urotelial ev-302 kn-a39 pembro'}
+];
+
+const $=id=>document.getElementById(id);
+const norm=s=>String(s??'').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const SYN={'cu':'colitis ulcerosa','ec':'crohn','cmtn':'triple negativo','tnbc':'triple negativo','eii':'enfermedad inflamatoria intestinal','her2low':'her2-low','vejiga':'urotelial'};
+const ESP=d=>String(d.area||'Otra').split(' · ')[0].trim()||'Otra';
+const SUB=d=>String(d.area||'').split(' · ').slice(1).join(' · ');
+const slug=t=>norm(t).replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+const ESPECIALIDADES=['Oncología','Hematología','Digestivo','Reumatología','Dermatología','Neurología','Neumología','Enfermedades infecciosas','Nefrología','Endocrinología','Cardiología','Oftalmología','Otra'];
+const byName=(a,b)=>a.farmaco.localeCompare(b.farmaco,'es',{sensitivity:'base'})||String(a.ind).localeCompare(String(b.ind),'es');
+const BADGE={completo:['b-full','Informe completo · EPAR'],preliminar:['b-pre','Ficha preliminar'],borrador:['b-draft','Borrador automático · sin verificar'],solicitud:['b-queue','Solicitud en cola']};
+const FASES=[['recibida','Recibida'],['en_elaboracion','Informe completo en elaboración'],['completo','Informe completo publicado'],['descartada','Descartada']];
+const TIPOS=[['ficha_tecnica','Ficha técnica'],['publicacion','Publicación del ensayo'],['precios','Precios'],['otro','Otro']];
+const TIPO_TXT=Object.fromEntries([['epar','EPAR / informe EMA'],...TIPOS]);
+const state={q:'',esp:null,sel:null};
+let busy=false,genText='';
+let view='buscar';
+
+/* ---------- Estado de las capacidades ---------- */
+const cap={db:null,assets:null,sample:null,user:null,uid:null,owner:false};
+let REQS=[];
+let AVISOS=[];      // avisos de la revisión semanal
+let REVISION=null;   // fecha y resumen de la última revisión          // solicitudes leídas de la base de datos
+const DRAFTS={};      // id del recurso JSON -> borrador ya leído
+const draftLoading=new Set();
+
+/* ---------- Buscador ---------- */
+function allEntries(){return DB.concat(REQS.map(reqEntry));}
+function indexEntry(d){if(!d._t)d._t=norm([d.farmaco,d.marca,d.area,d.ind,d.linea,d.ensayo,d.comp,d.var,d.kw].join(' '));return d;}
+DB.forEach(indexEntry);
+
+
+function terms(){const q=norm(state.q).trim();if(!q)return [];return q.split(/\s+/).map(t=>SYN[t]?norm(SYN[t]):t);}
+function score(d,ts){if(!ts.length)return 1;let s=0;for(const t of ts){const parts=t.split(' ');if(!parts.every(p=>d._t.includes(p)))return 0;
+  if(norm(d.farmaco).includes(parts[0])||norm(d.marca).includes(parts[0]))s+=5;else if(norm(d.ensayo).includes(parts[0]))s+=4;else if(norm(d.ind).includes(parts[0]))s+=3;else s+=1;}return s;}
+function hl(s,ts){s=String(s??'');const cs=[...s],n=cs.map(c=>norm(c)||c);const flat=n.join('');const map=[];n.forEach((c,i)=>{for(let k=0;k<c.length;k++)map.push(i);});
+  const rs=[];ts.flatMap(t=>t.split(' ')).filter(t=>t.length>2).forEach(t=>{const i=flat.indexOf(t);if(i>=0)rs.push([map[i],map[i+t.length-1]+1]);});
+  rs.sort((a,b)=>a[0]-b[0]);let out='',pos=0;for(const [a,b] of rs){if(a<pos)continue;out+=esc(cs.slice(pos,a).join(''))+'<mark>'+esc(cs.slice(a,b).join(''))+'</mark>';pos=b;}
+  return out+esc(cs.slice(pos).join(''));}
+const ORDER={completo:0,borrador:1,preliminar:2,solicitud:3};
+
+function stats(all){const c=k=>all.filter(d=>d.estado===k).length;const full=c('completo');const ne=new Set(all.map(ESP)).size;
+  $('stats').innerHTML=`<span><b>${all.length}</b>fármacos-indicación</span><span><b>${ne}</b>${ne===1?'especialidad':'especialidades'}</span><span><b>${full}</b>${full===1?'informe completo':'informes completos'}</span><span><b>${c('preliminar')}</b>fichas preliminares</span>`+
+   (c('borrador')+c('solicitud')?`<span><b>${c('borrador')+c('solicitud')}</b>en cola</span>`:'');}
+
+function renderEsps(all){
+  const g={};all.forEach(d=>{const e=ESP(d);(g[e]=g[e]||{n:0,subs:new Set(),full:0}).n++;if(SUB(d))g[e].subs.add(SUB(d));if(d.estado==='completo')g[e].full++;});
+  const names=Object.keys(g).sort((a,b)=>a==='Otra'?1:b==='Otra'?-1:a.localeCompare(b,'es'));
+  $('esps').innerHTML=names.map(n=>{const x=g[n];return `<button type="button" class="esp" data-esp="${esc(n)}" aria-pressed="${state.esp===n&&!state.q.trim()}">
+    <span class="en">${esc(n)}</span><span class="ec num">${x.n} ${x.n===1?'fármaco-indicación':'fármacos-indicación'}</span>
+    <span class="es">${x.subs.size?esc([...x.subs].sort((a,b)=>a.localeCompare(b,'es')).join(' · ')):'&nbsp;'}</span>
+    <span class="ef">${x.full?`${x.full} ${x.full===1?'informe completo':'informes completos'}`:'Sin informes completos aún'}</span></button>`;}).join('');
+}
+$('esps').addEventListener('click',e=>{const b=e.target.closest('[data-esp]');if(!b)return;state.esp=b.dataset.esp;state.q='';$('q2').value='';go('list');});
+
+/* Niveles del buscador: portada -> lista (especialidad o búsqueda) -> ficha */
+let level='home';
+function go(lv,keepScroll){
+  level=lv;$('lvHome').hidden=lv!=='home';$('lvList').hidden=lv!=='list';$('lvFicha').hidden=lv!=='ficha';
+  if(lv==='home'){state.esp=null;state.q='';state.sel=null;$('q').value='';$('q2').value='';renderHome();}
+  if(lv==='list')renderList();
+  if(lv==='ficha')renderFicha();
+  setHash();if(!keepScroll)window.scrollTo({top:0});
+}
+function setHash(){if(view!=='buscar')return;
+  const t=level==='ficha'&&state.sel?state.sel:(level==='list'&&state.esp&&!state.q.trim()?'esp-'+slug(state.esp):'buscar');
+  try{history.replaceState(null,'','#'+t);}catch(e){}}
+function render(){renderHome();if(level==='list')renderList();if(level==='ficha')renderFicha();}
+function renderHome(){const all=allEntries();stats(all);renderEsps(all);}
+const crumb=(lbl,go)=>go?`<a href="#" data-go="${go}">${esc(lbl)}</a>`:`<span aria-current="page">${esc(lbl)}</span>`;
+const SEP='<span class="sep" aria-hidden="true">›</span>';
+function renderList(){
+  const ts=terms(),q=state.q.trim();
+  let base=allEntries();if(state.esp)base=base.filter(d=>ESP(d)===state.esp);
+  const list=ts.length?base.map(d=>({d,s:score(d,ts)})).filter(x=>x.s>0).sort((a,b)=>b.s-a.s||byName(a.d,b.d)).map(x=>x.d):[...base].sort(byName);
+  $('cList').innerHTML=crumb('Inicio','home')+SEP+crumb(state.esp||'Búsqueda');
+  $('lTitle').textContent=state.esp||(q?`Resultados para «${q}»`:'Todos los fármacos');
+  $('q2').placeholder=state.esp?`Buscar en ${state.esp}…`:'Busca un fármaco, una marca, una indicación o un ensayo…';
+  $('count').textContent=state.esp&&q?`${list.length} de ${base.length} fármacos-indicación`:(list.length===1?'1 fármaco-indicación':list.length+' fármacos-indicación');
+  const R=$('results');R.innerHTML='';
+  if(!list.length){R.innerHTML=`<div class="empty"><b>Sin resultados</b><span>Prueba con el nombre comercial, el ensayo o el biomarcador${state.esp?', o vuelve a <a href="#" data-go="home">todas las especialidades</a>':''}. Si el fármaco no está, <a href="#aportar" data-view="aportar">aporta su EPAR</a> para generar el informe.</span></div>`;return;}
+  let prev='';
+  list.forEach(d=>{
+    if(!ts.length){const L=norm(d.farmaco).charAt(0).toUpperCase();if(L!==prev){const h=document.createElement('div');h.className='letter';h.textContent=L;R.appendChild(h);prev=L;}}
+    const b=document.createElement('button');b.type='button';b.className='card';b.dataset.id=d.id;
+    const [bc,bt]=BADGE[d.estado];const sub=state.esp?SUB(d):ESP(d)+(SUB(d)?' · '+SUB(d):'');
+    b.innerHTML=`<span class="t">${hl(d.farmaco,ts)} <small>${hl(d.marca,ts)}</small></span><span class="i">${hl(d.ind,ts)}</span>
+      <span class="row">${avisosDe(d.id).length?'<span class="badge b-bad">Revisar</span>':''}<span class="badge ${bc}">${bt}</span>${finBadge(d)}${sub?`<span class="badge b-area">${esc(sub)}</span>`:''}${d.linea&&d.linea!=='—'?`<span class="badge b-area">${esc(d.linea)}</span>`:''}</span>`;
+    b.addEventListener('click',()=>{state.sel=d.id;go('ficha');});R.appendChild(b);});
+}
+function renderFicha(){
+  const d=state.sel&&allEntries().find(x=>x.id===state.sel);
+  const mid=state.esp?crumb(state.esp,'list'):(state.q.trim()?crumb(`Resultados para «${state.q.trim()}»`,'list'):'');
+  $('cFicha').innerHTML=crumb('Inicio','home')+SEP+(mid?mid+SEP:'')+crumb(d?d.farmaco:'Ficha');
+  if(!d){$('detail').innerHTML='<div class="empty"><b>Esta ficha no está disponible</b><span>Puede que la solicitud se haya retirado. Vuelve al <a href="#" data-go="home">inicio</a>.</span></div>';return;}
+  select(state.sel,false,true);
+}
+document.addEventListener('click',e=>{const a=e.target.closest('[data-go]');if(!a)return;e.preventDefault();if(view!=='buscar')show('buscar');go(a.dataset.go);});
+function startSearch(v){state.esp=null;state.q=v;$('q').value='';const q2=$('q2');q2.value=v;go('list');q2.focus();try{q2.setSelectionRange(v.length,v.length);}catch(e){}}
+
+/* ---------- Ficha del fármaco ---------- */
+const BIF='https://www.sanidad.gob.es/profesionales/medicamentos.do';
+const FIN_SHORT={si:'financiado',restr:'con restricción',no:'no incluida',estudio:'en estudio'};
+const TIPO_AV={bifimed:'Financiación (BIFIMED)',ipt:'Posicionamiento (IPT)',ema:'EMA / EPAR',esmo:'ESMO-MCBS',otro:'Otro'};
+function avisosDe(id){return AVISOS.filter(a=>a.entrada===id&&a.estado!=='revisado');}
+function avisoBlock(d){const av=avisosDe(d.id);if(!av.length)return '';
+  return `<div class="aviso" role="note"><b>Cambios detectados: revisar esta ficha</b><ul>${av.map(a=>`<li><span class="badge b-area">${esc(TIPO_AV[a.tipo]||'Otro')}</span> ${esc(a.texto)}${a.url?` · <a href="${esc(a.url)}" target="_blank" rel="noopener">Fuente</a>`:''} <span class="note">(${esc(fmtDate(a.fecha))})</span>${cap.owner?` <button type="button" class="linkbtn" data-aviso="${esc(a.id)}">Marcar como revisado</button>`:''}</li>`).join('')}</ul>
+  <span class="note">Detectado por la revisión automática semanal. La ficha no se ha actualizado todavía.</span></div>`;}
+function revisionLine(){if(!REVISION)return '';return `<p class="note rev">Última revisión automática de BIFIMED, EMA, IPT y ESMO: ${esc(fmtDate(REVISION.fecha))}${REVISION.resumen?' · '+esc(REVISION.resumen):''}</p>`;}
+function finBadge(d){return d.fin?`<span class="badge b-fin-${d.fin.e}">SNS: ${FIN_SHORT[d.fin.e]}</span>`:'';}
+function finBlock(d){const f=d.fin;
+  if(!f)return `<div class="fin nd"><div class="fl"><span class="eyebrow">Financiación SNS · BIFIMED</span><span class="fs">Sin consultar</span></div><span class="fd">La situación de financiación se añadirá con el informe completo.</span><span class="fc"><a href="${BIF}" target="_blank" rel="noopener">Consultar BIFIMED</a></span></div>`;
+  const links=f.cn.map(([n,c])=>`<a href="${BIF}?metodo=verDetalle&amp;cn=${c}" target="_blank" rel="noopener">${esc(n)} (CN ${c})</a>`).join(' · ');
+  return `<div class="fin ${f.e}"><div class="fl"><span class="eyebrow">Financiación SNS · BIFIMED</span><span class="fs">${esc(f.t)}</span></div><span class="fd">${esc(f.d)}</span><span class="fc">${esc(f.c)}</span>
+    <span class="fc">Nomenclátor de octubre de 2026, consultado el 24/10/2026 · ${links}${f.inf?` · <a href="${f.inf}" target="_blank" rel="noopener">Informe público de financiación</a>`:''}</span></div>`;}
+function iptBlock(d){const f=d.ipt;
+  if(!f)return `<div class="fin nd"><div class="fl"><span class="eyebrow">Posicionamiento · IPT</span><span class="fs">Sin consultar</span></div><span class="fd">El IPT se añadirá con el informe completo.</span><span class="fc"><a href="https://www.aemps.gob.es/medicamentos-de-uso-humano/evaluacion-de-tecnologias-sanitarias/informes-de-posicionamiento-terapeutico/" target="_blank" rel="noopener">Consultar los IPT de la AEMPS</a></span></div>`;
+  return `<div class="fin ipt-${f.p}"><div class="fl"><span class="eyebrow">Posicionamiento · IPT</span><span class="fs">${esc(f.t)}</span></div><span class="fd">${esc(f.d)}</span>
+    <span class="fc"><a href="${f.u}" target="_blank" rel="noopener">${esc(f.cod)}</a> · ${esc(f.f)} · AEMPS / REvalMed SNS</span></div>`;}
+/* ---------- ESMO-MCBS v2.0 (formularios 2a y 2b) ----------
+   Umbral de HR aplicado al límite inferior del IC 95 %, como indican las instrucciones de ESMO. */
+const MCBS_2A=[ // [hasta mediana control, HR, gan4, gan3, gan2, HR2, gan2b]
+  [12,0.65,3,2,1.5,0.70,1.5],[24,0.70,5,3,1.5,0.75,1.5],[36,0.70,9,6,4,0.75,4],[Infinity,0.70,12,8,6,0.75,6]];
+const MCBS_2B=[[6,1.5],[12,3],[Infinity,5]]; // [hasta mediana control, ganancia para grado 3]; HR 0,65
+const fmtN=(x,d=1)=>Number(x).toLocaleString('es-ES',{maximumFractionDigits:d});
+function mcbs(c){
+  const {form,ctrl,exp,lci}=c;const a=c.adj||{};const steps=[];
+  if(![ctrl,exp,lci].every(v=>Number.isFinite(v))||ctrl<=0||exp<=0||lci<=0)return null;
+  const gain=exp-ctrl;let pre;
+  if(form==='2a'){const [lim,hr,g4,g3,g2,hr2,g2b]=MCBS_2A.find(r=>ctrl<r[0]);
+    const sheet=lim===12?'<12 meses':lim===24?'12–<24 meses':lim===36?'24–<36 meses':'≥36 meses';
+    steps.push(`Hoja de SG con mediana del control ${sheet}.`);
+    if(lci<=hr){pre=gain>=g4?4:gain>=g3?3:gain>=g2?2:1;steps.push(`Límite inferior del IC ${fmtN(lci,2)} ≤ ${fmtN(hr,2)} y ganancia de ${fmtN(gain)} m → grado ${pre}.`);}
+    else if(lci<=hr2&&gain>=g2b){pre=2;steps.push(`Límite inferior del IC ${fmtN(lci,2)} entre ${fmtN(hr,2)} y ${fmtN(hr2,2)} con ganancia ≥${fmtN(g2b)} m → grado 2.`);}
+    else{pre=1;steps.push(`Límite inferior del IC ${fmtN(lci,2)} o ganancia de ${fmtN(gain)} m por debajo de los umbrales → grado 1.`);}
+    let fin=pre;if(a.qol){fin=Math.min(5,fin+1);steps.push('Mejora de calidad de vida o menos toxicidad grado 3–4 relevante → +1.');}
+    return {pre,fin,steps,max:5};}
+  const [lim,g3]=MCBS_2B.find(r=>ctrl<r[0]);
+  steps.push(`Hoja de SLP con mediana del control ${lim===6?'<6 meses':lim===12?'6–<12 meses':'≥12 meses'}.`);
+  pre=lci<=0.65?(gain>=g3?3:2):1;
+  steps.push(lci<=0.65?`Límite inferior del IC ${fmtN(lci,2)} ≤ 0,65 y ganancia de ${fmtN(gain)} m ${gain>=g3?'≥':'<'} ${fmtN(g3)} m → grado ${pre}.`:`Límite inferior del IC ${fmtN(lci,2)} > 0,65 → grado 1.`);
+  let fin=pre;const down=(a.pfsOnly?1:0)+(a.tox?1:0);
+  if(a.pfsOnly)steps.push('Solo mejora la SLP (SG madura sin beneficio) y sin mejora de calidad de vida → −1.');
+  if(a.tox)steps.push('Toxicidad incremental → −1.');
+  const up=a.qol||a.cross||a.tail;
+  if(up)steps.push('Ajuste al alza (calidad de vida, cruce precoz por beneficio en SG o meseta en la cola de la curva) → +1, como máximo uno.');
+  fin=Math.max(1,Math.min(4,fin-down+(up?1:0)));
+  return {pre,fin,steps,max:4};}
+function mcbsForm(c,editable){
+  c=c||{form:'2b'};const a=c.adj||{};const num=(id,lbl,v,step)=>`<label class="mf"><span>${lbl}</span><input type="number" inputmode="decimal" step="${step}" min="0" data-k="${id}" value="${v??''}"></label>`;
+  const chk=(k,l,show)=>show?`<label class="check"><input type="checkbox" data-a="${k}"${a[k]?' checked':''}><span>${l}</span></label>`:'';
+  return `<div class="mcbs-calc" data-form="${c.form}">
+    <div class="mrow"><label class="mf"><span>Formulario</span><select data-k="form"><option value="2a"${c.form==='2a'?' selected':''}>2a · SG</option><option value="2b"${c.form==='2b'?' selected':''}>2b · SLP</option></select></label>
+    ${num('ctrl','Mediana del control (meses)',c.ctrl,'0.1')}${num('exp','Mediana del tratamiento (meses)',c.exp,'0.1')}${num('lci','Límite inferior del IC 95 % del HR',c.lci,'0.01')}</div>
+    <div class="mchecks">${chk('qol','Mejora de calidad de vida o menos toxicidad grado 3–4 relevante',true)}${chk('pfsOnly','Solo SLP: SG madura sin beneficio y sin mejora de calidad de vida',c.form==='2b')}${chk('tox','Toxicidad incremental',c.form==='2b')}${chk('cross','Cruce precoz por beneficio en SG en análisis intermedio',c.form==='2b')}${chk('tail','Meseta en la cola de la curva de SLP (criterios a 1 año)',c.form==='2b')}</div>
+    <div class="mres" aria-live="polite">${mcbsResult(c)}</div></div>`;}
+function mcbsResult(c){const r=c&&mcbs(c);if(!r)return '<p class="note">Introduce las dos medianas y el límite inferior del IC para calcular.</p>';
+  return `<div class="mout"><span class="esmo-g g${r.fin}">${r.fin}</span><div><b>Puntuación calculada: ${r.fin}</b> <span class="badge b-calc">Calculado</span><span class="note"> · preliminar ${r.pre}, máximo ${r.max} en este formulario</span><ol class="msteps">${r.steps.map(x=>`<li>${esc(x)}</li>`).join('')}</ol></div></div>
+    <p class="note">Los umbrales de los formularios 2a y 2b de ESMO-MCBS v2.0 se aplican con fórmula. Los ajustes por calidad de vida, toxicidad o cola de la curva son juicio del evaluador. No incluye los criterios alternativos por supervivencia a 2, 3, 5 o 7 años.</p>`;}
+const SC='https://www.esmo.org/guidelines/esmo-mcbs/esmo-mcbs-for-solid-tumours/esmo-mcbs-scorecards?scorecard=';
+function esmoBlock(d){
+  if(ESP(d)!=='Oncología')return '';
+  const e=d.esmo;
+  if(!e)return `<div class="d-sec"><h3>ESMO-MCBS</h3><div class="esmo"><span class="esmo-g g0">—</span><div class="ed"><b>Sin puntuación oficial de ESMO</b><span class="note">Calcula una puntuación preliminar con los datos del ensayo.</span></div></div>${mcbsForm(null,true)}</div>`;
+  const sub=/^[AB]$/.test(e.g)||/^[45]$/.test(e.g);
+  return `<div class="d-sec"><h3>ESMO-MCBS <span class="badge b-full">Puntuación oficial</span></h3>
+    <div class="esmo"><span class="esmo-g g${/^\d$/.test(e.g)?e.g:'A'}">${esc(e.g)}</span><div class="ed">
+      <b>${sub?'Beneficio clínico sustancial':'Beneficio clínico no sustancial'}</b>
+      <span>${e.form==='1a'?'Escala curativa A–C (formulario 1a)':'Escala no curativa 1–5 (formulario '+esc(e.form)+')'}${e.ann?' · '+esc(e.ann):''}</span>
+      <span class="note">${e.pend?esc(e.pend)+', la puntuación puede cambiar · ':''}ESMO-MCBS v2.0, actualizada el ${esc(e.f)} · <a href="${SC}${e.sc}" target="_blank" rel="noopener">Ver scorecard de ESMO</a></span></div></div>
+    ${e.calc?`<details class="mdet"><summary>Comprobar con la calculadora</summary>${mcbsForm(e.calc,true)}</details>`:'<p class="note">La escala curativa (formulario 1a) no está automatizada.</p>'}</div>`;}
+const pg=p=>p?` <span class="pg" title="Página del PDF del EPAR">p. ${p}</span>`:'';
+function rarBlock(n,draft){
+  const d=n[1]-n[2], nnt=Math.ceil(100/d);
+  return `<div class="d-sec"><h3>Beneficio absoluto <span class="badge b-calc">Calculado</span></h3>
+    <div class="ficha"><div><span class="eyebrow">${esc(n[0])}</span><span class="v num">${n[1].toLocaleString('es-ES')} % vs ${n[2].toLocaleString('es-ES')} %</span>${draft?`<span class="s">Porcentajes extraídos${pg(n[3])}</span>`:''}</div>
+    <div><span class="eyebrow">Reducción absoluta</span><span class="v num">${d.toLocaleString('es-ES',{maximumFractionDigits:1})} puntos</span></div>
+    <div><span class="eyebrow">NNT</span><span class="v num">${nnt}</span><span class="s">Sin IC: falta el intervalo en la fuente</span></div></div></div>`;
+}
+function trackBlock(r,hasDraft){
+  const f=r.fase||'recibida';
+  if(f==='descartada')return `<div class="d-sec"><h3>Seguimiento</h3><p><span class="badge b-bad">Solicitud descartada</span></p></div>`;
+  const st=[['Solicitud recibida',true],['Borrador automático',hasDraft],['Informe completo en elaboración',f==='en_elaboracion'||f==='completo'],['Informe completo publicado',f==='completo']];
+  let nowIdx=st.findIndex(s=>!s[1]);
+  return `<div class="d-sec"><h3>Seguimiento</h3><ol class="track">${st.map((s,i)=>`<li class="${s[1]?'done':(i===nowIdx?'now':'')}">${s[0]}</li>`).join('')}</ol>
+    ${r.borradorError&&!hasDraft?`<p class="note">El borrador automático no se pudo generar: ${esc(r.borradorError)}</p>`:''}</div>`;
+}
+function filesBlock(r){
+  const fs=Array.isArray(r.archivos)?r.archivos:[];if(!fs.length)return '';
+  return `<div class="d-sec"><h3>Documentos aportados</h3><ul class="files">${fs.map(f=>`<li><span class="ty">${esc(TIPO_TXT[f.tipo]||'Otro')}</span><a href="/_blob/${encodeURIComponent(f.id)}" target="_blank" rel="noopener">${esc(f.nombre)}</a><span class="note mono">${fmtSize(f.bytes)}</span></li>`).join('')}</ul>
+    <p class="note">Los archivos que suben los colaboradores solo se ven dentro de la organización.</p></div>`;
+}
+function ownerBlock(r){
+  if(!cap.owner)return '';
+  return `<div class="own"><label for="ownFase">Estado de la solicitud</label><select id="ownFase" data-req="${esc(r.id)}" data-autor="${esc(r.autor)}">${FASES.map(([v,l])=>`<option value="${v}"${(r.fase||'recibida')===v?' selected':''}>${l}</option>`).join('')}</select><span class="note" id="ownMsg"></span></div>`;
+}
+
+function select(id,scroll,quiet){
+  const d=allEntries().find(x=>x.id===id);if(!d)return;
+  state.sel=id;
+  document.querySelectorAll('.card').forEach(c=>c.setAttribute('aria-current',c.dataset.id===id));
+  if(!quiet&&view==='buscar'){try{history.replaceState(null,'','#'+id);}catch(e){}}
+  const kind=d.estado, r=d.req||null, draft=kind==='borrador';
+  const [bc,bt]=BADGE[kind];
+  let action='';
+  if(kind==='completo'&&d.url)action=`<a class="btn primary" href="${esc(d.url)}">Abrir informe completo</a>`;
+  else if(kind==='preliminar')action=`<button class="btn" type="button" data-prefill="${esc(d.id)}">Aportar el EPAR para el informe completo</button>`;
+  else if(r&&!d.hasDraft&&canGenerate(r))action=`<button class="btn primary" type="button" data-gen="${esc(r.id)}"${busy?' disabled':''}>Generar borrador automático</button>`;
+  const anyPg=(d.res||[]).some(x=>x[4]);
+  const sub=Array.isArray(d.subgrupos)?d.subgrupos:[];
+  $('detail').innerHTML=`
+   <div class="d-head"><span class="eyebrow">${esc(d.area)}${d.linea&&d.linea!=='—'?' · '+esc(d.linea):''}</span><h2>${esc(d.farmaco)}</h2>
+     <p class="ind">${esc(d.ind)}</p>
+     <div class="actions">${action}<span class="badge ${bc}">${bt}</span></div>
+     <p class="note" id="genMsg" role="status">${r&&busy?esc(genText):''}</p></div>
+   ${avisoBlock(d)}
+   <div class="official">${iptBlock(d)}${finBlock(d)}</div>
+   ${draft?`<div class="banner"><b>Borrador generado automáticamente a partir del EPAR aportado</b><span>Ninguna cifra está verificada. Cada una lleva la página del PDF de la que se extrajo para que puedas comprobarla. Los cálculos de RAR y NNT se hacen con fórmulas a partir de esos porcentajes.</span></div>`:''}
+   ${r?trackBlock(r,d.hasDraft)+ownerBlock(r):''}
+   ${d.ficha&&d.ficha.length?`<div class="ficha">${d.ficha.map(f=>`<div><span class="eyebrow">${esc(f[0])}</span><span class="v">${esc(f[1])}</span><span class="s">${esc(f[2])}${pg(f[3])}</span></div>`).join('')}</div>`:''}
+   ${kind!=='solicitud'?`<div class="d-sec"><h3>Ensayo pivotal</h3>
+     <div class="tbl"><table><tbody>
+       <tr><td>Ensayo</td><td><b>${esc(d.ensayo)}</b></td></tr><tr><td>Diseño</td><td>${esc(d.diseno)}${pg(d.pDiseno)}</td></tr>
+       <tr><td>Comparador</td><td>${esc(d.comp)}</td></tr><tr><td>Variable principal</td><td>${esc(d.var)}</td></tr>
+       <tr><td>Regulatorio</td><td>${esc(d.ema)}</td></tr></tbody></table></div></div>`:''}
+   ${d.res&&d.res.length?`<div class="d-sec"><h3>Resultados principales</h3>
+     <div class="tbl"><table><thead><tr><th>Variable</th><th>Tratamiento</th><th>Control</th><th>Efecto</th>${anyPg?'<th>Pág.</th>':''}</tr></thead><tbody>
+     ${d.res.map(x=>`<tr><td>${esc(x[0])}</td><td class="num">${esc(x[1])}</td><td class="num">${esc(x[2])}</td><td class="num">${esc(x[3])}</td>${anyPg?`<td>${x[4]?`<span class="pg">p. ${x[4]}</span>`:'—'}</td>`:''}</tr>`).join('')}</tbody></table></div></div>`:''}
+   ${d.nnt?rarBlock(d.nnt,draft):''}
+   ${esmoBlock(d)}
+   ${sub.length?`<div class="d-sec"><h3>Subgrupos con p de interacción &lt;0,10</h3><div class="tbl"><table><thead><tr><th>Factor</th><th>Resultado</th><th>p de interacción</th><th>Pág.</th></tr></thead><tbody>
+     ${sub.map(s=>`<tr><td>${esc(s[0])}</td><td>${esc(s[1])}</td><td class="num">${esc(s[2])}</td><td>${s[3]?`<span class="pg">p. ${s[3]}</span>`:'—'}</td></tr>`).join('')}</tbody></table></div>
+     <p class="note">Pendientes del checklist de aplicabilidad de Gil-Sierra et al. en el informe completo.</p></div>`:''}
+   ${d.alertas&&d.alertas.length?`<div class="d-sec"><h3>Incertidumbres y puntos clave</h3><div class="alerts">${d.alertas.map(a=>`<div class="alert ${a[0]}"><span class="dot"></span><span>${esc(a[1])}</span></div>`).join('')}</div></div>`:''}
+   ${d.faltan&&d.faltan.length?`<div class="d-sec"><h3>No encontrado en el EPAR</h3><ul class="srcs">${d.faltan.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>`:''}
+   ${r?filesBlock(r):''}
+   ${r&&r.notas?`<div class="d-sec"><h3>Indicaciones de quien la envió</h3><p>${esc(r.notas)}</p></div>`:''}
+   ${d.src&&d.src.length?`<div class="d-sec"><h3>Fuentes · ${esc(d.fuente)}</h3><ol class="srcs">${d.src.map(s=>`<li><a href="${esc(s[1])}" target="_blank" rel="noopener">${esc(s[0])}</a></li>`).join('')}</ol>
+     ${kind==='preliminar'?'<p class="note">Ficha preliminar a partir de publicaciones y notas de congreso. Pendiente de extraer y verificar frente al EPAR.</p>':''}</div>`:''}
+   ${kind==='solicitud'&&!draftLoading.has(r&&r.borrador)?'<p class="note">Cuando haya borrador automático, sus cifras aparecerán aquí con la página del EPAR de la que salen.</p>':''}`;
+  if(scroll&&matchMedia('(max-width:920px)').matches)$('detail').scrollIntoView({behavior:'smooth',block:'start'});
+}
+$('detail').addEventListener('click',async e=>{
+  const av=e.target.closest('[data-aviso]');if(av){av.disabled=true;try{await cap.db.doc('avisos/'+av.dataset.aviso).update({estado:'revisado',revisado:new Date().toISOString()});}catch(err){av.disabled=false;av.textContent='No se pudo guardar; reintentar';}return;}
+  const p=e.target.closest('[data-prefill]');if(p){prefill(p.dataset.prefill);return;}
+  const g=e.target.closest('[data-gen]');if(g){regenerate(g.dataset.gen,g);}
+});
+function mcbsRead(box){const g=k=>{const el=box.querySelector(`[data-k="${k}"]`);return el?el.value:'';};const n=k=>{const v=parseFloat(String(g(k)).replace(',','.'));return Number.isFinite(v)?v:NaN;};
+  const adj={};box.querySelectorAll('[data-a]').forEach(c=>{adj[c.dataset.a]=c.checked;});return {form:g('form'),ctrl:n('ctrl'),exp:n('exp'),lci:n('lci'),adj};}
+$('detail').addEventListener('input',e=>{const box=e.target.closest('.mcbs-calc');if(!box)return;box.querySelector('.mres').innerHTML=mcbsResult(mcbsRead(box));});
+$('detail').addEventListener('change',e=>{const box=e.target.closest('.mcbs-calc');if(!box||e.target.dataset.k!=='form')return;const c=mcbsRead(box);c.adj={qol:c.adj.qol};box.outerHTML=mcbsForm(c,true);});
+$('detail').addEventListener('change',async e=>{
+  if(e.target.id!=='ownFase')return;const s=e.target;const msg=$('ownMsg');
+  try{await cap.db.doc('solicitudes/'+s.dataset.autor).update({items:{[s.dataset.req]:{fase:s.value}}});msg.textContent='Guardado';}
+  catch(err){msg.textContent='No se pudo guardar el estado. Inténtalo de nuevo.';}
+});
+
+$('q').addEventListener('input',e=>{const v=e.target.value;if(v.trim())startSearch(v);});
+$('q2').addEventListener('input',e=>{state.q=e.target.value;renderList();setHash();});
+document.querySelectorAll('[data-q]').forEach(b=>b.addEventListener('click',()=>startSearch(b.dataset.q)));
+const h=(location.hash||'').slice(1);
+{const d=DB.find(x=>x.id===h);if(d){state.sel=h;state.esp=ESP(d);}
+ else if(h.startsWith('esp-')){const n=[...new Set(DB.map(ESP))].find(e=>'esp-'+slug(e)===h);if(n)state.esp=n;}}
+/* ---------- Secciones ---------- */
+const VIEWS=['buscar','aportar','solicitudes'];
+function show(v){
+  if(!VIEWS.includes(v))v='buscar';view=v;
+  VIEWS.forEach(k=>{$('v-'+k).hidden=k!==v;});
+  document.querySelectorAll('.nav-menu a[data-view]').forEach(a=>a.setAttribute('aria-current',a.dataset.view===v?'page':'false'));
+  $('navCurrent').textContent=$('v-'+v).dataset.name;menu(false);
+  if(v==='buscar')setHash();else{try{history.replaceState(null,'','#'+v);}catch(e){}}
+  window.scrollTo({top:0});
+}
+function menu(open){$('navMenu').classList.toggle('open',open);$('navToggle').setAttribute('aria-expanded',open);}
+$('navToggle').addEventListener('click',e=>{e.stopPropagation();menu(!$('navMenu').classList.contains('open'));});
+document.addEventListener('click',e=>{const a=e.target.closest('[data-view]');if(a){e.preventDefault();show(a.dataset.view);if(a.dataset.view==='buscar')go('home');return;}if(!e.target.closest('#navMenu'))menu(false);});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')menu(false);});
+show(VIEWS.includes(h)?h:'buscar');
+go(state.sel?'ficha':(state.esp?'list':'home'));
+
+/* ---------- Solicitudes: de la base de datos a la ficha ---------- */
+const S=(x,n=300)=>typeof x==='string'?x.trim().slice(0,n):(typeof x==='number'&&isFinite(x)?String(x):'');
+const P=x=>{const n=Math.round(+x);return Number.isFinite(n)&&n>0&&n<5000?n:null;};
+const N=x=>{const n=typeof x==='string'?parseFloat(x.replace(',','.')):+x;return Number.isFinite(n)?n:null;};
+function cleanDraft(b){
+  if(!b||typeof b!=='object')return null;
+  const arr=(a,max)=>Array.isArray(a)?a.slice(0,max):[];
+  const out={
+    marca:S(b.marca,80),ind:S(b.indicacion,400),linea:S(b.linea,60),ensayo:S(b.ensayo,120),diseno:S(b.diseno,200),pDiseno:P(b.pag_diseno),
+    comp:S(b.comparador,200),var:S(b.variable_principal,200),ema:S(b.autorizacion,120),
+    ficha:arr(b.ficha,4).map(f=>[S(f.titulo,60),S(f.valor,80),S(f.detalle,140),P(f.pag)]).filter(f=>f[0]&&f[1]),
+    res:arr(b.resultados,10).map(r=>[S(r.variable,140),S(r.tratamiento,60)||'—',S(r.control,60)||'—',S(r.efecto,80)||'—',P(r.pag)]).filter(r=>r[0]),
+    subgrupos:arr(b.subgrupos,10).map(s=>[S(s.factor,120),S(s.resultado,160),S(s.p_interaccion,20),P(s.pag)]).filter(s=>s[0]),
+    alertas:arr(b.alertas,6).map(a=>[['ok','warn','bad'].includes(a&&a.nivel)?a.nivel:'warn',S(a&&a.texto,260)]).filter(a=>a[1]),
+    faltan:arr(b.faltan,10).map(x=>S(x,200)).filter(Boolean)
+  };
+  const n=b.beneficio_absoluto;
+  if(n&&typeof n==='object'){const t=N(n.tratamiento),c=N(n.control);if(t!==null&&c!==null&&t>c&&t<=100&&c>=0)out.nnt=[S(n.etiqueta,120)||'Resultado favorable',t,c,P(n.pag)];}
+  return out;
+}
+function reqEntry(r){
+  const draft=r.borrador?DRAFTS[r.borrador]:null;
+  const e={id:'s-'+r.id,req:r,farmaco:r.farmaco,marca:r.marca||'',area:r.area||'Sin área',ind:r.ind||'Indicación pendiente de concretar',
+    linea:'—',ensayo:r.ensayo||'—',diseno:'—',comp:'—',var:'—',ficha:[],res:[],nnt:null,alertas:[],ema:'—',fuente:'EPAR aportado',src:[],kw:'',hasDraft:!!draft};
+  if(draft){for(const k of Object.keys(draft)){const v=draft[k];if(v===''||v===null||(Array.isArray(v)&&!v.length))continue;if(k==='ind'&&r.ind)continue;e[k]=v;}}
+  e.estado=r.fase==='completo'&&r.informeUrl?'completo':(draft?'borrador':'solicitud');
+  if(r.informeUrl)e.url=r.informeUrl;
+  return indexEntry(e);
+}
+async function loadDraft(id){
+  if(!id||DRAFTS[id]||draftLoading.has(id))return;draftLoading.add(id);
+  try{const res=await fetch('/_blob/'+encodeURIComponent(id));if(!res.ok)throw 0;const j=await res.json();const c=cleanDraft(j);if(c)DRAFTS[id]=c;}
+  catch(e){/* sin acceso al archivo: la solicitud se muestra sin borrador */}
+  finally{draftLoading.delete(id);render();renderQueue();}
+}
+function fmtSize(b){b=+b||0;return b>1048576?(b/1048576).toLocaleString('es-ES',{maximumFractionDigits:1})+' MB':Math.max(1,Math.round(b/1024))+' kB';}
+function fmtDate(iso){try{return new Date(iso).toLocaleDateString('es-ES',{day:'numeric',month:'short',year:'numeric'});}catch(e){return '';}}
+
+function renderQueue(){
+  const Q=$('queue');{const n=REQS.filter(r=>r.fase!=='completo'&&r.fase!=='descartada').length;$('navN').textContent=n;$('navN').hidden=!n;}
+  const list=[...REQS].sort((a,b)=>String(b.creada).localeCompare(String(a.creada)));
+  if(!list.length){Q.innerHTML='<div class="empty"><b>Aún no hay solicitudes</b><span>Cuando alguien aporte un EPAR aparecerá aquí con su estado. <a href="#aportar" data-view="aportar">Aportar un fármaco</a></span></div>';return;}
+  Q.innerHTML='';
+  list.forEach(r=>{const e=reqEntry(r);const [bc,bt]=BADGE[e.estado];
+    const fase=r.fase==='en_elaboracion'?'<span class="badge b-calc">Informe en elaboración</span>':(r.fase==='descartada'?'<span class="badge b-bad">Descartada</span>':'');
+    const b=document.createElement('button');b.type='button';b.className='qitem';
+    b.innerHTML=`<span class="t">${esc(r.farmaco)}${r.ensayo?` <span class="note">· ${esc(r.ensayo)}</span>`:''}</span>
+      <span class="m"><span class="badge ${bc}">${bt}</span>${fase}<span>${fmtDate(r.creada)}</span><span>${(r.archivos||[]).length} ${(r.archivos||[]).length===1?'documento':'documentos'}</span>${r.autor===cap.uid?'<span>Tuya</span>':''}</span>`;
+    b.addEventListener('click',()=>{state.q='';state.esp=ESP(e);state.sel=e.id;show('buscar');go('ficha');});
+    Q.appendChild(b);});
+}
+function onRequests(snap){
+  const out=[];
+  snap.docs.forEach(doc=>{const data=doc.data()||{};const items=data.items&&typeof data.items==='object'?data.items:{};
+    for(const [id,it] of Object.entries(items)){if(!it||typeof it!=='object'||typeof it.farmaco!=='string')continue;
+      out.push({id,autor:doc.id,farmaco:S(it.farmaco,120),marca:S(it.marca,80),ind:S(it.ind,400),ensayo:S(it.ensayo,120),area:S(it.area,60),notas:S(it.notas,1500),
+        archivos:Array.isArray(it.archivos)?it.archivos.filter(f=>f&&typeof f.id==='string').map(f=>({id:f.id,nombre:S(f.nombre,160)||'archivo',tipo:S(f.tipo,20),bytes:+f.bytes||0})):[],
+        creada:S(it.creada,40),fase:S(it.fase,20)||'recibida',borrador:typeof it.borrador==='string'?it.borrador:null,borradorError:S(it.borradorError,200),
+        informeUrl:/^https:\/\/claude\.ai\/artifact\//.test(it.informeUrl||'')?it.informeUrl:''});}});
+  REQS=out;
+  REQS.forEach(r=>{if(r.borrador&&!DRAFTS[r.borrador])loadDraft(r.borrador);});
+  const hh=(location.hash||'').slice(1);{const rq=REQS.find(r=>'s-'+r.id===hh);if(!state.sel&&rq&&view==='buscar'){state.sel=hh;state.esp=ESP(rq);level='ficha';$('lvHome').hidden=true;$('lvFicha').hidden=false;}}
+  render();renderQueue();
+}
+
+/* ---------- Formulario ---------- */
+const form={epar:null,otros:[]};
+$('nArea').innerHTML=ESPECIALIDADES.map(a=>`<option>${esc(a)}</option>`).join('');
+function drawFiles(){
+  $('eparList').innerHTML=form.epar?`<li><span class="nm">${esc(form.epar.name)}<small>${fmtSize(form.epar.size)}</small></span><span></span><button type="button" class="x" data-rm="epar" aria-label="Quitar ${esc(form.epar.name)}">×</button></li>`:'';
+  $('otrosList').innerHTML=form.otros.map((o,i)=>`<li><span class="nm">${esc(o.file.name)}<small>${fmtSize(o.file.size)}</small></span>
+    <select data-tipo="${i}" aria-label="Tipo de documento de ${esc(o.file.name)}">${TIPOS.map(([v,l])=>`<option value="${v}"${o.tipo===v?' selected':''}>${l}</option>`).join('')}</select>
+    <button type="button" class="x" data-rm="${i}" aria-label="Quitar ${esc(o.file.name)}">×</button></li>`).join('');
+}
+function guessTipo(n){n=norm(n);if(/ficha|smpc|product.information|anexo|annex/.test(n))return 'ficha_tecnica';if(/precio|price|coste|pvl|nomenclator/.test(n))return 'precios';if(/nejm|lancet|jco|annals|ann oncol|publicacion|article|paper/.test(n))return 'publicacion';return 'otro';}
+const isPdf=f=>f&&(f.type==='application/pdf'||/\.pdf$/i.test(f.name));
+function setEpar(f){if(!f)return;if(!isPdf(f)){showErr('El EPAR tiene que ser un PDF.');return;}if(f.size>20*1048576){showErr('El PDF pesa más de 20 MB. Prueba con el informe de variación en lugar del EPAR completo, o comprime el archivo.');return;}hideErr();form.epar=f;drawFiles();}
+function addOtros(files){for(const f of files){if(f.size>20*1048576){showErr(`«${f.name}» pesa más de 20 MB.`);continue;}if(!/\.(pdf|csv|txt|md|png|jpe?g)$/i.test(f.name)){showErr(`«${f.name}» no se puede subir. Guárdalo como PDF o CSV.`);continue;}form.otros.push({file:f,tipo:guessTipo(f.name)});}drawFiles();}
+$('nEpar').addEventListener('change',e=>{setEpar(e.target.files[0]);e.target.value='';});
+$('nOtros').addEventListener('change',e=>{hideErr();addOtros([...e.target.files]);e.target.value='';});
+[['dropEpar',fs=>setEpar(fs[0])],['dropOtros',fs=>{hideErr();addOtros(fs);}]].forEach(([id,fn])=>{const el=$(id);
+  el.addEventListener('dragover',e=>{e.preventDefault();el.classList.add('over');});
+  el.addEventListener('dragleave',()=>el.classList.remove('over'));
+  el.addEventListener('drop',e=>{e.preventDefault();el.classList.remove('over');const fs=[...(e.dataTransfer&&e.dataTransfer.files||[])];if(fs.length)fn(fs);});});
+document.addEventListener('dragover',e=>e.preventDefault());document.addEventListener('drop',e=>e.preventDefault());
+['eparList','otrosList'].forEach(id=>$(id).addEventListener('click',e=>{const b=e.target.closest('[data-rm]');if(!b)return;if(b.dataset.rm==='epar')form.epar=null;else form.otros.splice(+b.dataset.rm,1);drawFiles();}));
+$('otrosList').addEventListener('change',e=>{const s=e.target.closest('[data-tipo]');if(s)form.otros[+s.dataset.tipo].tipo=s.value;});
+function showErr(t){$('nErr').textContent=t;$('nErr').hidden=false;}
+function hideErr(){$('nErr').hidden=true;}
+function prefill(id){const d=DB.find(x=>x.id===id);if(!d)return;$('nFarmaco').value=d.farmaco;$('nMarca').value=d.marca;$('nInd').value=d.ind;$('nEnsayo').value=String(d.ensayo).split(' (')[0];
+  if([...$('nArea').options].some(o=>o.value===ESP(d)))$('nArea').value=ESP(d);show('aportar');setTimeout(()=>$('nFarmaco').focus({preventScroll:true}),50);}
+
+/* Progreso */
+function progInit(steps){const P=$('prog');P.hidden=false;P.innerHTML=steps.map(([k,t])=>`<li data-k="${k}" data-s="wait">${esc(t)}</li>`).join('');}
+function prog(k,s,t){const li=$('prog').querySelector(`[data-k="${k}"]`);if(!li)return;li.dataset.s=s;if(t)li.textContent=t;}
+
+$('fNew').addEventListener('submit',async e=>{
+  e.preventDefault();if(busy)return;hideErr();
+  const farmaco=$('nFarmaco').value.trim();
+  if(!farmaco){showErr('Escribe el nombre del fármaco.');$('nFarmaco').focus();return;}
+  if(!form.epar){showErr('Falta el EPAR o informe de variación de la EMA en PDF.');return;}
+  if(!cap.db||!cap.assets||!cap.uid){showErr('No tienes permiso para aportar archivos en esta página.');return;}
+  busy=true;$('nSend').disabled=true;
+  const auto=$('nAuto').checked&&!!cap.sample;
+  const reqId=Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+  const all=[{file:form.epar,tipo:'epar'},...form.otros];
+  progInit([['up',`Subir ${all.length} ${all.length===1?'documento':'documentos'}`],['save','Registrar la solicitud'],['read','Leer el EPAR'],['ai','Extraer cifras con su página'],['draft','Guardar el borrador']]);
+  if(!auto){prog('read','skip','Leer el EPAR (no solicitado)');prog('ai','skip','Extraer cifras (no solicitado)');prog('draft','skip','Guardar el borrador (no solicitado)');}
+  const eparBuf=auto?await form.epar.arrayBuffer().catch(()=>null):null;
+  let row;
+  try{
+    prog('up','run');const archivos=[];
+    for(let i=0;i<all.length;i++){const {file,tipo}=all[i];prog('up','run',`Subiendo ${i+1} de ${all.length}: ${file.name}`);
+      const blob=tipo==='epar'&&!file.type?new Blob([file],{type:'application/pdf'}):file;
+      const up=await cap.assets.upload(blob);archivos.push({id:up.id,nombre:file.name,tipo,bytes:up.sizeBytes||file.size});}
+    prog('up','ok',`${all.length} ${all.length===1?'documento subido':'documentos subidos'}`);
+    prog('save','run');
+    row={farmaco,marca:$('nMarca').value.trim(),ind:$('nInd').value.trim(),ensayo:$('nEnsayo').value.trim(),area:$('nArea').value,notas:$('nNotas').value.trim(),
+      archivos,autor:cap.uid,creada:new Date().toISOString(),fase:'recibida',borrador:null,borradorError:''};
+    await writeReq(reqId,row,true);
+    prog('save','ok','Solicitud registrada y en cola');
+  }catch(err){
+    const code=err&&err.code;
+    prog(row?'save':'up','err',code==='quota_exceeded'?'No queda espacio para más archivos en VERA. Avisa a la administradora.':code==='unsupported_type'?'Uno de los archivos tiene un formato que no se puede guardar.':'No se pudo completar la subida. Revisa la conexión e inténtalo de nuevo.');
+    busy=false;$('nSend').disabled=false;return;
+  }
+  // La solicitud ya está guardada: el formulario se vacía aunque el borrador falle.
+  ['nFarmaco','nMarca','nInd','nEnsayo','nNotas'].forEach(id=>$(id).value='');form.epar=null;form.otros=[];drawFiles();
+  state.sel='s-'+reqId;
+  if(auto&&eparBuf)await buildDraft(reqId,row,eparBuf,prog);
+  busy=false;$('nSend').disabled=false;
+  $('nHint').innerHTML='Solicitud enviada. Puedes seguirla en <a href="#solicitudes" data-view="solicitudes">Solicitudes</a>.';
+});
+async function writeReq(reqId,data,create){
+  const ref=cap.db.doc('solicitudes/'+(data.autor||cap.uid));
+  if(create){const snap=await ref.get();if(!snap.exists){await ref.set({items:{[reqId]:data}});return;}}
+  await ref.update({items:{[reqId]:data}});
+}
+
+/* ---------- Borrador automático ---------- */
+let pdfjsP=null;
+function loadScript(src){return new Promise((res,rej)=>{const s=document.createElement('script');s.src=src;s.onload=res;s.onerror=()=>rej(new Error('pdfjs'));document.head.appendChild(s);});}
+function pdfjs(){if(!pdfjsP)pdfjsP=(async()=>{const b='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/';await loadScript(b+'pdf.min.js');await loadScript(b+'pdf.worker.min.js');window.pdfjsLib.GlobalWorkerOptions.workerSrc=b+'pdf.worker.min.js';return window.pdfjsLib;})().catch(e=>{pdfjsP=null;throw e;});return pdfjsP;}
+async function pdfPages(buf,onp){
+  const L=await pdfjs();const doc=await L.getDocument({data:new Uint8Array(buf),isEvalSupported:false,disableFontFace:true}).promise;const out=[];
+  for(let i=1;i<=doc.numPages;i++){const p=await doc.getPage(i);const tc=await p.getTextContent();let t='',lastY=null;
+    for(const it of tc.items){if(typeof it.str!=='string')continue;const y=it.transform[5];if(lastY!==null&&Math.abs(y-lastY)>2)t+='\n';else if(t&&!/\s$/.test(t)&&it.str&&!/^\s/.test(it.str))t+=' ';t+=it.str;lastY=y;}
+    out.push(t.replace(/[ \t]+/g,' ').replace(/\n\s*\n+/g,'\n').trim());if(onp&&(i%5===0||i===doc.numPages))onp(i,doc.numPages);}
+  return out;
+}
+const KEYS=[[/hazard ratio|\bHR\b/gi,3],[/95\s?%\s?CI|confidence interval/gi,2],[/\bmedian\b/gi,1],[/primary (efficacy )?end ?point/gi,4],
+  [/progression[- ]free|overall survival|disease[- ]free|event[- ]free|remission|response rate/gi,1],[/subgroup|interaction/gi,2],
+  [/grade\s?(≥|>=)?\s?3|serious adverse|discontinu/gi,1],[/Kaplan|landmark|\d+[- ]month (rate|event)|at \d+ (months|years)/gi,2],
+  [/randomi[sz]ed|open[- ]label|double[- ]blind|comparator/gi,1],[/benefit.risk|conclusions? on (the )?clinical efficacy|therapeutic indication|indication/gi,3]];
+function pickPages(pages,budget){
+  const sc=pages.map((t,i)=>{let s=0;for(const [re,w] of KEYS){const m=t.match(re);if(m)s+=Math.min(m.length,8)*w;}if(i<3)s+=1000;return {i,s,len:t.length+16};});
+  const sel=new Set();let used=0;for(const x of [...sc].sort((a,b)=>b.s-a.s)){if(x.s<=0)break;if(used+x.len>budget)continue;sel.add(x.i);used+=x.len;}
+  return {text:[...sel].sort((a,b)=>a-b).map(i=>`[[p. ${i+1}]]\n${pages[i]}`).join('\n\n'),n:sel.size};
+}
+function promptFor(r,pagesText){
+  return `Eres farmacéutico/a de hospital y preparas una ficha preliminar de evaluación de un medicamento (modelo de informe de la SEFH) a partir del EPAR o informe de variación de la EMA.
+Abajo tienes páginas seleccionadas del documento. Cada página empieza con una marca [[p. N]], donde N es el número de página del PDF.
+
+Fármaco: ${r.farmaco}${r.marca?' ('+r.marca+')':''}
+Indicación que interesa evaluar: ${r.ind||'la indicación principal que trata el documento'}
+Ensayo pivotal indicado: ${r.ensayo||'el ensayo pivotal del documento'}
+
+Reglas:
+- Copia las cifras tal y como aparecen en el texto (medianas, HR, IC 95 %, porcentajes, n). No calcules, no redondees y no completes nada de memoria ni de otras fuentes.
+- Cada cifra lleva en "pag" el número N de la marca [[p. N]] de la página donde aparece. Si no sabes la página, no incluyas la cifra.
+- Si un dato no aparece en las páginas, pon null o omítelo, y añade una línea a "faltan" explicando qué falta.
+- Escribe en castellano de España con coma decimal en los textos (0,65; 11,2 m) y abreviaturas habituales: SLP, SG, SLE, SLEi, HR, IC, RC, RP.
+- "beneficio_absoluto" solo si el documento da, en el mismo punto temporal, el porcentaje de pacientes con el resultado FAVORABLE (libres de progresión, vivos, libres de enfermedad, en remisión…) en ambos brazos. Esos dos números van con punto decimal en JSON. Si no, pon null.
+- "subgrupos": solo los factores con p de interacción < 0,10 que el documento informe explícitamente. Si no hay, lista vacía.
+- "alertas": de 2 a 4 incertidumbres relevantes para una Comisión de Farmacia (comparador, madurez de SG, diseño abierto, toxicidad, población), con nivel "ok", "warn" o "bad".
+
+Responde solo con un objeto JSON con esta forma exacta:
+{"marca":"Kisqali","indicacion":"…","linea":"1.ª línea","ensayo":"NATALEE","diseno":"Fase 3, abierto, n=5.101","pag_diseno":45,
+"comparador":"…","variable_principal":"…","autorizacion":"Opinión positiva del CHMP: 14/11/2024",
+"ficha":[{"titulo":"Variable principal","valor":"SLEi 90,7 vs 87,6 %","detalle":"HR 0,749 (IC 95 % 0,628–0,892)","pag":61}],
+"resultados":[{"variable":"SLP mediana","tratamiento":"11,2 m","control":"7,8 m","efecto":"HR 0,65 (0,51–0,84)","pag":58}],
+"beneficio_absoluto":{"etiqueta":"Libres de progresión a 12 meses","tratamiento":48.3,"control":32.9,"pag":60},
+"subgrupos":[{"factor":"Estado menopáusico","resultado":"HR 0,60 frente a 0,95","p_interaccion":"0,04","pag":70}],
+"alertas":[{"nivel":"warn","texto":"…"}],
+"faltan":["…"]}
+"ficha" lleva exactamente 3 elementos: variable principal, supervivencia global y toxicidad grado ≥3 (o lo más parecido que haya). "resultados" lleva de 3 a 8 filas.
+
+=== PÁGINAS DEL DOCUMENTO ===
+${pagesText}`;
+}
+async function buildDraft(reqId,r,buf,pr){
+  pr=pr||(()=>{});
+  const fail=async(k,msg,code)=>{pr(k,'err',msg);try{await writeReq(reqId,{autor:r.autor,borradorError:code||msg},false);}catch(e){}return false;};
+  let pages;
+  try{pr('read','run','Leyendo el EPAR…');pages=await pdfPages(buf,(i,n)=>pr('read','run',`Leyendo el EPAR: página ${i} de ${n}`));}
+  catch(e){return fail('read','No se pudo leer el PDF. Si es un escaneado sin texto, el borrador lo hará Claude con el informe completo.','PDF sin texto legible');}
+  const chars=pages.reduce((a,t)=>a+t.length,0);
+  if(chars<2000)return fail('read','El PDF apenas tiene texto (¿escaneado?). El borrador lo hará Claude con el informe completo.','PDF sin texto legible');
+  let budget=170000,sel,prompt;
+  do{sel=pickPages(pages,budget);prompt=promptFor(r,sel.text);budget-=20000;}while(new TextEncoder().encode(prompt).length>250000&&budget>40000);
+  pr('read','ok',`EPAR leído: ${pages.length} páginas; ${sel.n} seleccionadas por su contenido de resultados`);
+  let raw;
+  try{pr('ai','run','Claude está extrayendo las cifras…');
+    raw=await cap.sample.json(prompt,{modelTier:'complex',onText:({text})=>pr('ai','run',`Claude está extrayendo las cifras… (${Math.round(text.length/100)/10} k caracteres)`)});}
+  catch(e){const c=e&&e.code;
+    const m=c==='not_granted'?'No se dio permiso para usar Claude desde esta página. La solicitud sigue en cola.':c==='rate_limited'?'Has llegado al límite de uso de Claude por ahora. Puedes generar el borrador más tarde desde la ficha de la solicitud.':c==='invalid_json'?'La respuesta no tenía el formato esperado. Prueba otra vez desde la ficha de la solicitud.':'No se pudo generar el borrador. Puedes reintentarlo desde la ficha de la solicitud.';
+    return fail('ai',m,m);}
+  const clean=cleanDraft(raw);
+  if(!clean||(!clean.res.length&&!clean.ficha.length))return fail('ai','No se encontraron resultados en las páginas leídas. Lo completará Claude con el informe completo.','Sin resultados en las páginas seleccionadas');
+  pr('ai','ok',`${clean.res.length} resultados y ${clean.ficha.length} cifras clave extraídos, cada uno con su página`);
+  try{pr('draft','run');
+    const up=await cap.assets.upload(new Blob([JSON.stringify(raw)],{type:'application/json'}));
+    DRAFTS[up.id]=clean;
+    await writeReq(reqId,{autor:r.autor,borrador:up.id,borradorError:'',borradorFecha:new Date().toISOString(),borradorPaginas:sel.n},false);
+    pr('draft','ok','Borrador guardado: ya aparece en el buscador como «Borrador automático»');
+  }catch(e){return fail('draft','No se pudo guardar el borrador. Inténtalo de nuevo desde la ficha.','No se pudo guardar');}
+  return true;
+}
+function canGenerate(r){return !!(cap.sample&&cap.assets&&cap.db&&(r.autor===cap.uid||cap.owner)&&(r.archivos||[]).some(f=>f.tipo==='epar'));}
+async function regenerate(reqId,btn){
+  const r=REQS.find(x=>x.id===reqId);if(!r||busy)return;const ep=r.archivos.find(f=>f.tipo==='epar');
+  const out=t=>{genText=t;const m=$('genMsg');if(m)m.textContent=t;};
+  busy=true;btn.disabled=true;
+  const say=(k,s,t)=>{if(t)out(t);};
+  try{out('Descargando el EPAR…');const res=await fetch('/_blob/'+encodeURIComponent(ep.id));if(!res.ok)throw 0;const buf=await res.arrayBuffer();
+    const ok=await buildDraft(reqId,r,buf,say);if(ok)out('Borrador generado.');}
+  catch(e){out('No se pudo abrir el EPAR guardado.');}
+  finally{busy=false;const b=document.querySelector(`[data-gen="${reqId}"]`);if(b)b.disabled=false;}
+}
+
+/* ---------- Arranque de capacidades ---------- */
+(async()=>{
+  const C=window.claude;
+  const lock=(t,s)=>{$('lock').innerHTML=`<b>${esc(t)}</b><span>${esc(s)}</span>`;$('lock').hidden=false;$('formBody').hidden=true;};
+  if(!C||!C.use){lock('La subida de documentos llegará con la versión completa de la web','Mientras tanto, envía el EPAR a la responsable de VERA.');return;}
+  const [db,user,assets,sample]=await Promise.all(['db','user','assets','sample'].map(n=>C.use(n).catch(()=>null)));
+  Object.assign(cap,{db,user,assets,sample});
+  if(user){try{cap.owner=await user.isOwner();}catch(e){}try{cap.uid=await user.id();}catch(e){}}
+  if(db){db.collection('solicitudes').onSnapshot(onRequests,()=>{});
+    db.collection('avisos').onSnapshot(snap=>{AVISOS=snap.docs.map(d=>{const x=d.data()||{};return {id:d.id,entrada:S(x.entrada,80),tipo:S(x.tipo,20),texto:S(x.texto,400),url:/^https:\/\//.test(x.url||'')?x.url:'',fecha:S(x.fecha,40),estado:S(x.estado,20)};});render();},()=>{});
+    db.doc('control/revision').onSnapshot(snap=>{const x=snap.exists?snap.data():null;REVISION=x?{fecha:S(x.fecha,40),resumen:S(x.resumen,200)}:null;$('revLine').innerHTML=revisionLine();},()=>{});}
+  if(!db||!user||!cap.uid){lock('La subida de documentos llegará con la versión completa de la web','Mientras tanto, envía el EPAR a la responsable de VERA.');return;}
+  if(!assets){lock('Tu acceso es solo de lectura','Para aportar un EPAR necesitas permiso de Colaborador o superior. Pídeselo a la responsable de VERA. Mientras tanto puedes consultar todas las solicitudes y sus borradores.');return;}
+  $('lock').hidden=true;$('formBody').hidden=false;
+  if(!sample){$('nAuto').checked=false;$('nAuto').disabled=true;$('nAuto').parentElement.querySelector('small').textContent='No disponible en esta vista: la solicitud quedará en cola y el borrador lo hará Claude.';}
+  render();
+})();
+})();
+</script>
+
+</body>
+</html>
