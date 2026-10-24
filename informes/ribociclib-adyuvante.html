@@ -420,6 +420,36 @@ html:not(.read) .read-only{display:none!important}
     <div class="svgwrap"><svg id="chart-ae" viewBox="0 0 640 210" role="img" aria-label="Efectos adversos de cualquier grado por brazo" style="width:100%;min-width:480px;height:auto"></svg></div>
     <p class="note">La toxicidad es sobre todo analítica (neutropenia, transaminasas) y en general manejable con interrupciones. Pesa más que en metastásico porque se trata a pacientes que se presumen curadas: requiere hemograma, perfil hepático y ECG periódicos durante 3 años. A 400 mg el perfil es mejor que a 600 mg (p. 125).</p>
   </div>
+
+  <div class="panel" id="harm-panel">
+    <div class="ph"><h3>Número necesario para dañar (NNH) y balance beneficio-riesgo</h3><span class="tag t-calc">Calculado</span></div>
+    <div class="seg" role="group" aria-label="Efecto adverso">
+      <button data-harm="g3">EA grado 3</button>
+      <button data-harm="g4">EA grado 4</button>
+      <button data-harm="sae">EA graves</button>
+      <button data-harm="disc">Suspensión por EA</button>
+      <button data-harm="intr">Interrupción de dosis</button>
+      <button data-harm="hep">Toxicidad hepática</button>
+      <button data-harm="hep3" aria-pressed="true">Hepática grado ≥3</button>
+      <button data-harm="qt">Prolongación del QT</button>
+      <button data-harm="qt3">QT grado ≥3</button>
+      <button data-harm="fatal">EA mortales</button>
+    </div>
+    <p class="varline" id="h-var"></p>
+    <div class="svgwrap"><svg id="chart-harm" viewBox="0 0 600 150" role="img" aria-label="Incidencia del efecto adverso en cada brazo" style="width:100%;max-width:640px;min-width:420px;height:auto"></svg></div>
+    <div class="result">
+      <div><span class="lbl" id="h-ari-l">Diferencia absoluta de riesgo</span><span class="big" id="h-ari">—</span><span class="lbl" id="h-arici"></span></div>
+      <div><span class="lbl" id="h-nnh-l">NNH</span><span class="big" id="h-nnh">—</span><span class="lbl" id="h-nnhci"></span></div>
+      <div><span class="lbl">Beneficio frente a daño (LHH)</span><span class="big" id="h-lhh">—</span><span class="lbl" id="h-lhhs"></span></div>
+    </div>
+    <p class="note" id="h-note"></p>
+    <h3>Resumen de todos los efectos</h3>
+    <div class="tbl"><table>
+      <thead><tr><th>Efecto adverso</th><th>Ribociclib + IA (n = 2525)</th><th>IA solo (n = 2442)</th><th>Diferencia, pp (IC 95 %)</th><th>Resultado</th></tr></thead>
+      <tbody id="h-tbody"></tbody>
+    </table></div>
+    <p class="note">NNH = 1 / aumento absoluto del riesgo, con IC 95 % de Wald; se redondea al entero superior. Eventos reconstruidos a partir de los porcentajes del EPAR sobre la población de seguridad. Si el IC de la diferencia incluye el 0, el NNH no está acotado y se marca como no significativo. Cuando el efecto es menos frecuente con ribociclib + IA, se expresa como NNT para evitar un daño. LHH (<i>likelihood of being helped or harmed</i>) = NNH / NNT, con el NNT de referencia (SLEi a 48 meses): un valor &gt;1 significa que es más probable el beneficio que el daño. Limitación: el brazo de control no recibe un fármaco nuevo, de modo que toda la toxicidad añadida se atribuye a ribociclib, administrado durante 3 años (exposición mediana 32,9 meses). En adyuvancia el balance pesa más que en metastásico porque se trata a pacientes que en su mayoría ya están curadas: el NNT de referencia es alto.</p>
+  </div>
 </section>
 
 <section id="esmo">
@@ -700,6 +730,53 @@ html:not(.read) .read-only{display:none!important}
     });
     s.innerHTML=g;
   }
+
+
+  /* NNH y balance beneficio-riesgo (D.HARM) */
+  const HM={"n": [2525, 2442], "fem": true, "ref": "m48", "reflab": "SLEi a 48 meses", "def": "hep3", "note": "Limitación: el brazo de control no recibe un fármaco nuevo, de modo que toda la toxicidad añadida se atribuye a ribociclib, administrado durante 3 años (exposición mediana 32,9 meses). En adyuvancia el balance pesa más que en metastásico porque se trata a pacientes que en su mayoría ya están curadas: el NNT de referencia es alto.", "items": {"g3": {"b": "EA grado 3", "lab": "EA de grado 3", "src": "EPAR p. 73, Tabla 36", "p": [57.9, 17.4], "low": "efectos adversos de grado 3"}, "g4": {"b": "EA grado 4", "lab": "EA de grado 4", "src": "EPAR p. 73, Tabla 36", "p": [5.3, 1.6], "low": "efectos adversos de grado 4"}, "sae": {"b": "EA graves", "lab": "EA graves", "src": "EPAR p. 73", "p": [14.1, 10.5], "low": "efectos adversos graves"}, "disc": {"b": "Suspensión por EA", "lab": "Suspensión de algún fármaco por EA", "src": "EPAR p. 73", "p": [20.8, 5.5], "low": "suspensión de algún fármaco por efectos adversos"}, "intr": {"b": "Interrupción de dosis", "lab": "Interrupción de dosis por EA", "src": "EPAR p. 73", "p": [73.6, 8.2], "low": "interrupción de dosis por efectos adversos"}, "hep": {"b": "Toxicidad hepática", "lab": "Toxicidad hepatobiliar (todos los grados)", "src": "EPAR p. 123–124", "p": [26.4, 11.2], "low": "toxicidad hepatobiliar"}, "hep3": {"b": "Hepática grado ≥3", "lab": "Toxicidad hepatobiliar de grado ≥3", "src": "EPAR p. 123–124", "p": [8.6, 1.7]}, "qt": {"b": "Prolongación del QT", "lab": "Prolongación del QT (todos los grados)", "src": "EPAR p. 123", "p": [5.3, 1.4], "low": "prolongación del QT"}, "qt3": {"b": "QT grado ≥3", "lab": "Prolongación del QT de grado ≥3", "src": "EPAR p. 123", "p": [1.0, 0.6]}, "fatal": {"b": "EA mortales", "lab": "EA mortales", "src": "EPAR p. 73, 123", "x": [11, 4], "low": "efectos adversos mortales"}}}; let curHarm=HM?HM.def:null;
+  function harmCalc(t){
+    const n=t.n||HM.n;
+    const e=t.x||n.map((m,i)=>Math.round(t.p[i]*m/100)), q=e.map((x,i)=>x/n[i]), pc=t.x?q.map(v=>v*100):t.p;
+    const d=(q[0]-q[1])*100, se=Math.sqrt(q[0]*(1-q[0])/n[0]+q[1]*(1-q[1])/n[1])*100;
+    const lo=d-1.96*se, hi=d+1.96*se, sig=lo>0||hi<0, harm=d>0, nn=d===0?Infinity:Math.ceil(100/Math.abs(d));
+    const ci=sig?(harm?Math.ceil(100/hi)+' a '+Math.ceil(100/lo):Math.ceil(100/Math.abs(lo))+' a '+Math.ceil(100/Math.abs(hi))):'';
+    return {n,e,pc,d,lo,hi,sig,harm,nn,ci};
+  }
+  const hsgn=x=>{const s=fmt(x);return /^-?0,0$/.test(s)?'0,0':(x>0?'+':'')+s;}, hlc=x=>/^[A-ZÁÉÍÓÚ][a-záéíóúñ]/.test(x)?x[0].toLowerCase()+x.slice(1):x;
+  function calcHarm(k){
+    const t=HM.items[k], r=harmCalc(t), AR=t.arms||HM.arms||ARMS, lw=t.low||t.lab.toLowerCase(), a0=hlc(AR[0]), a1=hlc(AR[1]), pt=HM.fem?'tratadas':'tratados';
+    $('h-var').innerHTML='<b>Efecto:</b> '+t.lab+' · <b>'+AR[0]+':</b> '+fmt(r.pc[0])+' % ('+r.e[0]+'/'+r.n[0]+') · <b>'+AR[1]+':</b> '+fmt(r.pc[1])+' % ('+r.e[1]+'/'+r.n[1]+') · <b>Fuente:</b> '+t.src;
+    $('h-ari-l').textContent=(r.d>=0?'Aumento absoluto':'Reducción absoluta')+' del riesgo con '+a0;
+    $('h-ari').textContent=hsgn(r.d)+' pp';
+    $('h-arici').textContent='IC 95 %: '+hsgn(r.lo)+' a '+hsgn(r.hi)+' pp';
+    $('h-nnh-l').textContent=r.harm?'NNH (tratar para causar un caso más)':'NNT para evitar un caso';
+    $('h-nnh').textContent=r.sig?r.nn:'No significativo';
+    $('h-nnhci').textContent=r.sig?'IC 95 %: '+r.ci:('El IC de la diferencia incluye el 0'+(isFinite(r.nn)?' (estimación puntual '+r.nn+')':''));
+    const rt=TP[t.ref||HM.ref], rd=rt.e[0]-rt.c[0], nnt=Math.ceil(100/rd), rl=t.reflab||HM.reflab;
+    if(r.harm&&r.sig){const l=rd/r.d;
+      $('h-lhh').textContent=fmt(l,l<2?2:1);
+      $('h-lhhs').textContent=(l>=1?'Más probable el beneficio':'Más probable el daño')+' (NNT '+nnt+', '+rl+')';}
+    else{$('h-lhh').textContent='No aplicable';$('h-lhhs').textContent=r.harm||r.d===0?'Sin aumento significativo del riesgo':'El efecto es menos frecuente con '+a0;}
+    $('h-note').textContent=!r.sig?('No hay diferencia significativa en '+lw+' entre '+a0+' y '+a1+'.'):
+      r.harm?('Por cada '+r.nn+' pacientes '+pt+' con '+a0+' en lugar de '+a1+', '+(HM.fem?'una más':'uno más')+' presenta '+lw+'. Como referencia, el NNT en '+rl+' es '+nnt+'.'):
+      ('Por cada '+r.nn+' pacientes '+pt+' con '+a0+' en lugar de '+a1+', se evita un caso de '+lw+'.');
+    const s=$('chart-harm'), mx=Math.max(10,Math.ceil(Math.max(...r.pc)*1.25/10)*10), K=400/mx, X=v=>150+v*K;
+    let g=`<line class="ax" x1="150" y1="20" x2="150" y2="118"/>`;
+    [0,.25,.5,.75,1].map(f=>f*mx).forEach(v=>{g+=`<line class="ax" x1="${X(v)}" y1="20" x2="${X(v)}" y2="118" stroke-dasharray="2 3"/><text x="${X(v)}" y="138" font-size="11" text-anchor="middle" fill="${css('--muted')}">${fmt(v,v%1?1:0)} %</text>`});
+    [[AR[0],r.pc[0],'--armA',30],[AR[1],r.pc[1],'--armB',72]].forEach(([n,v,c,y])=>{
+      g+=`<text x="140" y="${y+18}" font-size="12.5" text-anchor="end">${n}</text>`;
+      g+=`<rect x="150" y="${y}" width="${Math.max(v*K,1)}" height="28" rx="3" fill="${css(c)}"/>`;
+      g+=`<text x="${Math.min(X(v)+6,560)}" y="${y+18}" font-size="12" font-family="var(--f-mono)">${fmt(v)} %</text>`;
+    });
+    s.innerHTML=g;
+  }
+  function harmTable(){
+    $('h-tbody').innerHTML=Object.values(HM.items).map(t=>{const r=harmCalc(t);
+      const res=!r.sig?'No significativo':(r.harm?'<b>NNH '+r.nn+'</b> (IC '+r.ci+')':'<b>NNT para evitarlo '+r.nn+'</b> (IC '+r.ci+')');
+      return '<tr><td>'+t.lab+'<span class="src">'+t.src+'</span></td><td class="num">'+fmt(r.pc[0])+' %</td><td class="num">'+fmt(r.pc[1])+' %</td><td class="num">'+hsgn(r.d)+' ('+hsgn(r.lo)+' a '+hsgn(r.hi)+')</td><td>'+res+'</td></tr>';}).join('');
+  }
+  if(HM) document.querySelectorAll('[data-harm]').forEach(b=>b.addEventListener('click',()=>{
+    document.querySelectorAll('[data-harm]').forEach(x=>x.setAttribute('aria-pressed',x===b));curHarm=b.dataset.harm;calcHarm(curHarm);}));
 
   /* Bucher */
   const v=id=>parseFloat($(id).value);
@@ -1143,7 +1220,7 @@ html:not(.read) .read-only{display:none!important}
     return new Blob([...parts,...central,new Uint8Array(e.buffer)]);
   }
 
-  function all(){calcTP(curTP);drawSG();drawAE();bucher();econ();}
+  function all(){calcTP(curTP);if(HM){calcHarm(curHarm);harmTable();}drawSG();drawAE();bucher();econ();}
   all();
   try{matchMedia('(prefers-color-scheme: dark)').addEventListener('change',all);new MutationObserver(all).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});}catch(e){}
 })();
