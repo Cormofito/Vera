@@ -433,6 +433,37 @@ html:not(.read) .read-only{display:none!important}
     <div class="svgwrap"><svg id="chart-ae" viewBox="0 0 640 330" role="img" aria-label="Efectos adversos de cualquier grado por brazo" style="width:100%;min-width:480px;height:auto"></svg></div>
     <p class="note">Toxicidad global similar pero de distinto tipo: más digestiva y neutropenia febril con SG; más anemia, trombocitopenia, neuropatía y hepatotoxicidad con quimioterapia. Ajustado por exposición, las suspensiones son 0,15 frente a 0,53 por paciente-año (p. 148). Frente a SG en monoterapia, la combinación añade toxicidad, sobre todo en genotipos UGT1A1 de función reducida (p. 149).</p>
   </div>
+
+  <div class="panel" id="harm-panel">
+    <div class="ph"><h3>Número necesario para dañar (NNH) y balance beneficio-riesgo</h3><span class="tag t-calc">Calculado</span></div>
+    <div class="seg" role="group" aria-label="Efecto adverso">
+      <button data-harm="g3">EA grado ≥3</button>
+      <button data-harm="sae">EA graves</button>
+      <button data-harm="disc">Suspensión por EA</button>
+      <button data-harm="fn" aria-pressed="true">Neutropenia febril</button>
+      <button data-harm="diar">Diarrea grado ≥3</button>
+      <button data-harm="fat">Fatiga grado ≥3</button>
+      <button data-harm="anem">Anemia grado ≥3</button>
+      <button data-harm="plt">Trombocitopenia grado ≥3</button>
+      <button data-harm="col">Colitis</button>
+      <button data-harm="pneu">Neumonitis</button>
+      <button data-harm="death">Muerte relacionada</button>
+    </div>
+    <p class="varline" id="h-var"></p>
+    <div class="svgwrap"><svg id="chart-harm" viewBox="0 0 600 150" role="img" aria-label="Incidencia del efecto adverso en cada brazo" style="width:100%;max-width:640px;min-width:420px;height:auto"></svg></div>
+    <div class="result">
+      <div><span class="lbl" id="h-ari-l">Diferencia absoluta de riesgo</span><span class="big" id="h-ari">—</span><span class="lbl" id="h-arici"></span></div>
+      <div><span class="lbl" id="h-nnh-l">NNH</span><span class="big" id="h-nnh">—</span><span class="lbl" id="h-nnhci"></span></div>
+      <div><span class="lbl">Beneficio frente a daño (LHH)</span><span class="big" id="h-lhh">—</span><span class="lbl" id="h-lhhs"></span></div>
+    </div>
+    <p class="note" id="h-note"></p>
+    <h3>Resumen de todos los efectos</h3>
+    <div class="tbl"><table>
+      <thead><tr><th>Efecto adverso</th><th>SG + P (n = 221)</th><th>Q + P (n = 220)</th><th>Diferencia, pp (IC 95 %)</th><th>Resultado</th></tr></thead>
+      <tbody id="h-tbody"></tbody>
+    </table></div>
+    <p class="note">NNH = 1 / aumento absoluto del riesgo, con eventos reconstruidos a partir de los porcentajes del EPAR sobre la población de seguridad (221 y 220 pacientes) e IC 95 % de Wald; se redondea al entero superior. Si el IC de la diferencia incluye el 0, el NNH no está acotado y se marca como no significativo. Cuando el efecto es menos frecuente con SG + pembrolizumab, se expresa como NNT para evitar un daño. LHH (<i>likelihood of being helped or harmed</i>) = NNH / NNT, con el NNT de la SLP a 12 meses: un valor &gt;1 significa que es más probable el beneficio que el daño. Limitación: la exposición fue más larga con SG (mediana 8,90 frente a 6,24 meses), por lo que las proporciones brutas sobrestiman algo su toxicidad relativa; ajustado por exposición, las suspensiones son 0,15 frente a 0,53 por paciente-año (EPAR p. 148).</p>
+  </div>
 </section>
 
 <section id="esmo">
@@ -649,6 +680,66 @@ html:not(.read) .read-only{display:none!important}
   let curTP='pfs12';
   document.querySelectorAll('[data-tp]').forEach(b=>b.addEventListener('click',()=>{
     document.querySelectorAll('[data-tp]').forEach(x=>x.setAttribute('aria-pressed',x===b));curTP=b.dataset.tp;calcTP(curTP);}));
+
+
+  /* NNH: [SG+P %, Q+P %] sobre la población de seguridad */
+  const HN=[221,220];
+  const HARM={
+    g3:{lab:'EA de grado ≥3',low:'efectos adversos de grado ≥3',src:'EPAR p. 116, Tabla 57',p:[71.5,70.0]},
+    sae:{lab:'EA graves',low:'efectos adversos graves',src:'EPAR p. 116',p:[38.0,30.9]},
+    disc:{lab:'Suspensión de algún fármaco por EA',low:'suspensión de algún fármaco por efectos adversos',src:'EPAR p. 116',p:[11.8,30.9]},
+    fn:{lab:'Neutropenia febril',src:'EPAR p. 121, 147',p:[7.7,1.8]},
+    diar:{lab:'Diarrea de grado ≥3',src:'EPAR p. 147',p:[10.0,2.3]},
+    fat:{lab:'Fatiga de grado ≥3',src:'EPAR p. 147',p:[8.1,3.2]},
+    anem:{lab:'Anemia de grado ≥3',src:'EPAR p. 147',p:[7.2,15.9]},
+    plt:{lab:'Trombocitopenia de grado ≥3',src:'EPAR p. 147',p:[0.5,13.6]},
+    col:{lab:'Colitis inmunomediada',src:'EPAR p. 148',p:[5.9,1.4]},
+    pneu:{lab:'Neumonitis inmunomediada',src:'EPAR p. 148',p:[2.7,7.7]},
+    death:{lab:'Muerte por EA relacionada con el tratamiento',low:'muerte por efectos adversos relacionados con el tratamiento',src:'EPAR p. 116',p:[1.4,0.5]}
+  };
+  const NNT_REF={lab:'SLP a 12 meses',d:48.3-32.9};
+  function harmCalc(t){
+    const e=HN.map((n,i)=>Math.round(t.p[i]*n/100)), q=e.map((x,i)=>x/HN[i]);
+    const d=(q[0]-q[1])*100, se=Math.sqrt(q[0]*(1-q[0])/HN[0]+q[1]*(1-q[1])/HN[1])*100;
+    const lo=d-1.96*se, hi=d+1.96*se, sig=lo>0||hi<0, harm=d>0, n=Math.ceil(100/Math.abs(d));
+    const ci=sig?(harm?Math.ceil(100/hi)+' a '+Math.ceil(100/lo):Math.ceil(100/Math.abs(lo))+' a '+Math.ceil(100/Math.abs(hi))):'';
+    return {e,d,lo,hi,sig,harm,n,ci};
+  }
+  function calcHarm(k){
+    const t=HARM[k], r=harmCalc(t), lw=t.low||t.lab.toLowerCase(), sgn=x=>(x>0?'+':'')+fmt(x);
+    $('h-var').innerHTML='<b>Efecto:</b> '+t.lab+' · <b>'+ARMS[0]+':</b> '+fmt(t.p[0])+' % ('+r.e[0]+'/'+HN[0]+') · <b>'+ARMS[1]+':</b> '+fmt(t.p[1])+' % ('+r.e[1]+'/'+HN[1]+') · <b>Fuente:</b> '+t.src;
+    $('h-ari-l').textContent=r.d>=0?'Aumento absoluto del riesgo con SG + pembro':'Reducción absoluta del riesgo con SG + pembro';
+    $('h-ari').textContent=sgn(r.d)+' pp';
+    $('h-arici').textContent='IC 95 %: '+sgn(r.lo)+' a '+sgn(r.hi)+' pp';
+    $('h-nnh-l').textContent=r.harm?'NNH (tratar para causar un caso más)':'NNT para evitar un caso';
+    $('h-nnh').textContent=r.sig?r.n:'No significativo';
+    $('h-nnhci').textContent=r.sig?'IC 95 %: '+r.ci:'El IC de la diferencia incluye el 0 (estimación puntual '+r.n+')';
+    const nnt=Math.ceil(100/NNT_REF.d);
+    if(r.harm&&r.sig){const l=NNT_REF.d/r.d;
+      $('h-lhh').textContent=fmt(l,1);
+      $('h-lhhs').textContent=(l>=1?'Más probable el beneficio':'Más probable el daño')+' (NNT '+nnt+', '+NNT_REF.lab+')';}
+    else{$('h-lhh').textContent='No aplicable';$('h-lhhs').textContent=r.harm?'Sin aumento significativo del riesgo':'El efecto es menos frecuente con SG + pembro';}
+    $('h-note').textContent=!r.sig?('No hay diferencia significativa en '+lw+' entre los dos brazos.'):
+      r.harm?('Por cada '+r.n+' pacientes tratadas con SG + pembrolizumab en lugar de quimioterapia + pembrolizumab, una más presenta '+lw+'. En comparación, por cada '+nnt+' tratadas, una más sigue libre de progresión a 12 meses.'):
+      ('Por cada '+r.n+' pacientes tratadas con SG + pembrolizumab en lugar de quimioterapia + pembrolizumab, se evita un caso de '+lw+'.');
+    const s=$('chart-harm'), mx=Math.max(10,Math.ceil(Math.max(...t.p)*1.25/10)*10), K=400/mx, X=v=>150+v*K;
+    let g=`<line class="ax" x1="150" y1="20" x2="150" y2="118"/>`;
+    [0,.25,.5,.75,1].map(f=>f*mx).forEach(v=>{g+=`<line class="ax" x1="${X(v)}" y1="20" x2="${X(v)}" y2="118" stroke-dasharray="2 3"/><text x="${X(v)}" y="138" font-size="11" text-anchor="middle" fill="${css('--muted')}">${fmt(v,v%1?1:0)} %</text>`});
+    [[ARMS[0],t.p[0],'--armA',30],[ARMS[1],t.p[1],'--armB',72]].forEach(([n,v,c,y])=>{
+      g+=`<text x="140" y="${y+18}" font-size="12.5" text-anchor="end">${n}</text>`;
+      g+=`<rect x="150" y="${y}" width="${Math.max(v*K,1)}" height="28" rx="3" fill="${css(c)}"/>`;
+      g+=`<text x="${Math.min(X(v)+6,560)}" y="${y+18}" font-size="12" font-family="var(--f-mono)">${fmt(v)} %</text>`;
+    });
+    s.innerHTML=g;
+  }
+  function harmTable(){
+    $('h-tbody').innerHTML=Object.values(HARM).map(t=>{const r=harmCalc(t), sgn=x=>(x>0?'+':'')+fmt(x);
+      const res=!r.sig?'No significativo':(r.harm?'<b>NNH '+r.n+'</b> (IC '+r.ci+')':'<b>NNT para evitarlo '+r.n+'</b> (IC '+r.ci+')');
+      return '<tr><td>'+t.lab+'<span class="src">'+t.src+'</span></td><td class="num">'+fmt(t.p[0])+' %</td><td class="num">'+fmt(t.p[1])+' %</td><td class="num">'+sgn(r.d)+' ('+sgn(r.lo)+' a '+sgn(r.hi)+')</td><td>'+res+'</td></tr>';}).join('');
+  }
+  let curHarm='fn';
+  document.querySelectorAll('[data-harm]').forEach(b=>b.addEventListener('click',()=>{
+    document.querySelectorAll('[data-harm]').forEach(x=>x.setAttribute('aria-pressed',x===b));curHarm=b.dataset.harm;calcHarm(curHarm);}));
 
   /* Subgrupos: [etiqueta, n SG/n control, SLP [HR,li,ls], SG [HR,li,ls]] */
   const SG=[
@@ -1173,7 +1264,7 @@ html:not(.read) .read-only{display:none!important}
   }
 
 
-  function all(){calcTP(curTP);drawSG();drawAE();bucher();econ();}
+  function all(){calcTP(curTP);calcHarm(curHarm);harmTable();drawSG();drawAE();bucher();econ();}
   all();
   try{matchMedia('(prefers-color-scheme: dark)').addEventListener('change',all);new MutationObserver(all).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});}catch(e){}
 })();
