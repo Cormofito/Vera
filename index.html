@@ -3,7 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>:root{box-sizing:border-box}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
 <meta name="robots" content="noindex, nofollow">
+<style>.nav-menu,.nav-toggle,#lvList .cta{display:none!important}</style>
 <script>/* VERA web: entorno de solo lectura (exportado el 24/10/2026) */
 (function(){
   const DOCS={"control/linea_base": {"entradas": {"elacestrant": {"bifimed": {"cns": ["764674"], "estado": "Sí, con restricción: progresión tras >=1 línea endocrina con iCDK4/6 y exposición >12 meses a iCDK4/6"}, "ema": {"producto": "Orserdu", "ultima_actualizacion": ""}, "esmo": {"ensayo": "EMERALD", "fecha": "02/07/2025", "g": "3"}, "ipt": {"cod": "IPT-335/V1", "fecha": "07/01/2025"}}, "ev-pembro": {"bifimed": {"cns": ["736060", "712570"], "estado": "Padcev y Keytruda 1.ª línea urotelial: Sí, financiada indicación autorizada"}, "ema": {"producto": "Padcev", "ultima_actualizacion": ""}, "esmo": {"ensayo": "EV-302", "fecha": "26/01/2026", "g": "4"}, "ipt": {"cod": "IPT-384/V1", "fecha": "07/08/2025"}}, "guselkumab-crohn": {"bifimed": {"cns": ["720058"], "estado": "Crohn: Sí, con restricción tras fracaso a convencional y anti-TNFα o contraindicación"}, "ema": {"producto": "Tremfya", "ultima_actualizacion": ""}, "esmo": null, "ipt": {"cod": "IPT-425/V1", "fecha": "02/02/2026"}}, "guselkumab-cu": {"bifimed": {"cns": ["720058"], "estado": "CU: Sí, con restricción tras fracaso a convencional y anti-TNFα o contraindicación"}, "ema": {"producto": "Tremfya", "ultima_actualizacion": ""}, "esmo": null, "ipt": {"cod": "IPT-421/V1", "fecha": "22/12/2025"}}, "ribociclib-adyuvante": {"bifimed": {"cns": ["768068"], "estado": "Adyuvante: No incluida"}, "ema": {"producto": "Kisqali", "ultima_actualizacion": ""}, "esmo": {"ensayo": "NATALEE", "fecha": "08/06/2026", "g": "A (AT)"}, "ipt": {"cod": "IPT-404/V1", "fecha": "27/10/2025"}}, "ribociclib-metastasico": {"bifimed": {"cns": ["768068"], "estado": "Metastásico: Sí, financiada indicación autorizada"}, "ema": {"producto": "Kisqali", "ultima_actualizacion": ""}, "esmo": {"ensayo": "MONALEESA-2", "fecha": "02/07/2025", "g": "4"}, "ipt": {"cod": "IPT 24/2018 V2", "fecha": "10/03/2020"}}, "sacituzumab-pembro": {"bifimed": {"cns": ["732220", "712570"], "estado": "Trodelvy + pembrolizumab CMTN 1.ª línea CPS>=10: En estudio. Keytruda: sin indicación en combinación con sacituzumab."}, "ema": {"producto": "Trodelvy", "ultima_actualizacion": ""}, "esmo": {"ensayo": "ASCENT-04", "fecha": "18/09/2026", "g": "3"}, "ipt": {"cod": "ninguno para esta indicación (IPT-096 es CMTN pretratado)", "fecha": ""}}, "tdxd-her2low": {"bifimed": {"cns": ["730318"], "estado": "HER2-low tras quimioterapia: Sí, con restricción (sin sacituzumab previo; RH+ tras >=1 terapia hormonal y sin candidatura a nueva línea hormonal). DESTINY-Breast06: No incluida"}, "ema": {"producto": "Enhertu", "ultima_actualizacion": ""}, "esmo": {"ensayo": "DESTINY-Breast04", "fecha": "02/07/2025", "g": "4"}, "ipt": {"cod": "IPT-225/V1", "fecha": "29/01/2024"}}}, "fecha": "2026-10-24", "nota": "Línea base de la revisión semanal. Cada entrada de la portada con lo comprobado a mano el 24/10/2026. La tarea compara con esto, crea avisos en 'avisos' si algo cambia y actualiza esta línea base."}};
@@ -309,6 +311,22 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .aviso ul{margin:0;padding-left:18px;display:grid;gap:4px}
 .linkbtn{border:0;background:none;color:var(--accent);font-weight:600;cursor:pointer;padding:0;font-size:13px;text-decoration:underline}
 .rev{margin-top:4px}
+
+/* Portada: solo marca, buscador y servicios */
+header.top.hero{max-width:880px;justify-items:center;text-align:center;padding-block:clamp(40px,9vh,96px) 26px;gap:26px}
+.hero .brand{justify-items:center;gap:12px}
+.hero .logo{gap:18px}
+.hero .mark{width:clamp(60px,9vw,92px);height:clamp(60px,9vw,92px)}
+.hero .word{font-size:clamp(64px,12vw,120px);letter-spacing:.18em;margin-right:-.18em}
+.hero .expand{font-size:clamp(15px,1.8vw,18px)}
+.hero .expand b{font-size:1.08em}
+.hero .searchbox{width:100%;max-width:720px}
+.hero .searchbox input{font-size:19px;padding:16px 18px 16px 50px;border-radius:14px;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.hero-esps{max-width:880px;margin:10px auto 40px}
+.hero-esps .eyebrow{text-align:center}
+.hero-esps .esp-grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),280px));justify-content:center}
+#lvList .cta{margin-top:40px}
+footer{text-align:center}
 </style>
 
 <nav class="nav" aria-label="Secciones de VERA">
@@ -325,39 +343,26 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 
 <main class="view" id="v-buscar" data-name="Buscador">
 <div id="lvHome">
-<header class="top">
+<header class="top hero">
   <div class="brand">
     <div class="logo">
       <svg class="mark" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="21"/><path d="M13 16 L24 35 L36 11"/></svg>
       <span class="word">VERA</span>
     </div>
     <p class="expand"><b>V</b>aloración de la <b>E</b>videncia y <b>R</b>elevancia <b>A</b>sistencial</p>
-    <p class="claim">Informes de evaluación de medicamentos hospitalarios en los que cada cifra está verificada frente a su fuente original.</p>
-    <div class="stats" id="stats"></div>
+    <div class="stats" id="stats" hidden></div>
   </div>
   <div class="searchbox">
     <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
-    <input id="q" type="search" placeholder="Busca un fármaco, una marca, una indicación o un ensayo…" aria-label="Buscar fármaco o indicación" autocomplete="off">
-  </div>
-  <div class="hints"><span>Prueba:</span>
-    <button data-q="colitis ulcerosa">colitis ulcerosa</button>
-    <button data-q="adyuvante">adyuvante</button>
-    <button data-q="triple negativo">triple negativo</button>
-    <button data-q="Kisqali">Kisqali</button>
-    <button data-q="urotelial">urotelial</button>
+    <input id="q" type="search" placeholder="Busca un fármaco o una patología…" aria-label="Buscar fármaco o patología" autocomplete="off">
   </div>
 </header>
 
-<section class="esps" aria-labelledby="espT">
-  <h2 id="espT" class="eyebrow">Especialidades</h2>
+<section class="esps hero-esps" aria-labelledby="espT">
+  <h2 id="espT" class="eyebrow">Servicios</h2>
   <div class="esp-grid" id="esps"></div>
   <div id="revLine"></div>
 </section>
-
-<aside class="cta">
-  <div><b>¿No está el fármaco que buscas?</b><span>Aporta su EPAR: VERA prepara un borrador con cada cifra enlazada a su página y lo deja en cola para el informe completo.</span></div>
-  <a class="btn primary" href="#aportar" data-view="aportar">Aportar un fármaco</a>
-</aside>
 </div>
 
 <div class="lv" id="lvList" hidden>
@@ -368,6 +373,10 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
     <input id="q2" type="search" aria-label="Buscar en la lista" autocomplete="off">
   </div>
   <div class="results" id="results"></div>
+<aside class="cta">
+  <div><b>¿No está el fármaco que buscas?</b><span>Aporta su EPAR: VERA prepara un borrador con cada cifra enlazada a su página y lo deja en cola para el informe completo.</span></div>
+  <a class="btn primary" href="#aportar" data-view="aportar">Aportar un fármaco</a>
+</aside>
 </div>
 
 <div class="lv" id="lvFicha" hidden>
@@ -443,7 +452,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
   <div class="queue" id="queue"><div class="empty"><b>Aún no hay solicitudes</b><span>Cuando alguien aporte un EPAR aparecerá aquí con su estado. <a href="#aportar" data-view="aportar">Aportar un fármaco</a></span></div></div>
 </section>
 
-<footer><span class="fb">VERA</span> Valoración de la Evidencia y Relevancia Asistencial · prototipo. Las fichas preliminares proceden de publicaciones y notas de congreso, no del EPAR, y no están verificadas. Los borradores automáticos se extraen del EPAR aportado y tampoco están verificados. Herramienta de apoyo: no sustituye el criterio de la Comisión de Farmacia y Terapéutica.</footer>
+<footer><span class="fb">VERA</span> Herramienta de apoyo: no sustituye el criterio de la Comisión de Farmacia y Terapéutica.</footer>
 
 <script>
 (function(){
@@ -610,7 +619,7 @@ function renderList(){
   $('q2').placeholder=state.esp?`Buscar en ${state.esp}…`:'Busca un fármaco, una marca, una indicación o un ensayo…';
   $('count').textContent=state.esp&&q?`${list.length} de ${base.length} fármacos-indicación`:(list.length===1?'1 fármaco-indicación':list.length+' fármacos-indicación');
   const R=$('results');R.innerHTML='';
-  if(!list.length){R.innerHTML=`<div class="empty"><b>Sin resultados</b><span>Prueba con el nombre comercial, el ensayo o el biomarcador${state.esp?', o vuelve a <a href="#" data-go="home">todas las especialidades</a>':''}. Si el fármaco no está, <a href="#aportar" data-view="aportar">aporta su EPAR</a> para generar el informe.</span></div>`;return;}
+  if(!list.length){R.innerHTML=`<div class="empty"><b>Sin resultados</b><span>Prueba con el nombre comercial, el ensayo o el biomarcador${state.esp?', o vuelve a <a href="#" data-go="home">todas las especialidades</a>':''}.</span></div>`;return;}
   let prev='';
   list.forEach(d=>{
     if(!ts.length){const L=norm(d.farmaco).charAt(0).toUpperCase();if(L!==prev){const h=document.createElement('div');h.className='letter';h.textContent=L;R.appendChild(h);prev=L;}}
