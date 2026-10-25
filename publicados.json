@@ -1,0 +1,101 @@
+{
+ "actualizado": "2026-10-25",
+ "informes": [
+  {
+   "id": "sacituzumab-pembro",
+   "farmaco": "Sacituzumab govitecán + pembrolizumab",
+   "marca": "Trodelvy + Keytruda",
+   "indicacion": "CMTN avanzado PD-L1 CPS ≥10 sin tratamiento previo para la enfermedad metastásica",
+   "url": "https://vera-fharma.github.io/Vera/informes/sacituzumab-pembrolizumab.html",
+   "desde": "2026-10-25"
+  },
+  {
+   "id": "elacestrant",
+   "farmaco": "Elacestrant",
+   "marca": "Orserdu",
+   "indicacion": "CM RE+/HER2− avanzado con mutación activadora de ESR1, en progresión tras al menos una línea endocrina que incluya un iCDK4/6",
+   "url": "https://vera-fharma.github.io/Vera/informes/elacestrant.html",
+   "desde": "2026-10-25"
+  },
+  {
+   "id": "ribociclib-metastasico",
+   "farmaco": "Ribociclib",
+   "marca": "Kisqali",
+   "indicacion": "CM RH+/HER2− localmente avanzado o metastásico, en combinación con inhibidor de aromatasa o fulvestrant",
+   "url": "https://vera-fharma.github.io/Vera/informes/ribociclib-metastasico.html",
+   "desde": "2026-10-25"
+  },
+  {
+   "id": "ribociclib-adyuvante",
+   "farmaco": "Ribociclib",
+   "marca": "Kisqali",
+   "indicacion": "CM precoz RH+/HER2− estadio II–III con alto riesgo de recaída (incluye N0 de alto riesgo), en adyuvancia con inhibidor de aromatasa",
+   "url": "https://vera-fharma.github.io/Vera/informes/ribociclib-adyuvante.html",
+   "desde": "2026-10-25"
+  },
+  {
+   "id": "guselkumab-cu",
+   "farmaco": "Guselkumab",
+   "marca": "Tremfya",
+   "indicacion": "Colitis ulcerosa activa moderada a grave en adultos con respuesta inadecuada, pérdida de respuesta o intolerancia al tratamiento convencional o biológico",
+   "url": "https://vera-fharma.github.io/Vera/informes/guselkumab-colitis-ulcerosa.html",
+   "desde": "2026-10-25"
+  },
+  {
+   "id": "guselkumab-crohn",
+   "farmaco": "Guselkumab",
+   "marca": "Tremfya",
+   "indicacion": "Enfermedad de Crohn activa moderada a grave en adultos con respuesta inadecuada, pérdida de respuesta o intolerancia al tratamiento convencional o biológico",
+   "url": "https://vera-fharma.github.io/Vera/informes/guselkumab-crohn.html",
+   "desde": "2026-10-25"
+  },
+  {
+   "id": "tdxd-her2low",
+   "farmaco": "Trastuzumab deruxtecán",
+   "marca": "Enhertu",
+   "indicacion": "CM HER2-low (IHC 1+ o 2+/ISH−) irresecable o metastásico tratado previamente con quimioterapia para la enfermedad metastásica o con recaída precoz tras adyuvancia",
+   "url": "https://vera-fharma.github.io/Vera/informes/trastuzumab-deruxtecan-her2-low.html",
+   "desde": "2026-10-25"
+  },
+  {
+   "id": "ev-pembro",
+   "farmaco": "Enfortumab vedotina + pembrolizumab",
+   "marca": "Padcev + Keytruda",
+   "indicacion": "Carcinoma urotelial irresecable o metastásico sin tratamiento previo",
+   "url": "https://vera-fharma.github.io/Vera/informes/enfortumab-vedotina-pembrolizumab.html",
+   "desde": "2026-10-25"
+  },
+  {
+   "id": "belantamab",
+   "farmaco": "Belantamab mafodotina",
+   "marca": "Blenrep",
+   "indicacion": "Mieloma múltiple en recaída o refractario: con bortezomib y dexametasona tras ≥1 línea; con pomalidomida y dexametasona tras ≥1 línea que incluya lenalidomida",
+   "url": "https://vera-fharma.github.io/Vera/informes/belantamab-mafodotina.html",
+   "desde": "2026-10-25"
+  },
+  {
+   "id": "isatuximab-vrd",
+   "farmaco": "Isatuximab + VRd",
+   "marca": "Sarclisa",
+   "indicacion": "Mieloma múltiple de nuevo diagnóstico no candidato a trasplante autólogo, en combinación con bortezomib, lenalidomida y dexametasona",
+   "url": "https://vera-fharma.github.io/Vera/informes/isatuximab-vrd.html",
+   "desde": "2026-10-25"
+  },
+  {
+   "id": "datopotamab",
+   "farmaco": "Datopotamab deruxtecán",
+   "marca": "Datroway",
+   "indicacion": "CM RH+/HER2− irresecable o metastásico tras hormonoterapia y al menos una línea de quimioterapia en contexto avanzado",
+   "url": "https://vera-fharma.github.io/Vera/informes/datopotamab-deruxtecan.html",
+   "desde": "2026-10-25"
+  },
+  {
+   "id": "nerandomilast",
+   "farmaco": "Nerandomilast",
+   "marca": "Jascayd",
+   "indicacion": "Fibrosis pulmonar idiopática (FPI) y fibrosis pulmonar progresiva (FPP) en adultos, solo o con nintedanib o pirfenidona",
+   "url": "https://vera-fharma.github.io/Vera/informes/nerandomilast.html",
+   "desde": "2026-10-25"
+  }
+ ]
+}

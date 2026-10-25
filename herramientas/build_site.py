@@ -164,6 +164,37 @@ def informe(ruta, fecha):
     return CABECERA_INFORME.format(sustituto=sust) + cuerpo
 
 
+WEB = 'https://vera-fharma.github.io/Vera/'
+_STR = r"'((?:[^'\\]|\\.)*)'"
+
+
+def publicados(index_html, previo, fecha):
+    """Lista de informes completos publicados (la usa la tarea de avisos a quien propuso un fármaco).
+
+    Conserva la fecha «desde» de los que ya estaban; los nuevos llevan la fecha de hoy.
+    """
+    antes = {}
+    if previo.exists():
+        antes = {p['id']: p for p in json.loads(previo.read_text(encoding='utf-8'))['informes']}
+    hoy = dt.datetime.strptime(fecha, '%d/%m/%Y').strftime('%Y-%m-%d')
+    lista = []
+    inicios = [m for m in re.finditer(r"\{id:" + _STR, index_html)]
+    for n, m in enumerate(inicios):
+        i = m.group(1)
+        fin = inicios[n + 1].start() if n + 1 < len(inicios) else m.start() + 20000
+        resto = index_html[m.end():fin]
+        u = re.search(r"\burl:'(informes/[^']+\.html)'", resto)
+        if not u:
+            continue
+        url = u.group(1)
+        campo = lambda k: (re.search(r'\b' + k + r':' + _STR, resto) or [None, ''])[1].replace("\\'", "'")
+        if campo('estado') != 'completo':
+            continue
+        lista.append({'id': i, 'farmaco': campo('farmaco'), 'marca': campo('marca'), 'indicacion': campo('ind'),
+                      'url': WEB + url, 'desde': antes.get(i, {}).get('desde', hoy)})
+    return json.dumps({'actualizado': hoy, 'informes': lista}, ensure_ascii=False, indent=1) + '\n'
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('fuentes', type=pathlib.Path)
@@ -180,6 +211,7 @@ def main():
     faltan = set(MAPA.values()) - {pathlib.Path(k).stem for k in salidas if k.startswith('informes/')}
     if faltan:
         print('AVISO: faltan fuentes de: ' + ', '.join(sorted(faltan)) + ' (se conserva lo publicado)')
+    salidas['publicados.json'] = publicados(salidas['index.html'], a.salida / 'publicados.json', a.fecha)
 
     cambios = 0
     for nombre, txt in salidas.items():

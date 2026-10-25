@@ -18,8 +18,7 @@ def _e(s):
     return _h.escape(str(s))
 
 
-def _pasos(hechos):
-    nombres = ['Recibida', 'En preparación', 'Enviada']
+def _pasos(hechos, nombres=('Recibida', 'En preparación', 'Enviada')):
     celdas = []
     for i, n in enumerate(nombres):
         ok = i < hechos
@@ -48,8 +47,9 @@ def _filas(datos):
             f'style="background:{SUAVE};border-radius:10px;padding:6px 18px">{"".join(out)}</table>')
 
 
-def plantilla(tipo, farmaco, indicacion='', fecha='', plazo='', solo_proponer=False):
-    """tipo: 'acuse' o 'informe'. Devuelve (asunto, html, texto)."""
+def plantilla(tipo, farmaco, indicacion='', fecha='', plazo='', solo_proponer=False, url='', propuesta=''):
+    """tipo: 'acuse', 'informe' o 'publicado' (aviso a quien propuso el fármaco; url = informe en la web,
+    propuesta = fecha en que lo propuso). Devuelve (asunto, html, texto)."""
     F, I = _e(farmaco), _e(indicacion)
     if tipo == 'acuse':
         if solo_proponer:
@@ -68,6 +68,16 @@ def plantilla(tipo, farmaco, indicacion='', fecha='', plazo='', solo_proponer=Fa
         boton = ('Ver cómo funciona', WEB + 'solicitar.html')
         nota = ('Te avisaremos cuando esté publicado.' if solo_proponer else
                 'Si hay muchas solicitudes, puede tardar algo más. No hace falta que hagas nada: te llegará solo.')
+    elif tipo == 'publicado':
+        eyebrow, titulo = 'Informe publicado', f'{F}'
+        lead = (f'El fármaco que propusiste a VERA, <b>{F}</b>{(" en " + I) if I else ""}, ya tiene su informe '
+                'publicado en la web. Cada cifra indica su fuente y su página para que puedas comprobarla.')
+        datos = [('Fármaco', F), ('Indicación', I or '—')] + ([('Propuesto', _e(propuesta))] if propuesta else []) + [('Publicado', _e(fecha))]
+        pasos = _pasos(3, ('Propuesta', 'En revisión', 'Publicado'))
+        asunto = f'VERA · Ya está publicado el informe de {farmaco}'
+        boton = ('Ver el informe', url or WEB)
+        nota = ('Puedes descargarlo en PDF o en Word desde el propio informe. VERA revisa cada semana si cambian la '
+                'financiación, el posicionamiento o la evidencia, y lo actualiza.')
     else:
         eyebrow, titulo = 'Tu informe está listo', f'{F}'
         lead = (f'Aquí tienes el informe de evaluación de <b>{F}</b>{(" en " + I) if I else ""}. '
@@ -81,11 +91,14 @@ def plantilla(tipo, farmaco, indicacion='', fecha='', plazo='', solo_proponer=Fa
     aviso = ('<b style="color:%s">Informe automático, no revisado por VERA.</b> Se genera automáticamente a partir de los '
              'documentos que aportaste y de fuentes públicas. Cada cifra indica su fuente y su página: verificar los datos '
              'antes de usar el informe es responsabilidad tuya. No sustituye el criterio de la Comisión de Farmacia y Terapéutica.') % ROJO
-    if tipo == 'acuse' and solo_proponer:
+    if (tipo == 'acuse' and solo_proponer) or tipo == 'publicado':
         aviso = ''
 
     pie = ('Recibes este correo porque propusiste un fármaco a VERA. Tu correo solo se usa para avisarte sobre tu propuesta.'
            if (tipo == 'acuse' and solo_proponer) else
+           'Recibes este correo porque propusiste este fármaco a VERA. Con este aviso tu propuesta queda cerrada '
+           'y no volveremos a usar tu correo para ella.'
+           if tipo == 'publicado' else
            'Recibes este correo porque solicitaste un informe en VERA. Tu correo solo se usa para enviarte el informe; '
            'los documentos y los datos de la solicitud se eliminan tras el envío.')
     if tipo == 'informe':
@@ -93,7 +106,7 @@ def plantilla(tipo, farmaco, indicacion='', fecha='', plazo='', solo_proponer=Fa
     html = f'''<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="light"><title>{_e(asunto)}</title></head>
 <body style="margin:0;padding:0;background:{FONDO}">
-<div style="display:none;max-height:0;overflow:hidden;opacity:0">{_e(titulo if tipo == 'acuse' else 'Tu informe de ' + farmaco + ' está listo, en PDF y Word.')}</div>
+<div style="display:none;max-height:0;overflow:hidden;opacity:0">{_e(titulo if tipo == 'acuse' else ('Ya está publicado el informe de ' + farmaco + ' en VERA.') if tipo == 'publicado' else 'Tu informe de ' + farmaco + ' está listo, en PDF y Word.')}</div>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:{FONDO}"><tr><td align="center" style="padding:28px 12px">
 <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:100%;max-width:600px;background:#ffffff;border-radius:14px;overflow:hidden;border:1px solid {LINEA}">
   <tr><td style="background:{AZUL};background-image:linear-gradient(135deg,{AZUL} 0%,{AZUL_OSC} 100%);padding:26px 32px">
@@ -133,6 +146,9 @@ def plantilla(tipo, farmaco, indicacion='', fecha='', plazo='', solo_proponer=Fa
         texto = (f'Hemos recibido tu solicitud de {farmaco}. ' +
                  ('El equipo de VERA la revisará.' if solo_proponer else f'Te enviaremos el informe {plazo}.') +
                  '\n\nVERA · ' + WEB)
+    elif tipo == 'publicado':
+        texto = (f'Ya está publicado en VERA el informe de {farmaco}' + (f' ({indicacion})' if indicacion else '') +
+                 f', que propusiste.\n\nVer el informe: {url or WEB}\n\nVERA · ' + WEB)
     else:
         texto = (f'Tu informe de {farmaco} ({indicacion}) está listo, en PDF y Word.\n\n'
                  'Informe automático, no revisado por VERA: verificar los datos es responsabilidad tuya.\n\nVERA · ' + WEB)
