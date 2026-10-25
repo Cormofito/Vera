@@ -184,7 +184,7 @@ html:not(.read) .read-only{display:none!important}
 </style>
 
 <header class="top">
-  <div class="eyebrow">VERA · Informe de evaluación · prototipo v0.5 · modelo tipo GÉNESIS</div>
+  <div class="eyebrow">VERA · Informe de evaluación · prototipo v0.5</div>
   <h1>Guselkumab en enfermedad de Crohn activa moderada a grave</h1>
   <div class="meta">
     <span>Ensayos pivotales: <b>GALAXI-2</b> y <b>GALAXI-3</b> (CNTO1959CRD3001, frente a placebo y ustekinumab) y <b>GRAVITI</b> (inducción subcutánea)</span>
@@ -1061,7 +1061,7 @@ html:not(.read) .read-only{display:none!important}
       for(let i=0;i<model.length;i++){if(model[i].t==='svg'){model[i]={t:'img',img:await svgPng(model[i].svg)};}}
       restore();
       const fecha=new Date().toLocaleDateString('es-ES',{day:'2-digit',month:'2-digit',year:'numeric'}), pend=counts.total-counts.n;
-      const meta={eyebrow:'VERA · Informe de evaluación de medicamentos · modelo tipo GÉNESIS',
+      const meta={eyebrow:'VERA · Informe de evaluación de medicamentos',
         title:T(document.querySelector('header.top h1')),
         lines:[...document.querySelectorAll('header.top .meta span')].map(s=>T(s)).concat(['Fecha de generación: '+fecha]),
         short:'VERA · Guselkumab · enfermedad de Crohn moderada a grave · frente a placebo y ustekinumab',fecha,pend,n:counts.n,total:counts.total};
@@ -1088,7 +1088,7 @@ html:not(.read) .read-only{display:none!important}
       for(let i=0;i<model.length;i++){if(model[i].t==='svg'){model[i]={t:'img',img:await svgPng(model[i].svg)};}}
       restore();
       const fecha=new Date().toLocaleDateString('es-ES',{day:'2-digit',month:'2-digit',year:'numeric'}), pend=counts.total-counts.n;
-      const meta={eyebrow:'VERA · Informe de evaluación de medicamentos · modelo tipo GÉNESIS',
+      const meta={eyebrow:'VERA · Informe de evaluación de medicamentos',
         title:T(document.querySelector('header.top h1')),
         lines:[...document.querySelectorAll('header.top .meta span')].map(s=>T(s)).concat(['Fecha de generación: '+fecha]),
         short:'VERA · Guselkumab · enfermedad de Crohn moderada a grave · frente a placebo y ustekinumab',fecha,pend,n:counts.n,total:counts.total};

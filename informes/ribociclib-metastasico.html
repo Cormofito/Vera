@@ -184,7 +184,7 @@ html:not(.read) .read-only{display:none!important}
 </style>
 
 <header class="top">
-  <div class="eyebrow">VERA · Informe de evaluación · prototipo v0.5 · modelo tipo GÉNESIS</div>
+  <div class="eyebrow">VERA · Informe de evaluación · prototipo v0.5</div>
   <h1>Ribociclib + hormonoterapia en cáncer de mama avanzado RH+/HER2−</h1>
   <div class="meta">
     <span>Ensayos pivotales: <b>MONALEESA-2</b> (A2301), <b>MONALEESA-7</b> (E2301) y <b>MONALEESA-3</b> (F2301)</span>
@@ -1115,7 +1115,7 @@ html:not(.read) .read-only{display:none!important}
       for(let i=0;i<model.length;i++){if(model[i].t==='svg'){model[i]={t:'img',img:await svgPng(model[i].svg)};}}
       restore();
       const fecha=new Date().toLocaleDateString('es-ES',{day:'2-digit',month:'2-digit',year:'numeric'}), pend=counts.total-counts.n;
-      const meta={eyebrow:'VERA · Informe de evaluación de medicamentos · modelo tipo GÉNESIS',
+      const meta={eyebrow:'VERA · Informe de evaluación de medicamentos',
         title:T(document.querySelector('header.top h1')),
         lines:[...document.querySelectorAll('header.top .meta span')].map(s=>T(s)).concat(['Fecha de generación: '+fecha]),
         short:'VERA · Ribociclib · cáncer de mama avanzado RH+/HER2− · 1.ª–2.ª línea hormonal',fecha,pend,n:counts.n,total:counts.total};
@@ -1142,7 +1142,7 @@ html:not(.read) .read-only{display:none!important}
       for(let i=0;i<model.length;i++){if(model[i].t==='svg'){model[i]={t:'img',img:await svgPng(model[i].svg)};}}
       restore();
       const fecha=new Date().toLocaleDateString('es-ES',{day:'2-digit',month:'2-digit',year:'numeric'}), pend=counts.total-counts.n;
-      const meta={eyebrow:'VERA · Informe de evaluación de medicamentos · modelo tipo GÉNESIS',
+      const meta={eyebrow:'VERA · Informe de evaluación de medicamentos',
         title:T(document.querySelector('header.top h1')),
         lines:[...document.querySelectorAll('header.top .meta span')].map(s=>T(s)).concat(['Fecha de generación: '+fecha]),
         short:'VERA · Ribociclib · cáncer de mama avanzado RH+/HER2− · 1.ª–2.ª línea hormonal',fecha,pend,n:counts.n,total:counts.total};

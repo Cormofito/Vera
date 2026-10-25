@@ -1,6 +1,6 @@
 # VERA · web pública de solo lectura
 
-Portal de informes de evaluación de medicamentos (modelo tipo GÉNESIS).
+Portal de informes de evaluación de medicamentos.
 Esta carpeta se publica tal cual con Cloudflare Pages: no hay que compilar nada.
 
 - `index.html`: portada con buscador y carpetas por especialidad.
