@@ -356,10 +356,10 @@
     ],
     [
      "III. Consistencia",
-     "",
-     "Sin otros estudios comparables en FPI",
-     "Dudosa",
-     "Solo un ensayo pivotal en FPI en el documento aportado."
+     "¿Consistente con otros estudios?",
+     "Compatible, sin interacción",
+     "Posible",
+     "FIBRONEER-ILD (misma intervención y control, fibrosis pulmonar progresiva): la mortalidad baja con y sin nintedanib de base (HR 0,44 y 0,59; interacción p=0,51; EPAR p. 179). Análisis conjunto de ambos ensayos (ERS 2025, fuente externa): HR 0,41 sin antifibrótico y 0,59 con nintedanib. Sin datos con pirfenidona fuera de FPI. Máximo «Posible» por ser una patología relacionada."
     ]
    ],
    "puntos": [
@@ -375,12 +375,12 @@
     ],
     [
      "Consistencia",
-     "Dudosa",
-     0
+     "Posible",
+     2
     ]
    ],
-   "veredicto": "NULA",
-   "recomendacion": "El resultado en mortalidad atribuible a cada grupo es el global del ensayo (HR 0,66; no significativo): el subgrupo no sirve para posicionar. Sí debe tenerse en cuenta la interacción farmacocinética con pirfenidona, que la ficha técnica recoge aparte. Si se aportan otros estudios que muestren la misma interacción, la consistencia podría subir y habría que repetir la valoración."
+   "veredicto": "DUDOSA",
+   "recomendacion": "No tener en consideración el subgrupo para posicionar: el resultado en mortalidad atribuible a cada grupo es el global del ensayo (HR 0,66; no significativo). Sí debe tenerse en cuenta la interacción farmacocinética con pirfenidona (exposición −48 %), recogida aparte en la ficha técnica. Revisar cuando se publique el estudio de interacción con pirfenidona (julio de 2027; EPAR p. 293)."
   }
  ],
  "seguridad": {
@@ -536,7 +536,8 @@
   "Gil-Sierra MD, et al. Checklist for clinical applicability of subgroup analysis. J Clin Pharm Ther. 2020;45(3):530-8.",
   "CADTH Common Drug Review. Nintedanib (Ofev) for idiopathic pulmonary fibrosis. SR0426, octubre de 2015 (análisis conjunto de INPULSIS) · fuente externa.",
   "King TE Jr, et al. A phase 3 trial of pirfenidone in patients with idiopathic pulmonary fibrosis (ASCEND). N Engl J Med. 2014;370:2083-92 · fuente externa.",
-  "Ministerio de Sanidad. BIFIMED; AEMPS. Informes de posicionamiento terapéutico (consulta 25/10/2026) · fuente externa."
+  "Ministerio de Sanidad. BIFIMED; AEMPS. Informes de posicionamiento terapéutico (consulta 25/10/2026) · fuente externa.",
+  "Boehringer Ingelheim. Análisis conjunto de FIBRONEER-IPF y FIBRONEER-ILD: mortalidad según el tratamiento de base. Póster, Congreso de la ERS, Ámsterdam, 29/09/2025 · fuente externa (nota de prensa)."
  ],
  "espana": {
   "filas": [

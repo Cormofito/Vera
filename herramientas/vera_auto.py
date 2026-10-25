@@ -7,7 +7,7 @@ Entrada: JSON con los datos extraídos del EPAR o del ensayo, cada cifra con su 
 Salida: salida.docx y salida.pdf (convertido con LibreOffice).
 
 Principios de VERA que aplica:
-- La IA solo extrae; todos los cálculos (RAR, NNT, NNH, LHH, interacción de subgrupos,
+- La extracción automática solo extrae cifras; todos los cálculos (RAR, NNT, NNH, LHH, interacción de subgrupos,
   puntuación de Gil-Sierra) se hacen aquí con fórmulas.
 - Cada dato lleva su página y queda «sin verificar».
 - Aviso de responsabilidad en la portada y en el pie de cada página.
@@ -31,7 +31,7 @@ ROJO = RGBColor(0xA3, 0x30, 0x2A)
 TINTA = RGBColor(0x1B, 0x24, 0x30)
 Z = 1.959964
 
-AVISO_CORTO = ('Informe generado automáticamente por IA a partir de los documentos aportados. '
+AVISO_CORTO = ('Informe generado automáticamente a partir de los documentos aportados y de fuentes públicas. '
                'No revisado por VERA: verificar los datos es responsabilidad del usuario.')
 
 
@@ -270,9 +270,9 @@ class Informe:
         self.p(f"Solicitud del {s['fecha']} · Documentos aportados: {s['documentos']}", color=GRIS, size=9.5, align=WD_ALIGN_PARAGRAPH.CENTER)
         sp = self.p(); sp.paragraph_format.space_before = Pt(14)
         self.caja('Informe automático: no revisado por VERA', [
-            'Este informe lo ha generado una inteligencia artificial a partir de los documentos que aportaste y de fuentes externas públicas, señaladas como tales. Nadie del equipo de VERA ha comprobado sus datos.',
+            'Este informe se ha generado automáticamente a partir de los documentos que aportaste y de fuentes externas públicas, señaladas como tales. Nadie del equipo de VERA ha comprobado sus datos.',
             'Cada cifra indica su fuente y su página y está marcada como «sin verificar». Los cálculos (RAR, NNT, NNH, interacción de subgrupos, comparación indirecta) se hacen con fórmulas a partir de esas cifras: si una cifra es errónea, el cálculo también lo será.',
-            'Los apartados marcados como «propuesta automática» son juicios generados por la IA, no del evaluador.',
+            'Los apartados marcados como «propuesta automática» son valoraciones generadas automáticamente, no del evaluador.',
             'Verificar los datos antes de usar este informe es responsabilidad tuya. No sustituye el criterio de la Comisión de Farmacia y Terapéutica.'])
         self.doc.add_page_break()
         self.h('Ficha en 30 segundos', 2)
