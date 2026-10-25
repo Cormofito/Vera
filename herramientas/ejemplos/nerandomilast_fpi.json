@@ -479,7 +479,44 @@
   "beneficio_ref": 0
  },
  "relevancia": "La variable principal es intermedia (CVF). La diferencia de 68,8 mL a un año es similar a la que se considera clínicamente relevante en FPI, pero no se tradujo en una mejora de la variable clave secundaria ni de los síntomas. La reducción de la mortalidad solo aparece en el análisis final, es nominal y la EMA la considera importante pero incierta (EPAR p. 293–294).",
- "indirecta": "No calculada. Una comparación indirecta frente a nintedanib o pirfenidona necesita los resultados de sus ensayos frente a placebo (INPULSIS, ASCEND, CAPACITY), que no están en el documento aportado. La EMA señala que habría sido preferible un ensayo frente a los tratamientos autorizados (EPAR p. 293).",
+ "indirecta": {
+  "tipo": "MD",
+  "unidad": "mL",
+  "variable": "pérdida de CVF a un año",
+  "ab": {
+   "lab": "Nerandomilast 18 mg frente a placebo",
+   "est": [
+    68.8,
+    30.3,
+    107.4
+   ],
+   "fuente": "EPAR p. 112 (FIBRONEER-IPF, población global)"
+  },
+  "ab_alt": {
+   "lab": "Nerandomilast 18 mg frente a placebo, pacientes sin antifibrótico",
+   "est": [
+    69.6,
+    -12.2,
+    151.4
+   ],
+   "fuente": "EPAR p. 125"
+  },
+  "cb": {
+   "lab": "Nintedanib frente a placebo (INPULSIS-1 y -2, análisis conjunto)",
+   "est": [
+    109.94,
+    75.85,
+    144.03
+   ],
+   "fuente": "CADTH, informe de revisión de Ofev (SR0426), 2015, p. 4 · fuente externa"
+  },
+  "comparador": "nintedanib",
+  "notas": [
+   "Validez (juicio del evaluador): la comparación es frágil. En FIBRONEER-IPF el 78 % de los pacientes ya tomaba nintedanib o pirfenidona, así que el efecto medido es en gran parte añadido al antifibrótico; en INPULSIS ninguno lo tomaba. Por eso se muestra también el cálculo con el subgrupo sin antifibrótico, más parecido pero con poca precisión.",
+   "Las variables no son idénticas: cambio absoluto de la CVF a la semana 52 (FIBRONEER) frente a tasa anual de pérdida de CVF (INPULSIS), ambas en mL/año. Los ensayos están separados por casi diez años.",
+   "Pirfenidona no se ha calculado: las fuentes consultadas no dan el intervalo de confianza de la diferencia en mL (ASCEND: −235 frente a −428 mL a la semana 52; King TE et al. N Engl J Med 2014;370:2083-92)."
+  ]
+ },
  "economica": {
   "nota": "Sin precio publicado en España en el documento aportado. Introduce los precios para calcular los costes.",
   "filas": [
@@ -493,9 +530,29 @@
    ]
   ]
  },
- "posicionamiento": "Propuesta automática: nerandomilast reduce la pérdida de CVF frente a placebo en FPI, solo o con nintedanib, con un efecto de magnitud similar al de los antifibróticos autorizados frente a placebo, pero sin beneficio demostrado en exacerbaciones, ingresos ni síntomas, y con un efecto en mortalidad incierto. Podría considerarse una alternativa en pacientes que no toleran o no pueden recibir nintedanib ni pirfenidona. Con pirfenidona la exposición cae casi a la mitad y no hay beneficio en mortalidad. No hay comparación directa con los antifibróticos.",
+ "posicionamiento": "Propuesta automática: nerandomilast reduce la pérdida de CVF frente a placebo en FPI, solo o con nintedanib, con un efecto de magnitud similar al de los antifibróticos autorizados frente a placebo, pero sin beneficio demostrado en exacerbaciones, ingresos ni síntomas, y con un efecto en mortalidad incierto. Podría considerarse una alternativa en pacientes que no toleran o no pueden recibir nintedanib ni pirfenidona. Con pirfenidona la exposición cae casi a la mitad y no hay beneficio en mortalidad. No hay comparación directa con los antifibróticos; la comparación indirecta frente a nintedanib no muestra diferencias significativas en la pérdida de CVF (−41 mL al año; IC 95 % −93 a 10), aunque su validez es limitada (ver apartado 7).",
  "fuentes": [
   "European Medicines Agency. Jascayd (nerandomilast): assessment report. EMADOC-1829012207-55748 Corr.1. 21/05/2026. Procedimiento EMEA/H/C/006405/0000.",
-  "Gil-Sierra MD, et al. Checklist for clinical applicability of subgroup analysis. J Clin Pharm Ther. 2020;45(3):530-8."
- ]
+  "Gil-Sierra MD, et al. Checklist for clinical applicability of subgroup analysis. J Clin Pharm Ther. 2020;45(3):530-8.",
+  "CADTH Common Drug Review. Nintedanib (Ofev) for idiopathic pulmonary fibrosis. SR0426, octubre de 2015 (análisis conjunto de INPULSIS) · fuente externa.",
+  "King TE Jr, et al. A phase 3 trial of pirfenidone in patients with idiopathic pulmonary fibrosis (ASCEND). N Engl J Med. 2014;370:2083-92 · fuente externa.",
+  "Ministerio de Sanidad. BIFIMED; AEMPS. Informes de posicionamiento terapéutico (consulta 25/10/2026) · fuente externa."
+ ],
+ "espana": {
+  "filas": [
+   [
+    "Financiación (BIFIMED)",
+    "En estudio",
+    "Nerandomilast (Jascayd, CN 771422 y 771421): financiación en estudio en FPI y FPP; uso hospitalario; sin precio publicado.",
+    "Ministerio de Sanidad, BIFIMED, nomenclátor de octubre de 2026"
+   ],
+   [
+    "Informe de posicionamiento (AEMPS)",
+    "Sin IPT",
+    "No hay IPT de nerandomilast. Existen los de nintedanib en FPI (2015) y pirfenidona en FPI (V2, 2024).",
+    "Base de datos de IPT de la AEMPS, consulta 25/10/2026"
+   ]
+  ],
+  "nota": "Fuente externa al documento aportado, consultada por VERA. Comprueba que no haya cambiado."
+ }
 }

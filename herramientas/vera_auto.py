@@ -94,6 +94,25 @@ def chi2_sf(x, k):
     return max(0.0, 1 - p_lower)
 
 
+def bucher_md(ab, cb):
+    """Comparación indirecta de Bucher para diferencias de medias con comparador común.
+    ab = A frente a C, cb = B frente a C, cada uno [estimación, li, ls] (IC 95 %). Devuelve A frente a B."""
+    se = lambda e: (e[2] - e[1]) / (2 * Z)
+    d = ab[0] - cb[0]
+    s = math.sqrt(se(ab) ** 2 + se(cb) ** 2)
+    p = math.erfc(abs(d / s) / math.sqrt(2))
+    return d, d - Z * s, d + Z * s, p
+
+
+def bucher_ratio(ab, cb):
+    """Bucher para HR/RR/OR en escala logarítmica."""
+    se = lambda e: (math.log(e[2]) - math.log(e[1])) / (2 * Z)
+    d = math.log(ab[0]) - math.log(cb[0])
+    s = math.sqrt(se(ab) ** 2 + se(cb) ** 2)
+    p = math.erfc(abs(d / s) / math.sqrt(2))
+    return math.exp(d), math.exp(d - Z * s), math.exp(d + Z * s), p
+
+
 GS_PUNTOS = {'Probable': 3, 'Posible': 2, 'Dudosa': 0, 'Nula': -3}
 
 
@@ -166,6 +185,9 @@ class Informe:
         r = hp.add_run('VERA · Informe automático · '); r.font.size = Pt(8); r.font.color.rgb = GRIS
         r = hp.add_run('NO REVISADO'); r.font.size = Pt(8); r.bold = True; r.font.color.rgb = ROJO
         r = hp.add_run(f"   ·   {self.d['titulo']}"); r.font.size = Pt(8); r.font.color.rgb = GRIS
+        sec.different_first_page_header_footer = True
+        ff = sec.first_page_footer.paragraphs[0]
+        r = ff.add_run(AVISO_CORTO); r.font.size = Pt(7.5); r.font.color.rgb = GRIS
         fp = sec.footer.paragraphs[0]
         r = fp.add_run(AVISO_CORTO + '  ·  Página '); r.font.size = Pt(7.5); r.font.color.rgb = GRIS
         r = fp.add_run(); r.font.size = Pt(7.5); r.font.color.rgb = GRIS; add_field(r, 'PAGE')
@@ -229,16 +251,30 @@ class Informe:
     # -- secciones
     def portada(self):
         s = self.d['solicitud']
-        self.p('VERA · VALORACIÓN DE LA EVIDENCIA Y RELEVANCIA ASISTENCIAL', bold=True, color=GRIS, size=8.5)
-        tp = self.doc.add_paragraph(); r = tp.add_run(self.d['titulo']); r.font.name = 'Georgia'; r.font.size = Pt(22); r.bold = True; r.font.color.rgb = AZUL
+        logo = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'logo.png')
+        sp = self.p(); sp.paragraph_format.space_before = Pt(36)
+        if os.path.exists(logo):
+            self.doc.add_picture(logo, width=Cm(3.2))
+            self.doc.paragraphs[-1].alignment = WD_ALIGN_PARAGRAPH.CENTER
+        par = self.doc.add_paragraph(); par.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        r = par.add_run('VERA'); r.font.name = 'Georgia'; r.font.size = Pt(54); r.bold = True; r.font.color.rgb = AZUL
+        par.paragraph_format.space_after = Pt(0)
+        self.p('Valoración de la Evidencia y Relevancia Asistencial', color=GRIS, size=12, align=WD_ALIGN_PARAGRAPH.CENTER)
+        sp = self.p(); sp.paragraph_format.space_before = Pt(22)
+        tp = self.doc.add_paragraph(); tp.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        r = tp.add_run(self.d['titulo']); r.font.name = 'Georgia'; r.font.size = Pt(22); r.bold = True; r.font.color.rgb = TINTA
+        self.p('Informe de evaluación generado automáticamente', color=GRIS, size=11, align=WD_ALIGN_PARAGRAPH.CENTER)
+        sp = self.p(); sp.paragraph_format.space_before = Pt(12)
         for m in self.d['meta']:
-            self.p('• ' + m, color=GRIS, size=9)
-        self.p(f"Solicitud del {s['fecha']} · Documentos aportados: {s['documentos']}", color=GRIS, size=9)
+            self.p(m, color=GRIS, size=9.5, align=WD_ALIGN_PARAGRAPH.CENTER)
+        self.p(f"Solicitud del {s['fecha']} · Documentos aportados: {s['documentos']}", color=GRIS, size=9.5, align=WD_ALIGN_PARAGRAPH.CENTER)
+        sp = self.p(); sp.paragraph_format.space_before = Pt(14)
         self.caja('Informe automático: no revisado por VERA', [
-            'Este informe lo ha generado una inteligencia artificial a partir de los documentos que aportaste. Nadie del equipo de VERA ha comprobado sus datos.',
-            'Cada cifra indica la página del documento de la que se extrajo y está marcada como «sin verificar». Los cálculos (RAR, NNT, NNH, interacción de subgrupos) se hacen con fórmulas a partir de esas cifras: si una cifra es errónea, el cálculo también lo será.',
+            'Este informe lo ha generado una inteligencia artificial a partir de los documentos que aportaste y de fuentes externas públicas, señaladas como tales. Nadie del equipo de VERA ha comprobado sus datos.',
+            'Cada cifra indica su fuente y su página y está marcada como «sin verificar». Los cálculos (RAR, NNT, NNH, interacción de subgrupos, comparación indirecta) se hacen con fórmulas a partir de esas cifras: si una cifra es errónea, el cálculo también lo será.',
             'Los apartados marcados como «propuesta automática» son juicios generados por la IA, no del evaluador.',
             'Verificar los datos antes de usar este informe es responsabilidad tuya. No sustituye el criterio de la Comisión de Farmacia y Terapéutica.'])
+        self.doc.add_page_break()
         self.h('Ficha en 30 segundos', 2)
         self.tabla(['', 'Resultado', 'Detalle'], [[a, b, c] for a, b, c in self.d['ficha']], [4, 5, 8])
 
@@ -247,7 +283,13 @@ class Informe:
         self.h('1. Identificación del fármaco e indicación')
         self.p(i['farmaco']); self.p('Posología: ' + i['posologia']); self.p('Indicación: ' + i['indicacion'])
         self.nota(self.pg(i['pag']))
-        self.nota('Situación en España (financiación en BIFIMED, informe de posicionamiento de la AEMPS): no consultada en el informe automático. Compruébala antes de usarlo.')
+        e = self.d.get('espana')
+        if e:
+            self.h('Situación en España', 3)
+            self.tabla(['Fuente', 'Situación', 'Detalle', 'Consulta'], e['filas'], [3.2, 2.3, 7.5, 4])
+            self.nota(e['nota'])
+        else:
+            self.nota('Situación en España (BIFIMED, IPT de la AEMPS): no consultada. Compruébala antes de usar el informe.')
 
     def ensayo(self):
         self.h('2. Ensayo pivotal: diseño y población')
@@ -346,10 +388,32 @@ class Informe:
         self.nota(s['nota'] + f' Diferencias con IC de Wald calculados a partir de los recuentos. LHH = NNH / NNT frente a «{lab}» (>1 indica que es más probable el beneficio que el daño).')
         self.p(s['texto'])
 
+    def indirecta(self):
+        ind = self.d['indirecta']
+        self.h('7. Comparación indirecta')
+        if isinstance(ind, str):
+            self.p(ind); return
+        u = ind['unidad']
+        self.p(f"Método de Bucher con placebo como comparador común. Variable: {ind['variable']}. Diferencia positiva = menor pérdida con nerandomilast.")
+        rows = []
+        for key in ('ab', 'ab_alt'):
+            if key not in ind: continue
+            a = ind[key]
+            d, lo, hi, p = bucher_md(a['est'], ind['cb']['est']) if ind['tipo'] == 'MD' else bucher_ratio(a['est'], ind['cb']['est'])
+            sig = 'No significativa' if lo <= (0 if ind['tipo'] == 'MD' else 1) <= hi else 'Significativa'
+            rows.append([(a['lab'], a['fuente']), f"{fmt(a['est'][0])} ({fmt(a['est'][1])} a {fmt(a['est'][2])}) {u}",
+                         (f"{fmt(d)} {u} ({fmt(lo)} a {fmt(hi)})", f"p = {fmt(p,2)} · {sig}")])
+        c = ind['cb']
+        self.tabla(['Nerandomilast frente a placebo (A–C)', 'Efecto A–C', f"Nerandomilast frente a {ind['comparador']} (calculado)"], rows, [6.5, 4.5, 6])
+        self.p(f"Comparador frente a placebo (B–C): {c['lab']}: {fmt(c['est'][0],2)} {u} ({fmt(c['est'][1],2)} a {fmt(c['est'][2],2)}). Fuente: {c['fuente']}.", size=9)
+        self.p('Propuesta automática sobre la validez, pendiente del juicio del evaluador:', italic=True, color=ROJO, size=9)
+        for n in ind['notas']:
+            self.p('• ' + n, size=9)
+
     def resto(self):
         self.h('6. Relevancia clínica'); self.p(self.d['relevancia'])
         self.nota('La escala ESMO-MCBS solo se aplica a tratamientos oncológicos.')
-        self.h('7. Comparación indirecta'); self.p(self.d['indirecta'])
+        self.indirecta()
         e = self.d['economica']
         self.h('8. Área económica'); self.p(e['nota'])
         self.tabla(['Tratamiento', 'Pauta', 'Coste por ciclo (€)', 'Coste paciente-año (€)', 'Coste del tratamiento (€)'],
