@@ -187,10 +187,38 @@ html:not(.read) .read-only{display:none!important}
 .gs-pre{margin:0;padding-left:20px;display:grid;gap:4px;font-size:14px;max-width:none}
 .gs-verdict{font-size:14px;border-left:3px solid var(--judge);padding-left:12px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+/* VERA diseño v1 */
+.vnav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--surface);border-bottom:1px solid var(--line);margin-left:calc(-1 * max(16px,env(safe-area-inset-left,0px)));margin-right:calc(-1 * max(16px,env(safe-area-inset-right,0px)));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.vnav-in{max-width:1180px;margin:0 auto;display:flex;align-items:center;gap:14px;min-height:56px}
+.vnav-brand{display:flex;align-items:center;gap:9px;text-decoration:none;color:var(--fg);font-family:var(--f-display);font-weight:600;letter-spacing:.14em;font-size:20px}
+.vnav-brand svg{width:26px;height:26px}
+.vnav-brand circle{fill:none;stroke:var(--accent);stroke-width:2.6}
+.vnav-brand path{fill:none;stroke:var(--accent);stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+.vnav-back{margin-left:auto;font-size:14px;font-weight:600;color:var(--accent);text-decoration:none;padding:7px 12px;border:1px solid var(--accent);border-radius:8px;white-space:nowrap}
+.vnav-back:hover{background:var(--accent-soft)}
+html:not(.owner) .progress{display:none}
+nav.toc{top:calc(env(safe-area-inset-top,0px) + 72px)}
+section{scroll-margin-top:72px}
+td .src{display:inline-block;margin:0 0 0 6px;font-size:11px;line-height:16px;padding:0 6px;border-radius:4px;background:var(--sunk);color:var(--muted);vertical-align:1px;white-space:nowrap}
+.read tr.nv>td:first-child::after,.read .tl.nv>span:last-child::after,.vdot{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--warn);margin:0 0 1px 7px;vertical-align:middle}
+.vlegend{display:flex;flex-wrap:wrap;gap:4px 18px;align-items:center;font-size:12.5px;color:var(--muted)}
+.vlegend .vdot{margin:0 6px 1px 0}
+.vlegend .vsrc{display:inline-block;font-size:11px;line-height:16px;padding:0 6px;border-radius:4px;background:var(--sunk);margin-right:6px}
+.ficha{background:var(--surface)}
+.ficha>div{box-shadow:1px 0 0 var(--line),0 1px 0 var(--line)}
+@media (max-width:900px){
+  nav.toc{display:block;position:sticky;top:calc(env(safe-area-inset-top,0px) + 56px);z-index:15;background:var(--bg);margin:0 -16px;padding:8px 16px;border-bottom:1px solid var(--line)}
+  nav.toc .progress{display:none}
+  nav.toc ol{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  nav.toc ol::-webkit-scrollbar{display:none}
+  nav.toc a{white-space:nowrap;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 12px;font-size:13px}
+  section{scroll-margin-top:120px}
+}
 </style>
 
+<nav class="vnav" aria-label="VERA"><div class="vnav-in"><a class="vnav-brand" href="../index.html" target="_top"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="21"/><path d="M13 16 L24 35 L36 11"/></svg><span>VERA</span></a><a class="vnav-back" href="../index.html" target="_top">← Buscador</a></div></nav>
 <header class="top">
-  <div class="eyebrow">VERA · Informe de evaluación · prototipo v0.5</div>
+  <div class="eyebrow">Informe de evaluación</div>
   <h1>Enfortumab vedotina + pembrolizumab en 1.ª línea del carcinoma urotelial irresecable o metastásico candidato a platino</h1>
   <div class="meta">
     <span>Ensayo pivotal: <b>EV-302 / KEYNOTE-A39</b> (SGN22E-003 · NCT04223856)</span>
@@ -207,6 +235,7 @@ html:not(.read) .read-only{display:none!important}
     <span id="pdfMsg" class="note plain" role="status"></span>
   </div>
   <div class="seal read-only" id="seal"></div>
+  <div class="vlegend read-only" aria-label="Leyenda"><span><i class="vdot"></i>Pendiente de verificar frente al EPAR</span><span><span class="vsrc">p. 108</span>Página del documento fuente</span></div>
   <div class="legend edit-only" aria-label="Leyenda de fiabilidad">
     <span class="tag t-calc">Calculado</span>
     <span class="tag t-ok">Verificado</span>

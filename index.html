@@ -336,6 +336,24 @@ header.top.hero{max-width:880px;justify-items:center;text-align:center;padding-b
 .hero-esps .esp-grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),280px));justify-content:center}
 #lvList .cta{margin-top:40px}
 footer{text-align:center}
+/* Novedades de la portada (máximo 4) */
+.news{max-width:760px;width:100%;margin:-10px auto 40px;display:grid;gap:12px}
+.news .eyebrow{text-align:center}
+.news-list{list-style:none;margin:0;padding:0;background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.news-list li+li{border-top:1px solid var(--line)}
+.news-it{font:inherit;color:inherit;text-align:left;background:none;border:0;display:grid;grid-template-columns:96px minmax(0,1fr) auto;gap:14px;align-items:center;width:100%;padding:12px 16px;cursor:pointer}
+.news-it:hover{background:var(--sunk)}
+.news-it:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.news-f{font-family:var(--f-mono);font-size:12.5px;color:var(--muted)}
+.news-b{display:grid;gap:2px;min-width:0}
+.news-t{font-size:15px}
+.news-t b{font-weight:600}
+.news-x{font-size:13.5px;color:var(--muted)}
+.news-k{display:inline-block;font-size:11px;font-weight:600;padding:1px 8px;border-radius:999px;margin-left:8px;vertical-align:1px}
+.k-nuevo{background:var(--ok-bg);color:var(--ok)}
+.k-actualizado{background:var(--accent-soft);color:var(--accent)}
+.news-go{color:var(--muted);font-size:20px;line-height:1}
+@media (max-width:560px){.news-it{grid-template-columns:minmax(0,1fr) auto;gap:4px 12px}.news-f{grid-column:1/-1}}
 </style>
 
 <nav class="nav" aria-label="Secciones de VERA">
@@ -371,6 +389,11 @@ footer{text-align:center}
   <h2 id="espT" class="eyebrow">Servicios</h2>
   <div class="esp-grid" id="esps"></div>
   <div id="revLine"></div>
+</section>
+
+<section class="news" aria-labelledby="newsT" hidden>
+  <h2 id="newsT" class="eyebrow">Novedades</h2>
+  <ol class="news-list" id="news"></ol>
 </section>
 </div>
 
@@ -641,6 +664,7 @@ function renderEsps(all){
     <span class="es">${x.subs.size?esc([...x.subs].sort((a,b)=>a.localeCompare(b,'es')).join(' · ')):'&nbsp;'}</span>
     <span class="ef">${x.full?`${x.full} ${x.full===1?'informe completo':'informes completos'}`:'Sin informes completos aún'}</span></button>`;}).join('');
 }
+$('news').addEventListener('click',e=>{const b=e.target.closest('[data-sel]');if(!b)return;state.sel=b.dataset.sel;go('ficha');});
 $('esps').addEventListener('click',e=>{const b=e.target.closest('[data-esp]');if(!b)return;state.esp=b.dataset.esp;state.q='';$('q2').value='';go('list');});
 
 /* Niveles del buscador: portada -> lista (especialidad o búsqueda) -> ficha */
@@ -656,7 +680,18 @@ function setHash(){if(view!=='buscar')return;
   const t=level==='ficha'&&state.sel?state.sel:(level==='list'&&state.esp&&!state.q.trim()?'esp-'+slug(state.esp):'buscar');
   try{history.replaceState(null,'','#'+t);}catch(e){}}
 function render(){renderHome();if(level==='list')renderList();if(level==='ficha')renderFicha();}
-function renderHome(){const all=allEntries();stats(all);renderEsps(all);}
+function renderHome(){const all=allEntries();stats(all);renderEsps(all);renderNews(all);}
+/* Novedades: la más reciente primero; se muestran 4. Añadir una línea al publicar un informe o cambiarlo de forma relevante. */
+const NOVEDADES=[
+  {id:'nerandomilast',f:'25/10/2026',k:'nuevo',t:'Fibrosis pulmonar idiopática y progresiva. Primer informe de neumología.'},
+  {id:'datopotamab',f:'25/10/2026',k:'nuevo',t:'Cáncer de mama RH+/HER2− tras hormonoterapia y quimioterapia.'},
+  {id:'ribociclib-adyuvante',f:'25/10/2026',k:'actualizado',t:'Situación en España: la adyuvancia no está financiada en el SNS; abemaciclib sí.'},
+  {id:'sacituzumab-pembro',f:'25/10/2026',k:'actualizado',t:'Situación en España: financiación en estudio y sin IPT de la indicación.'}
+];
+function renderNews(all){const box=$('news');if(!box)return;
+  const L=NOVEDADES.map(n=>({n,d:all.find(x=>x.id===n.id)})).filter(x=>x.d).slice(0,4);
+  box.closest('section').hidden=!L.length;
+  box.innerHTML=L.map(({n,d})=>`<li><button type="button" class="news-it" data-sel="${esc(d.id)}"><span class="news-f">${esc(n.f)}</span><span class="news-b"><span class="news-t"><b>${esc(d.farmaco)}</b><span class="news-k k-${n.k}">${n.k==='nuevo'?'Nuevo':'Actualizado'}</span></span><span class="news-x">${esc(n.t)}</span></span><span class="news-go" aria-hidden="true">›</span></button></li>`).join('');}
 const crumb=(lbl,go)=>go?`<a href="#" data-go="${go}">${esc(lbl)}</a>`:`<span aria-current="page">${esc(lbl)}</span>`;
 const SEP='<span class="sep" aria-hidden="true">›</span>';
 function renderList(){
