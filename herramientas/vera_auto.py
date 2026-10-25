@@ -427,6 +427,9 @@ class Informe:
         self.h('Fuentes', 2)
         for f in self.d['fuentes']:
             self.p('• ' + f, size=9)
+        self.p('Nota metodológica: informe generado automáticamente con herramientas de inteligencia artificial a partir de los '
+               'documentos aportados y de fuentes públicas. Los cálculos se realizan con fórmulas a partir de las cifras extraídas.',
+               color=GRIS, size=7.5)
         self.caja('Recordatorio', [AVISO_CORTO, 'Generado el ' + self.d['solicitud']['fecha'] + ' por VERA (vera-fharma.github.io/Vera).'])
 
     def build(self, out):

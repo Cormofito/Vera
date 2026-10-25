@@ -88,6 +88,8 @@ def plantilla(tipo, farmaco, indicacion='', fecha='', plazo='', solo_proponer=Fa
            if (tipo == 'acuse' and solo_proponer) else
            'Recibes este correo porque solicitaste un informe en VERA. Tu correo solo se usa para enviarte el informe; '
            'los documentos y los datos de la solicitud se eliminan tras el envío.')
+    if tipo == 'informe':
+        pie += ' Informe generado automáticamente con herramientas de inteligencia artificial.'
     html = f'''<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="light"><title>{_e(asunto)}</title></head>
 <body style="margin:0;padding:0;background:{FONDO}">
