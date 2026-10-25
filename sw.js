@@ -6,7 +6,7 @@
    - Al instalarse y una vez al día, guarda una copia de todos los informes enlazados
      desde la portada para poder consultarlos sin cobertura.
    Solo hay que cambiar VERSION si se modifica este archivo. */
-const VERSION = 'vera-sw-2';
+const VERSION = 'vera-sw-3';
 const PAGES = VERSION + '-pages';
 const FILES = VERSION + '-files';
 const EXTERNAL = VERSION + '-external';
@@ -77,7 +77,8 @@ self.addEventListener('fetch', event => {
 
 async function networkFirst(event, req) {
   const cache = await caches.open(PAGES);
-  const network = fetch(req);
+  // no-cache: revalida con el servidor aunque la caché HTTP del navegador (10 min en GitHub Pages) siga vigente.
+  const network = fetch(req.url, { cache: 'no-cache', credentials: 'same-origin' });
   event.waitUntil(network.then(res => res.ok ? cache.put(req, res.clone()) : null).catch(() => {}));
   network.catch(() => {});
   const timeout = new Promise(resolve => setTimeout(resolve, NET_TIMEOUT_MS));
@@ -98,7 +99,8 @@ async function networkFirst(event, req) {
 async function staleWhileRevalidate(event, req, cacheName) {
   const cache = await caches.open(cacheName);
   const cached = await cache.match(req);
-  const network = fetch(req);
+  const own = new URL(req.url).origin === self.location.origin;
+  const network = own ? fetch(req.url, { cache: 'no-cache' }) : fetch(req);
   event.waitUntil(network.then(res => (res.ok || res.type === 'opaque') ? cache.put(req, res.clone()) : null).catch(() => {}));
   if (cached) return cached;
   return network;
