@@ -11,6 +11,8 @@ Cambios (idempotente: si el informe ya los tiene, no hace nada):
     verificar como un punto ámbar (con leyenda en la cabecera), en vez de dos líneas más por fila.
   - «Ficha en 30 segundos» sin huecos grises cuando la última fila no se llena.
   - Móvil: el índice pasa a una tira de secciones fija arriba, en vez de ir antes del contenido.
+  - v1.1: las tablas (sobre todo la de eficacia) caben enteras en ordenador y tableta; en el móvil
+    siguen desplazándose en horizontal.
 """
 import re
 import sys
@@ -57,9 +59,55 @@ LEYENDA = ('\n  <div class="vlegend read-only" aria-label="Leyenda"><span><i cla
            '<span><span class="vsrc">p. 108</span>Página del documento fuente</span></div>')
 
 
+MARCA11 = '/* VERA diseño v1.1 */'
+CSS11 = MARCA11 + '''
+td.num{white-space:normal;font-size:13.5px}
+td{overflow-wrap:break-word}
+@media (min-width:701px){table{min-width:0}}
+@media (max-width:1100px){th{letter-spacing:.02em;font-size:11.5px}}
+td.num .nw{white-space:nowrap}
+@media (max-width:1100px){
+  .wrap{grid-template-columns:minmax(0,1fr)}
+  nav.toc{display:block;position:sticky;top:calc(env(safe-area-inset-top,0px) + 56px);z-index:15;background:var(--bg);margin:0 -16px;padding:8px 16px;border-bottom:1px solid var(--line)}
+  nav.toc .progress{display:none}
+  nav.toc ol{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+  nav.toc ol::-webkit-scrollbar{display:none}
+  nav.toc a{white-space:nowrap;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 12px;font-size:13px}
+  section{scroll-margin-top:120px}
+}
+@media (min-width:701px){.tbl th:first-child{width:30%}}
+'''
+# Mantiene juntos los intervalos de confianza, «HR 0,55», «3,8 m», «p=0,01»… para que la línea solo se parta entre ellos.
+# Solo envuelve en <span class="nw">: el texto (y por tanto el PDF y el Word) no cambia.
+JS11 = r'''<script>/* VERA diseño v1.1 */(function(){
+const RX=/\([^()]*\)|(?:HR|RR|OR|IRR|DM)\s?[−-]?\d[\d.,]*|p\s?[=<>≤]\s?\d[\d.,]*|[−+-]?\d[\d.,]*\s?(?:m|%|meses|mL|días|años|semanas|puntos)(?![\wÀ-ſ])/g;
+function fix(td){if(td.dataset.nw)return;td.dataset.nw=1;const w=document.createTreeWalker(td,NodeFilter.SHOW_TEXT);const ns=[];while(w.nextNode())ns.push(w.currentNode);
+ ns.forEach(n=>{const t=n.nodeValue;RX.lastIndex=0;if(!RX.test(t))return;RX.lastIndex=0;const f=document.createDocumentFragment();let i=0,m;
+  while((m=RX.exec(t))){if(m.index>i)f.appendChild(document.createTextNode(t.slice(i,m.index)));const s=document.createElement('span');s.className='nw';s.textContent=m[0];f.appendChild(s);i=m.index+m[0].length;}
+  if(i<t.length)f.appendChild(document.createTextNode(t.slice(i)));n.parentNode.replaceChild(f,n);});}
+function run(){document.querySelectorAll('td.num').forEach(fix);}
+document.addEventListener('DOMContentLoaded',run);window.addEventListener('load',()=>{run();setTimeout(run,800);});
+new MutationObserver(()=>run()).observe(document.documentElement,{childList:true,subtree:true});
+})();</script>
+'''
+
+
 def aplicar(t):
-    if MARCA in t:
-        return t, False
+    cambiado = False
+    if MARCA not in t:
+        t = aplicar_v1(t)
+        cambiado = True
+    if MARCA11 not in t:
+        # v1.1: tablas sin desplazamiento horizontal en ordenador y tableta
+        fin = t.index('</style>', t.index(MARCA))
+        t = t[:fin] + CSS11 + t[fin:]
+        assert t.count('<div class="wrap">') == 1
+        t = t.replace('<div class="wrap">', JS11 + '<div class="wrap">')
+        cambiado = True
+    return t, cambiado
+
+
+def aplicar_v1(t):
     # 1. CSS al final de la hoja de estilos principal (la que define .wrap)
     k = t.index('.wrap{')
     fin = t.index('</style>', k)
@@ -74,7 +122,7 @@ def aplicar(t):
     sello = '<div class="seal read-only" id="seal"></div>'
     assert t.count(sello) == 1
     t = t.replace(sello, sello + LEYENDA)
-    return t, True
+    return t
 
 
 if __name__ == '__main__':

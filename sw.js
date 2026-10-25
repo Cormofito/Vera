@@ -6,7 +6,7 @@
    - Al instalarse y una vez al día, guarda una copia de todos los informes enlazados
      desde la portada para poder consultarlos sin cobertura.
    Solo hay que cambiar VERSION si se modifica este archivo. */
-const VERSION = 'vera-sw-4';
+const VERSION = 'vera-sw-5';
 const PAGES = VERSION + '-pages';
 const FILES = VERSION + '-files';
 const EXTERNAL = VERSION + '-external';
