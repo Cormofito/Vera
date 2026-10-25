@@ -1,0 +1,501 @@
+{
+ "solicitud": {
+  "fecha": "25/10/2026",
+  "correo": "vera.informes@gmail.com",
+  "farmaco": "Nerandomilast",
+  "indicacion": "Fibrosis pulmonar idiopática",
+  "documentos": "EPAR de la EMA (EMADOC-1829012207-55748 Corr.1, 21/05/2026, 303 páginas)",
+  "fuente_corta": "EPAR"
+ },
+ "titulo": "Nerandomilast en fibrosis pulmonar idiopática",
+ "meta": [
+  "Ensayo pivotal: FIBRONEER-IPF (1305-0014), fase 3, frente a placebo",
+  "Fuente: informe de evaluación de la EMA (EPAR) EMADOC-1829012207-55748 Corr.1, procedimiento EMEA/H/C/006405/0000",
+  "Dosis evaluada: 18 mg cada 12 h (9 mg solo como reducción de dosis)"
+ ],
+ "ficha": [
+  [
+   "Comparador",
+   "Placebo",
+   "Solo o añadido a nintedanib o pirfenidona; sin comparación directa con ellos"
+  ],
+  [
+   "Variable principal",
+   "+68,8 mL de CVF a 52 semanas",
+   "IC 95 % 30,3 a 107,4; p=0,0005; variable intermedia"
+  ],
+  [
+   "Variable clave secundaria",
+   "No alcanzada",
+   "Exacerbación, ingreso respiratorio o muerte: HR 1,17 (DBL1)"
+  ],
+  [
+   "Mortalidad (análisis final)",
+   "6,6 % frente a 10,7 %",
+   "HR 0,66 (0,41 a 1,08); no significativa, sin control de multiplicidad"
+  ],
+  [
+   "Seguridad",
+   "Diarrea 42,4 % frente a 18,3 %",
+   "Abandonos por efectos adversos 16,1 % frente a 13,0 %"
+  ],
+  [
+   "Incertidumbre clave",
+   "Uso con pirfenidona",
+   "Exposición −48 % y sin efecto en mortalidad en ese grupo"
+  ]
+ ],
+ "identificacion": {
+  "farmaco": "Nerandomilast (Jascayd®). Inhibidor oral de la fosfodiesterasa 4 con inhibición preferente de PDE4B.",
+  "posologia": "18 mg cada 12 horas por vía oral; reducción a 9 mg cada 12 horas si hay intolerancia (diarrea, pérdida de peso).",
+  "indicacion": "Tratamiento de adultos con fibrosis pulmonar idiopática (FPI). El EPAR también evalúa la fibrosis pulmonar progresiva, que no se incluye en este informe.",
+  "pag": "1, 96, 288"
+ },
+ "diseno": [
+  [
+   "Diseño",
+   "Fase 3, multicéntrico, doble ciego, aleatorizado 1:1:1 (nerandomilast 9 mg, 18 mg o placebo cada 12 h) durante al menos 52 semanas, con tratamiento ciego posterior de duración variable",
+   "96"
+  ],
+  [
+   "Pacientes",
+   "1.177 aleatorizados (393 placebo, 392 con 9 mg, 392 con 18 mg)",
+   "109"
+  ],
+  [
+   "Población",
+   "≥40 años con FPI (patrón UIP o probable UIP confirmado por revisión central), CVF ≥45 % y DLCO ≥25 % del teórico",
+   "97–98"
+  ],
+  [
+   "Tratamiento de base",
+   "Nintedanib o pirfenidona estables ≥12 semanas, o ningún antifibrótico en las 8 semanas previas",
+   "96–98"
+  ],
+  [
+   "Estratificación",
+   "Antifibrótico de base (sí o no)",
+   "96"
+  ],
+  [
+   "Variable principal",
+   "Cambio absoluto de la CVF (mL) a la semana 52; contraste gráfico con α inicial 4 % (18 mg) y 1 % (9 mg)",
+   "99"
+  ],
+  [
+   "Variable clave secundaria",
+   "Tiempo hasta la primera exacerbación aguda, hospitalización respiratoria o muerte (sin adjudicación independiente de exacerbaciones ni ingresos)",
+   "113"
+  ],
+  [
+   "Seguimiento",
+   "Observación media de unos 17 meses (dato del análisis conjunto de los dos ensayos pivotales)",
+   "208"
+  ]
+ ],
+ "basales": [
+  [
+   "Edad media",
+   "70,2 años",
+   "109"
+  ],
+  [
+   "Varones",
+   "83,0 %",
+   "109"
+  ],
+  [
+   "Raza blanca / asiática",
+   "67,7 % / 31,6 %",
+   "109"
+  ],
+  [
+   "CVF media (% del teórico)",
+   "78,2 %",
+   "111"
+  ],
+  [
+   "DLCO media (% del teórico)",
+   "50,9 %",
+   "111"
+  ],
+  [
+   "Antifibrótico de base",
+   "77,7 % (nintedanib 45,5 %; pirfenidona 32,3 %)",
+   "110"
+  ],
+  [
+   "Sin antifibrótico y sin uso previo",
+   "14,6 %",
+   "110"
+  ],
+  [
+   "Tiempo desde el diagnóstico",
+   "3,5 años de media",
+   "110"
+  ]
+ ],
+ "eficacia": [
+  {
+   "var": "Cambio de la CVF a la semana 52 (mL) · principal",
+   "t": "−114,7",
+   "c": "−183,5",
+   "dif": "+68,8 (30,3 a 107,4); p=0,0005",
+   "pag": "112"
+  },
+  {
+   "var": "Variable clave secundaria · DBL1",
+   "t": "85 (21,7 %)",
+   "c": "80 (20,4 %)",
+   "dif": "HR 1,17 (0,86 a 1,59); p=0,31",
+   "pag": "113–114"
+  },
+  {
+   "var": "Variable clave secundaria · DBL2 (exploratorio)",
+   "t": "93 (23,7 %)",
+   "c": "103 (26,2 %)",
+   "dif": "HR 0,99 (0,75 a 1,31)",
+   "pag": "114"
+  },
+  {
+   "var": "Exacerbación aguda o muerte · DBL2",
+   "t": "54 (13,8 %)",
+   "c": "68 (17,3 %)",
+   "dif": "HR 0,87 (0,61 a 1,24)",
+   "pag": "120, 135"
+  },
+  {
+   "var": "Hospitalización respiratoria o muerte · DBL2",
+   "t": "84 (21,4 %)",
+   "c": "94 (23,9 %)",
+   "dif": "HR 0,97 (0,73 a 1,31)",
+   "pag": "122, 135"
+  },
+  {
+   "var": "Muerte · DBL1",
+   "t": "21 (5,4 %)",
+   "c": "28 (7,1 %)",
+   "dif": "HR 0,81 (0,46 a 1,43)",
+   "pag": "123"
+  },
+  {
+   "var": "Muerte · DBL2 (sin control de multiplicidad)",
+   "t": "26 (6,6 %)",
+   "c": "42 (10,7 %)",
+   "dif": "HR 0,66 (0,41 a 1,08)",
+   "pag": "124"
+  },
+  {
+   "var": "Descenso de la CVF >10 % o muerte · DBL2",
+   "t": "116 (29,6 %)",
+   "c": "153 (38,9 %)",
+   "dif": "HR 0,75 (0,59 a 0,95); p=0,018 nominal",
+   "pag": "297"
+  }
+ ],
+ "eficacia_nota": "Los síntomas (tos, disnea, cansancio) no mejoraron de forma significativa (EPAR p. 294). Los análisis de DBL2 son exploratorios y sin ajuste por multiplicidad (p. 114).",
+ "beneficio": [
+  {
+   "lab": "Muerte durante todo el ensayo (DBL2)",
+   "et": 26,
+   "nt": 392,
+   "ec": 42,
+   "nc": 393,
+   "hr": [
+    0.66,
+    0.41,
+    1.08
+   ],
+   "evento": "muerte",
+   "pag": "124",
+   "tiempo": "todo el ensayo, análisis final (DBL2)"
+  },
+  {
+   "lab": "Descenso de la CVF >10 % o muerte (DBL2)",
+   "et": 116,
+   "nt": 392,
+   "ec": 153,
+   "nc": 393,
+   "hr": [
+    0.75,
+    0.59,
+    0.95
+   ],
+   "evento": "descenso de la CVF >10 % o muerte",
+   "pag": "297",
+   "tiempo": "todo el ensayo (DBL2)"
+  },
+  {
+   "lab": "Variable clave secundaria (DBL2)",
+   "et": 93,
+   "nt": 392,
+   "ec": 103,
+   "nc": 393,
+   "hr": [
+    0.99,
+    0.75,
+    1.31
+   ],
+   "evento": "exacerbación aguda, ingreso respiratorio o muerte",
+   "pag": "114",
+   "tiempo": "todo el ensayo (DBL2)"
+  }
+ ],
+ "subgrupos": {
+  "titulo": "Muerte durante todo el ensayo según el tratamiento antifibrótico de base (18 mg frente a placebo, DBL2)",
+  "medida": "HR",
+  "filas": [
+   [
+    "Sin antifibrótico",
+    "3 (3,4 %) · 12 (13,8 %)",
+    [
+     0.26,
+     0.07,
+     0.91
+    ]
+   ],
+   [
+    "Con antifibrótico",
+    "23 (7,5 %) · 30 (9,8 %)",
+    [
+     0.83,
+     0.48,
+     1.43
+    ]
+   ],
+   [
+    "   Nintedanib",
+    "11 (6,2 %) · 17 (9,8 %)",
+    [
+     0.64,
+     0.3,
+     1.37
+    ]
+   ],
+   [
+    "   Pirfenidona",
+    "12 (9,4 %) · 13 (9,8 %)",
+    [
+     1.12,
+     0.51,
+     2.47
+    ]
+   ]
+  ],
+  "comparar": [
+   0,
+   1
+  ],
+  "p_epar": "0,0951 (sin frente a con antifibrótico); 0,1467 (tres grupos)",
+  "pag": "135",
+  "global": [
+   0.66,
+   0.41,
+   1.08
+  ],
+  "otros": "Variable principal (CVF) por tratamiento de base, 18 mg: sin antifibrótico +69,6 mL (−12,2 a 151,4); con nintedanib +73,0 (15,3 a 130,8); con pirfenidona +63,4 (−3,6 a 130,3) (EPAR p. 125): efecto similar en los tres grupos."
+ },
+ "gil_sierra": [
+  {
+   "factor": "Tratamiento antifibrótico de base · mortalidad (18 mg, DBL2)",
+   "preliminares": [
+    "Ensayo de fase 3 aleatorizado y doble ciego: seguir.",
+    "Variable: muerte, de máxima relevancia clínica: seguir.",
+    "p de interacción 0,0951 en el EPAR (<0,10): se aplica el cuestionario.",
+    "El tratamiento de base es previo a la aleatorización: seguir."
+   ],
+   "items": [
+    [
+     "I. Asociación",
+     "1. Interacción",
+     "p 0,05–<0,10",
+     "Dudosa",
+     "p=0,0951 (EPAR p. 135)."
+    ],
+    [
+     "I. Asociación",
+     "2. Preespecificación",
+     "Factor de estratificación",
+     "Probable",
+     "EPAR p. 96. El desglose nintedanib/pirfenidona no es de estratificación."
+    ],
+    [
+     "I. Asociación",
+     "3. Tamaño",
+     "≥50 por rama (87/87 sin antifibrótico)",
+     "Probable",
+     ""
+    ],
+    [
+     "I. Asociación",
+     "4. Nº de factores",
+     "<10",
+     "Probable",
+     ""
+    ],
+    [
+     "I. Asociación",
+     "5. Resultado global",
+     "Negativo en mortalidad",
+     "Dudosa",
+     "HR 0,66 (0,41–1,08)."
+    ],
+    [
+     "I. Asociación",
+     "Global",
+     "2 dudosas, 0 nulas",
+     "Dudosa",
+     ""
+    ],
+    [
+     "II. Plausibilidad",
+     "",
+     "Razonable con apoyo parcial",
+     "Posible",
+     "La pirfenidona reduce la exposición a nerandomilast un 48 % (EPAR p. 125)."
+    ],
+    [
+     "III. Consistencia",
+     "",
+     "Sin otros estudios comparables en FPI",
+     "Dudosa",
+     "Solo un ensayo pivotal en FPI en el documento aportado."
+    ]
+   ],
+   "puntos": [
+    [
+     "Asociación",
+     "Dudosa",
+     0
+    ],
+    [
+     "Plausibilidad",
+     "Posible",
+     2
+    ],
+    [
+     "Consistencia",
+     "Dudosa",
+     0
+    ]
+   ],
+   "veredicto": "NULA",
+   "recomendacion": "El resultado en mortalidad atribuible a cada grupo es el global del ensayo (HR 0,66; no significativo): el subgrupo no sirve para posicionar. Sí debe tenerse en cuenta la interacción farmacocinética con pirfenidona, que la ficha técnica recoge aparte. Si se aportan otros estudios que muestren la misma interacción, la consistencia podría subir y habría que repetir la valoración."
+  }
+ ],
+ "seguridad": {
+  "nota": "FIBRONEER-IPF, conjunto de seguridad, todo el ensayo hasta DBL2 (EPAR Tablas 85–86, p. 215–216). n = 392 (18 mg) y 393 (placebo).",
+  "filas": [
+   [
+    "Cualquier efecto adverso",
+    379,
+    392,
+    386,
+    393,
+    "215"
+   ],
+   [
+    "Efectos adversos graves (grado ≥3)",
+    126,
+    392,
+    135,
+    393,
+    "215"
+   ],
+   [
+    "Efectos adversos serios",
+    149,
+    392,
+    167,
+    393,
+    "215"
+   ],
+   [
+    "Abandono por efectos adversos",
+    63,
+    392,
+    51,
+    393,
+    "215"
+   ],
+   [
+    "Interrupción temporal por efectos adversos",
+    88,
+    392,
+    68,
+    393,
+    "215"
+   ],
+   [
+    "Efectos adversos mortales",
+    11,
+    392,
+    26,
+    393,
+    "215"
+   ],
+   [
+    "Diarrea",
+    166,
+    392,
+    72,
+    393,
+    "216"
+   ],
+   [
+    "Náuseas",
+    34,
+    392,
+    28,
+    393,
+    "216"
+   ],
+   [
+    "Pérdida de peso",
+    48,
+    392,
+    38,
+    393,
+    "216"
+   ],
+   [
+    "Disminución del apetito",
+    40,
+    392,
+    27,
+    393,
+    "216"
+   ],
+   [
+    "Depresión",
+    36,
+    392,
+    36,
+    393,
+    "216"
+   ]
+  ],
+  "texto": "La diarrea es el efecto más característico: depende de la dosis y es más frecuente con nintedanib de base (61,8 % con 18 mg más nintedanib frente a 27,8 % con placebo más nintedanib; EPAR p. 298). Suele aparecer en los primeros 3 meses, dura unas 2 semanas y es mayoritariamente leve (p. 294). La ficha técnica incluye un aviso sobre trastornos psiquiátricos, incluida ideación suicida muy rara (p. 296).",
+  "beneficio_ref": 0
+ },
+ "relevancia": "La variable principal es intermedia (CVF). La diferencia de 68,8 mL a un año es similar a la que se considera clínicamente relevante en FPI, pero no se tradujo en una mejora de la variable clave secundaria ni de los síntomas. La reducción de la mortalidad solo aparece en el análisis final, es nominal y la EMA la considera importante pero incierta (EPAR p. 293–294).",
+ "indirecta": "No calculada. Una comparación indirecta frente a nintedanib o pirfenidona necesita los resultados de sus ensayos frente a placebo (INPULSIS, ASCEND, CAPACITY), que no están en el documento aportado. La EMA señala que habría sido preferible un ensayo frente a los tratamientos autorizados (EPAR p. 293).",
+ "economica": {
+  "nota": "Sin precio publicado en España en el documento aportado. Introduce los precios para calcular los costes.",
+  "filas": [
+   [
+    "Nerandomilast 18 mg cada 12 h",
+    "continuo"
+   ],
+   [
+    "Comparador (nintedanib o pirfenidona)",
+    "continuo"
+   ]
+  ]
+ },
+ "posicionamiento": "Propuesta automática: nerandomilast reduce la pérdida de CVF frente a placebo en FPI, solo o con nintedanib, con un efecto de magnitud similar al de los antifibróticos autorizados frente a placebo, pero sin beneficio demostrado en exacerbaciones, ingresos ni síntomas, y con un efecto en mortalidad incierto. Podría considerarse una alternativa en pacientes que no toleran o no pueden recibir nintedanib ni pirfenidona. Con pirfenidona la exposición cae casi a la mitad y no hay beneficio en mortalidad. No hay comparación directa con los antifibróticos.",
+ "fuentes": [
+  "European Medicines Agency. Jascayd (nerandomilast): assessment report. EMADOC-1829012207-55748 Corr.1. 21/05/2026. Procedimiento EMEA/H/C/006405/0000.",
+  "Gil-Sierra MD, et al. Checklist for clinical applicability of subgroup analysis. J Clin Pharm Ther. 2020;45(3):530-8."
+ ]
+}
