@@ -1017,6 +1017,13 @@ new MutationObserver(()=>run()).observe(document.documentElement,{childList:true
         if(ch.matches('.checks')){out.push({t:'checks',items:[...ch.querySelectorAll('.check')].map(c=>{const d=c.querySelector('.dot');return {c:d.classList.contains('d-ok')?'ok':d.classList.contains('d-bad')?'bad':'warn',title:T(c.querySelector('b')),text:T(c.querySelector('p'))};})});continue;}
         if(ch.matches('.timeline')){out.push({t:'timeline',items:[...ch.querySelectorAll('.tl')].map(l=>({d:T(l.querySelector('.d')),x:T(l.querySelector('span:last-child')),nv:false}))});continue;}
         if(ch.matches('.result')){out.push({t:'result',items:[...ch.children].map(d=>{const ls=d.querySelectorAll('.lbl');return {l:T(ls[0]),v:T(d.querySelector('.big')),s:ls[1]?T(ls[1]):''};})});continue;}
+        /* VERA bucher-tabla */if(ch.matches('.form')&&ch.querySelector('#b1n,#b2n,#bA')){
+          const L=[...ch.querySelectorAll('label.f')], lab=l=>PX(l.childNodes[0].textContent), val=l=>l.querySelector('input').value.trim();
+          const c=(x,b)=>({x:x,src:'',colspan:1,bold:!!b}), nf=x=>x.replace('.',',').replace(/^-/,'\u2212');
+          if(ch.querySelector('#bA')) out.push({t:'table',heads:['Papel','Tratamiento'],rows:L.map(l=>({nv:false,cells:[c(lab(l)),c(val(l),1)]}))});
+          else {const neg=[2,3].some(k=>parseFloat(val(L[k]))<0);
+            out.push({t:'table',heads:['Ensayo',lab(L[1])+' (IC 95 %)'],rows:[{nv:false,cells:[c(val(L[0])),c(nf(val(L[1]))+' ('+nf(val(L[2]))+(neg?' a ':'\u2013')+nf(val(L[3]))+')',1)]}]});}
+          continue;}
         if(ch.matches('.form')){out.push({t:'kv',items:[...ch.querySelectorAll('label.f')].map(l=>{const i=l.querySelector('input,select');return [PX(l.childNodes[0].textContent),i.tagName==='SELECT'?i.options[i.selectedIndex].text:i.value];})});continue;}
         if(ch.matches('.svgwrap')){const s=ch.querySelector('svg');
           if(s.id==='chart-sg'){out.push({t:'h4',x:'Supervivencia libre de progresión (corte 03/03/2025)'},{t:'svg',svg:mkSG('pfs')},{t:'h4',x:'Supervivencia global (IA1, corte 16/02/2026)'},{t:'svg',svg:mkSG('os')});}

@@ -11,6 +11,7 @@ Cambios (idempotente: si el informe ya los tiene, no hace nada):
     verificar como un punto ámbar (con leyenda en la cabecera), en vez de dos líneas más por fila.
   - «Ficha en 30 segundos» sin huecos grises cuando la última fila no se llena.
   - Móvil: el índice pasa a una tira de secciones fija arriba, en vez de ir antes del contenido.
+  - v1.4: en el PDF y el Word, la comparación indirecta en tablas con celdas.
   - v1.3: en oncología y hematología (HR), delta de ESMO-MCBS (0,65) y su inverso (1,54) en discontinuas.
   - v1.2: bajo el diagrama de bosque de la comparación indirecta, «← Favorece a X | Favorece a Y →».
   - v1.1: las tablas (sobre todo la de eficacia) caben enteras en ordenador y tableta; en el móvil
@@ -123,6 +124,21 @@ NOTA13 = ('<p class="note" id="bu-leg"></p>\n    <p class="note" id="bu-delta">L
           'no puede descartarse una diferencia clínicamente relevante.</p>')
 
 
+MARCA14 = '/* VERA bucher-tabla */'
+# v1.4: en el PDF y el Word, los datos de la comparación indirecta salen como tablas con celdas
+# (quién es quién; y cada ensayo con su efecto e IC 95 % en una línea, con coma decimal), en vez de
+# pares etiqueta-valor sueltos.
+ANCLA14 = "if(ch.matches('.form')){out.push({t:'kv'"
+JS14 = r'''/* VERA bucher-tabla */if(ch.matches('.form')&&ch.querySelector('#b1n,#b2n,#bA')){
+          const L=[...ch.querySelectorAll('label.f')], lab=l=>PX(l.childNodes[0].textContent), val=l=>l.querySelector('input').value.trim();
+          const c=(x,b)=>({x:x,src:'',colspan:1,bold:!!b}), nf=x=>x.replace('.',',').replace(/^-/,'\u2212');
+          if(ch.querySelector('#bA')) out.push({t:'table',heads:['Papel','Tratamiento'],rows:L.map(l=>({nv:false,cells:[c(lab(l)),c(val(l),1)]}))});
+          else {const neg=[2,3].some(k=>parseFloat(val(L[k]))<0);
+            out.push({t:'table',heads:['Ensayo',lab(L[1])+' (IC 95 %)'],rows:[{nv:false,cells:[c(val(L[0])),c(nf(val(L[1]))+' ('+nf(val(L[2]))+(neg?' a ':'\u2013')+nf(val(L[3]))+')',1)]}]});}
+          continue;}
+        '''
+
+
 # Delta por informe: HR 0,65 por defecto; la adyuvancia (formulario 1) se decide aparte.
 DELTA = {}
 
@@ -152,6 +168,10 @@ def aplicar(t, delta=0.65, form=''):
         es = lambda x: f'{x:.2f}'.replace('.', ',')
         t = t.replace('<p class="note" id="bu-leg"></p>',
                       NOTA13.replace('__DT__', es(delta)).replace('__INV__', es(1 / delta)).replace('__FORM__', form).replace('  ', ' ').replace(' )', ')'))
+        cambiado = True
+    if MARCA14 not in t and ANCLA14 in t:
+        assert t.count(ANCLA14) == 1
+        t = t.replace(ANCLA14, JS14 + ANCLA14)
         cambiado = True
     return t, cambiado
 
