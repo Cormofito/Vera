@@ -11,6 +11,7 @@ Cambios (idempotente: si el informe ya los tiene, no hace nada):
     verificar como un punto ámbar (con leyenda en la cabecera), en vez de dos líneas más por fila.
   - «Ficha en 30 segundos» sin huecos grises cuando la última fila no se llena.
   - Móvil: el índice pasa a una tira de secciones fija arriba, en vez de ir antes del contenido.
+  - v1.3: en oncología y hematología (HR), delta de ESMO-MCBS (0,65) y su inverso (1,54) en discontinuas.
   - v1.2: bajo el diagrama de bosque de la comparación indirecta, «← Favorece a X | Favorece a Y →».
   - v1.1: las tablas (sobre todo la de eficacia) caben enteras en ordenador y tableta; en el móvil
     siguen desplazándose en horizontal.
@@ -108,7 +109,25 @@ JS12 = r'''/* VERA favorece */{const x0=+((g.match(/class="ax" x1="([\d.\-]+)"/)
     '''
 
 
-def aplicar(t):
+MARCA13 = '/* VERA delta */'
+# v1.3: en oncología y hematología (comparaciones con HR), delta de relevancia clínica de ESMO-MCBS
+# (HR 0,65) y su inverso (1,54) como líneas discontinuas: margen de equivalencia (guía ATE).
+JS13 = r'''/* VERA delta */{const D=__D__, mu=css('--muted');
+      [[D,'Δ '+fmt(D,2)],[1/D,'1/Δ '+fmt(1/D,2)]].forEach(([v,lab])=>{const x=lx(v);
+        g+=`<line x1="${x}" y1="12" x2="${x}" y2="104" stroke="${mu}" stroke-width="1" stroke-dasharray="4 3"/>`;
+        g+=`<text x="${x}" y="9" font-size="10" text-anchor="middle" fill="${mu}">${lab}</text>`;});}
+    '''
+NOTA13 = ('<p class="note" id="bu-leg"></p>\n    <p class="note" id="bu-delta">Líneas discontinuas: delta de relevancia clínica '
+          '(HR __DT__, umbral de ESMO-MCBS __FORM__) y su inverso (__INV__). Si el IC 95 % del resultado indirecto queda entero entre '
+          'ambas, las dos opciones pueden considerarse equivalentes en eficacia (guía ATE); si cruza una de ellas, '
+          'no puede descartarse una diferencia clínicamente relevante.</p>')
+
+
+# Delta por informe: HR 0,65 por defecto; la adyuvancia (formulario 1) se decide aparte.
+DELTA = {}
+
+
+def aplicar(t, delta=0.65, form=''):
     cambiado = False
     if MARCA not in t:
         t = aplicar_v1(t)
@@ -126,6 +145,13 @@ def aplicar(t):
         assert t.count("$('chart-forest').innerHTML=g") == 1
         t = t.replace("$('chart-forest').innerHTML=g", JS12.replace('__DER__', 'true' if der else 'false') + "$('chart-forest').innerHTML=g")
         t = t.replace('<svg id="chart-forest" viewBox="0 0 600 130"', '<svg id="chart-forest" viewBox="0 0 600 166"')
+        cambiado = True
+    if MARCA13 not in t and 'R=false;' in t:
+        assert t.count('/* VERA favorece */') == 1 and t.count('<p class="note" id="bu-leg"></p>') == 1
+        t = t.replace('/* VERA favorece */', JS13.replace('__D__', repr(delta)) + '/* VERA favorece */')
+        es = lambda x: f'{x:.2f}'.replace('.', ',')
+        t = t.replace('<p class="note" id="bu-leg"></p>',
+                      NOTA13.replace('__DT__', es(delta)).replace('__INV__', es(1 / delta)).replace('__FORM__', form).replace('  ', ' ').replace(' )', ')'))
         cambiado = True
     return t, cambiado
 
@@ -149,9 +175,15 @@ def aplicar_v1(t):
 
 
 if __name__ == '__main__':
-    for p in sys.argv[1:]:
+    args = sys.argv[1:]
+    delta, form = 0.65, ''
+    if args and args[0].startswith('--delta='):
+        delta = float(args.pop(0).split('=')[1].replace(',', '.'))
+    if args and args[0].startswith('--form='):
+        form = args.pop(0).split('=', 1)[1]
+    for p in args:
         t = open(p, encoding='utf-8').read()
-        t, cambiado = aplicar(t)
+        t, cambiado = aplicar(t, delta, form)
         if cambiado:
             open(p, 'w', encoding='utf-8').write(t)
         print(('aplicado ' if cambiado else 'ya estaba ') + p)

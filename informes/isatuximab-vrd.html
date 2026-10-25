@@ -591,6 +591,7 @@ new MutationObserver(()=>run()).observe(document.documentElement,{childList:true
     <p class="note" id="bu-int"></p>
     <div class="svgwrap"><svg id="chart-forest" viewBox="0 0 600 166" role="img" aria-label="Diagrama de bosque de los HR" style="width:100%;max-width:640px;min-width:460px;height:auto"></svg></div>
     <p class="note" id="bu-leg"></p>
+  <p class="note" id="bu-delta">Líneas discontinuas: delta de relevancia clínica (HR 0,65, umbral de ESMO-MCBS) y su inverso (1,54). Si el IC 95 % del resultado indirecto queda entero entre ambas, las dos opciones pueden considerarse equivalentes en eficacia (guía ATE); si cruza una de ellas, no puede descartarse una diferencia clínicamente relevante.</p>
     <p class="note">CEPHEUS: daratumumab SC + VRd frente a VRd en mieloma de nuevo diagnóstico no candidato a trasplante o con trasplante diferido, SLP HR 0,57 (0,41–0,79) (Usmani SZ et al., Nat Med 2025; scorecard 105 de ESMO-MCBS:H; fuente secundaria). Su inverso es 1,754 (1,266–2,439).</p>
   </div>
   <div class="panel">
@@ -881,6 +882,10 @@ new MutationObserver(()=>run()).observe(document.documentElement,{childList:true
       g+=`<text x="10" y="${y+4}" font-size="12">${esc(r[0])}</text>`;
       g+=`<line x1="${cl(r[2])}" x2="${cl(r[3])}" y1="${y}" y2="${y}" stroke="${r[4]}" stroke-width="2"/><rect x="${cl(r[1])-5}" y="${y-5}" width="10" height="10" fill="${r[4]}"/>`;
     });
+    /* VERA delta */{const D=0.65, mu=css('--muted');
+      [[D,'Δ '+fmt(D,2)],[1/D,'1/Δ '+fmt(1/D,2)]].forEach(([v,lab])=>{const x=lx(v);
+        g+=`<line x1="${x}" y1="12" x2="${x}" y2="104" stroke="${mu}" stroke-width="1" stroke-dasharray="4 3"/>`;
+        g+=`<text x="${x}" y="9" font-size="10" text-anchor="middle" fill="${mu}">${lab}</text>`;});}
     /* VERA favorece */{const x0=+((g.match(/class="ax" x1="([\d.\-]+)"/)||[0,360])[1]),R=false;
       const izq=R?nC:nA, der=R?nA:nC, mu=css('--muted'), fg=css('--fg');
       const fit=(n,av)=>n.length*6.6>av?` textLength="${av}" lengthAdjust="spacingAndGlyphs"`:'';
