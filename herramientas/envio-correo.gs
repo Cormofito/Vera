@@ -158,10 +158,11 @@ function plantillaAcuse(farmaco, indicacion, fecha, plazo, soloProponer) {
     '<td valign="top"><div style="font:bold 15px ' + SANS + ';color:' + TINTA + '">Equipo VERA</div><div style="font:13px ' + SANS + ';color:' + GRIS + ';margin-top:2px">Informes de evaluación de medicamentos</div>' +
     '<div style="font:13px ' + SANS + ';margin-top:4px"><a href="' + WEB + '" style="color:' + AZUL + ';text-decoration:none">vera-fharma.github.io/Vera</a></div></td></tr></table></td></tr></table>' +
     '<table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:100%;max-width:600px"><tr><td style="padding:16px 24px;font:12px/1.5 ' + SANS + ';color:#8a94a3;text-align:center">' +
-    'Recibes este correo porque solicitaste un informe en VERA. Tu correo solo se usa para enviarte el informe; los documentos y los datos de la solicitud se eliminan tras el envío.<br>' +
+    (soloProponer ? 'Recibes este correo porque propusiste un fármaco a VERA. Tu correo solo se usa para avisarte sobre tu propuesta.<br>'
+      : 'Recibes este correo porque solicitaste un informe en VERA. Tu correo solo se usa para enviarte el informe; los documentos y los datos de la solicitud se eliminan tras el envío.<br>') +
     'Este mensaje se envía automáticamente. Si tienes dudas, puedes responder a este correo.</td></tr></table></td></tr></table></body></html>';
 
-  const asunto = 'VERA · Hemos recibido tu solicitud de ' + farmaco;
+  const asunto = 'VERA · Hemos recibido tu ' + (soloProponer ? 'propuesta' : 'solicitud') + ' de ' + farmaco;
   const texto = soloProponer
     ? 'Hemos recibido tu propuesta de ' + farmaco + '. El equipo de VERA la revisará.\n\nVERA · ' + WEB
     : 'Hemos recibido tu solicitud de ' + farmaco + '. Te enviaremos el informe ' + plazo + '.\n\nInforme automático, no revisado por VERA: verificar los datos es responsabilidad tuya.\n\nVERA · ' + WEB;

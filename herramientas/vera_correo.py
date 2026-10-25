@@ -64,9 +64,10 @@ def plantilla(tipo, farmaco, indicacion='', fecha='', plazo='', solo_proponer=Fa
                     'en PDF y en Word, en cuanto esté listo.')
             datos = [('Fármaco', F), ('Indicación', I or '—'), ('Recibida', _e(fecha)), ('Plazo estimado', f'<b>{_e(plazo)}</b>')]
             pasos = _pasos(1)
-        asunto = f'VERA · Hemos recibido tu solicitud de {farmaco}'
+        asunto = f'VERA · Hemos recibido tu {"propuesta" if solo_proponer else "solicitud"} de {farmaco}'
         boton = ('Ver cómo funciona', WEB + 'solicitar.html')
-        nota = 'Si hay muchas solicitudes, puede tardar algo más. No hace falta que hagas nada: te llegará solo.'
+        nota = ('Te avisaremos cuando esté publicado.' if solo_proponer else
+                'Si hay muchas solicitudes, puede tardar algo más. No hace falta que hagas nada: te llegará solo.')
     else:
         eyebrow, titulo = 'Tu informe está listo', f'{F}'
         lead = (f'Aquí tienes el informe de evaluación de <b>{F}</b>{(" en " + I) if I else ""}. '
@@ -83,6 +84,10 @@ def plantilla(tipo, farmaco, indicacion='', fecha='', plazo='', solo_proponer=Fa
     if tipo == 'acuse' and solo_proponer:
         aviso = ''
 
+    pie = ('Recibes este correo porque propusiste un fármaco a VERA. Tu correo solo se usa para avisarte sobre tu propuesta.'
+           if (tipo == 'acuse' and solo_proponer) else
+           'Recibes este correo porque solicitaste un informe en VERA. Tu correo solo se usa para enviarte el informe; '
+           'los documentos y los datos de la solicitud se eliminan tras el envío.')
     html = f'''<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="light"><title>{_e(asunto)}</title></head>
 <body style="margin:0;padding:0;background:{FONDO}">
@@ -117,7 +122,7 @@ def plantilla(tipo, farmaco, indicacion='', fecha='', plazo='', solo_proponer=Fa
     </tr></table></td></tr>
 </table>
 <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:100%;max-width:600px"><tr><td style="padding:16px 24px;font:12px/1.5 {SANS};color:#8a94a3;text-align:center">
-  Recibes este correo porque solicitaste un informe en VERA. Tu correo solo se usa para enviarte el informe; los documentos y los datos de la solicitud se eliminan tras el envío.<br>
+  {pie}<br>
   Este mensaje se envía automáticamente. Si tienes dudas, puedes responder a este correo.
 </td></tr></table>
 </td></tr></table></body></html>'''
