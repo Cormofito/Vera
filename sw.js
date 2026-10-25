@@ -6,12 +6,12 @@
    - Al instalarse y una vez al día, guarda una copia de todos los informes enlazados
      desde la portada para poder consultarlos sin cobertura.
    Solo hay que cambiar VERSION si se modifica este archivo. */
-const VERSION = 'vera-sw-1';
+const VERSION = 'vera-sw-2';
 const PAGES = VERSION + '-pages';
 const FILES = VERSION + '-files';
 const EXTERNAL = VERSION + '-external';
 const SHELL = [
-  './', './index.html', './instalar.html', './manifest.webmanifest',
+  './', './index.html', './instalar.html', './solicitar.html', './manifest.webmanifest',
   './favicon.svg', './favicon-32.png', './apple-touch-icon.png',
   './icon-192.png', './icon-512.png', './icon-maskable-512.png', './qr-vera.svg'
 ];
