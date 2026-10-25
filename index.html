@@ -344,8 +344,8 @@ footer{text-align:center}
     <button class="nav-toggle" type="button" id="navToggle" aria-expanded="false" aria-controls="navMenu"><span id="navCurrent">Buscador</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></button>
     <ul class="nav-menu" id="navMenu">
       <li><a href="#buscar" data-view="buscar">Buscador de fármacos</a></li>
-      <li><a href="#aportar" data-view="aportar">Aportar un fármaco</a></li>
-      <li><a href="#solicitudes" data-view="solicitudes">Solicitudes <span class="nav-n" id="navN" hidden></span></a></li>
+      <li><a href="solicitar.html">Solicitar un informe ↗</a></li>
+      <li hidden><span class="nav-n" id="navN" hidden></span></li>
     </ul>
   </div>
 </nav>
@@ -383,8 +383,8 @@ footer{text-align:center}
   </div>
   <div class="results" id="results"></div>
 <aside class="cta">
-  <div><b>¿No está el fármaco que buscas?</b><span>Aporta su EPAR: VERA prepara un borrador con cada cifra enlazada a su página y lo deja en cola para el informe completo.</span></div>
-  <a class="btn primary" href="#aportar" data-view="aportar">Aportar un fármaco</a>
+  <div><b>¿No está el fármaco que buscas?</b><span>Solicita un informe desde la web de VERA: adjuntas el EPAR o el ensayo publicado y lo recibes por correo, o propones que VERA lo revise y lo publique.</span></div>
+  <a class="btn primary" href="solicitar.html">Solicitar un informe</a>
 </aside>
 </div>
 
@@ -795,7 +795,7 @@ function select(id,scroll,quiet){
   const [bc,bt]=BADGE[kind];
   let action='';
   if(kind==='completo'&&d.url)action=`<a class="btn primary" href="${esc(d.url)}">Abrir informe completo</a>`;
-  else if(kind==='preliminar')action=`<button class="btn" type="button" data-prefill="${esc(d.id)}">Aportar el EPAR para el informe completo</button>`;
+  else if(kind==='preliminar')action=`<a class="btn" href="solicitar.html">Solicitar el informe completo</a>`;
   else if(r&&!d.hasDraft&&canGenerate(r))action=`<button class="btn primary" type="button" data-gen="${esc(r.id)}"${busy?' disabled':''}>Generar borrador automático</button>`;
   const anyPg=(d.res||[]).some(x=>x[4]);
   const sub=Array.isArray(d.subgrupos)?d.subgrupos:[];
@@ -853,7 +853,7 @@ const h=(location.hash||'').slice(1);
 {const d=DB.find(x=>x.id===h);if(d){state.sel=h;state.esp=ESP(d);}
  else if(h.startsWith('esp-')){const n=[...new Set(DB.map(ESP))].find(e=>'esp-'+slug(e)===h);if(n)state.esp=n;}}
 /* ---------- Secciones ---------- */
-const VIEWS=['buscar','aportar','solicitudes'];
+const VIEWS=['buscar'];  /* «Aportar un fármaco» y «Solicitudes» retiradas: las solicitudes llegan por el formulario de la web */
 function show(v){
   if(!VIEWS.includes(v))v='buscar';view=v;
   VIEWS.forEach(k=>{$('v-'+k).hidden=k!==v;});
