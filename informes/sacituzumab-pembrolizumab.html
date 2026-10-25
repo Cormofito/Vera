@@ -10,7 +10,7 @@
 <script src="../pwa.js" defer></script>
 <script>/* VERA web: entorno de solo lectura (exportado el 25/10/2026) */
 (function(){
-  const DOCS={"informe/verificacion": {"items": {}}};
+  const DOCS={"informe/verificacion": {"items": {"ce": true, "chmp": true, "d1": true, "d2": true, "d3": true, "d4": true, "d5": true, "d6": true, "d8": true, "e1": true, "e3": true, "e6": true, "fda": true, "ind": true, "pos": true}}};
   const snap=(id,data)=>({id,exists:data!=null,data:()=>data});
   const doc=p=>({onSnapshot(cb){setTimeout(()=>cb(snap(p.split('/').pop(),DOCS[p]??null)),0);return()=>{};},
     get:async()=>snap(p.split('/').pop(),DOCS[p]??null),
@@ -283,7 +283,7 @@ html:not(.read) .read-only{display:none!important}
       <div class="tl"><span class="d">16/02/2026</span><span>Corte del análisis intermedio de SG (IA1), seguimiento mediano 22,5 meses.</span></div>
       <div class="tl"><span class="d">24/06/2026</span><span>Aprobación FDA de la combinación (EPAR p. 146). <button class="tag t-warn" data-v="fda">sin verificar</button></span></div>
       <div class="tl"><span class="d">23/07/2026</span><span>Opinión positiva del CHMP. <button class="tag t-warn" data-v="chmp">sin verificar</button></span></div>
-      <div class="tl"><span class="d">24/08/2026</span><span>Autorización de la Comisión Europea. <button class="tag t-warn" data-v="ce">sin verificar</button></span></div>
+      <div class="tl"><span class="d">21/08/2026</span><span>Decisión de la Comisión Europea (EMA, pasos del procedimiento EMA/VR/0000320818). <button class="tag t-warn" data-v="ce">sin verificar</button></span></div>
       <div class="tl pend"><span class="d">Pendiente</span><span>Análisis final de SG, comprometido por el titular tras la autorización (EPAR p. 110).</span></div>
       <div class="tl pend"><span class="d">Pendiente</span><span>IPT y financiación en el SNS para esta indicación: no localizados. Consultar BIFIMED. <span class="tag t-judge">comprobar</span></span></div>
     </div>
@@ -297,7 +297,7 @@ html:not(.read) .read-only{display:none!important}
     <tbody>
       <tr><td>Diseño</td><td>Fase 3, abierto, internacional, aleatorizado 1:1, superioridad<span class="src">EPAR p. 102</span></td><td class="state"><button class="tag t-warn" data-v="d1">sin verificar</button></td></tr>
       <tr><td>Pacientes</td><td>443 aleatorizadas (221 / 222); 441 tratadas (221 / 220)<span class="src">EPAR p. 13, 115</span></td><td class="state"><button class="tag t-warn" data-v="d2">sin verificar</button></td></tr>
-      <tr><td>Población</td><td>CMTN avanzado sin tratamiento previo para enfermedad metastásica, PD-L1 CPS ≥10 (22C3), ≥6 meses desde tratamiento curativo<span class="src">EPAR p. 102</span></td><td class="state"><button class="tag t-warn" data-v="d3">sin verificar</button></td></tr>
+      <tr><td>Población</td><td>CMTN avanzado sin tratamiento previo para enfermedad metastásica, PD-L1 CPS ≥10 (22C3), ≥6 meses desde tratamiento curativo<span class="src">EPAR p. 102, 52</span></td><td class="state"><button class="tag t-warn" data-v="d3">sin verificar</button></td></tr>
       <tr><td>Comparador</td><td>Pembrolizumab + paclitaxel, nab-paclitaxel o gemcitabina/carboplatino, elegido antes de aleatorizar. Taxano 51,9 %, gem/carbo 48,1 %<span class="src">EPAR p. 102, 76</span></td><td class="state"><button class="tag t-warn" data-v="d4">sin verificar</button></td></tr>
       <tr><td>Estratificación</td><td>De novo / recaída 6–12 m / recaída &gt;12 m; región; anti-PD-(L)1 previo<span class="src">EPAR p. 102</span></td><td class="state"><button class="tag t-warn" data-v="d5">sin verificar</button></td></tr>
       <tr><td>Variable principal</td><td>SLP por revisión central ciega (BICR), RECIST 1.1. Secundarias sin contraste formal en el análisis primario<span class="src">EPAR p. 103, 108</span></td><td class="state"><button class="tag t-warn" data-v="d6">sin verificar</button></td></tr>
