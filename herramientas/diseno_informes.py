@@ -11,12 +11,14 @@ Cambios (idempotente: si el informe ya los tiene, no hace nada):
     verificar como un punto ámbar (con leyenda en la cabecera), en vez de dos líneas más por fila.
   - «Ficha en 30 segundos» sin huecos grises cuando la última fila no se llena.
   - Móvil: el índice pasa a una tira de secciones fija arriba, en vez de ir antes del contenido.
+  - v1.5: la variable de la comparación indirecta, destacada al inicio de la sección 7.
   - v1.4: en el PDF y el Word, la comparación indirecta en tablas con celdas.
   - v1.3: en oncología y hematología (HR), delta de ESMO-MCBS (0,65) y su inverso (1,54) en discontinuas.
   - v1.2: bajo el diagrama de bosque de la comparación indirecta, «← Favorece a X | Favorece a Y →».
   - v1.1: las tablas (sobre todo la de eficacia) caben enteras en ordenador y tableta; en el móvil
     siguen desplazándose en horizontal.
 """
+import os
 import re
 import sys
 
@@ -134,16 +136,39 @@ JS14 = r'''/* VERA bucher-tabla */if(ch.matches('.form')&&ch.querySelector('#b1n
           const c=(x,b)=>({x:x,src:'',colspan:1,bold:!!b}), nf=x=>x.replace('.',',').replace(/^-/,'\u2212');
           if(ch.querySelector('#bA')) out.push({t:'table',heads:['Papel','Tratamiento'],rows:L.map(l=>({nv:false,cells:[c(lab(l)),c(val(l),1)]}))});
           else {const neg=[2,3].some(k=>parseFloat(val(L[k]))<0);
-            out.push({t:'table',heads:['Ensayo',lab(L[1])+' (IC 95 %)'],rows:[{nv:false,cells:[c(val(L[0])),c(nf(val(L[1]))+' ('+nf(val(L[2]))+(neg?' a ':'\u2013')+nf(val(L[3]))+')',1)]}]});}
+            out.push({t:'table',heads:['Ensayo',lab(L[1]).replace(/\s*\(([^)]*)\)$/,' en $1')+' (IC 95 %)'],rows:[{nv:false,cells:[c(val(L[0])),c(nf(val(L[1]))+' ('+nf(val(L[2]))+(neg?' a ':'\u2013')+nf(val(L[3]))+')',1)]}]});}
           continue;}
         '''
+
+
+MARCA15 = 'class="disclaimer vind"'
+# v1.5: la variable de la comparación indirecta, destacada al principio de la sección 7 (y en el PDF/Word,
+# donde sale como recuadro). Clave: nombre del informe en la web.
+VARIABLES = {
+    'belantamab-mafodotina': ('Supervivencia libre de progresión (SLP)', 'HR'),
+    'datopotamab-deruxtecan': ('Supervivencia libre de progresión (SLP)', 'HR'),
+    'elacestrant': ('Supervivencia libre de progresión (SLP) en pacientes con <i>ESR1</i> mutado', 'HR'),
+    'enfortumab-vedotina-pembrolizumab': ('Supervivencia global (SG) en pacientes candidatos a cisplatino', 'HR'),
+    'guselkumab-colitis-ulcerosa': ('Remisión clínica al final de la inducción', 'RR'),
+    'guselkumab-crohn': ('Remisión endoscópica a la semana 48, con fracaso previo a biológico', 'RR'),
+    'isatuximab-vrd': ('Supervivencia libre de progresión (SLP)', 'HR'),
+    'nerandomilast': ('Cambio de la CVF a las 52 semanas (mL)', 'diferencia de medias'),
+    'ribociclib-adyuvante': ('Supervivencia libre de enfermedad invasiva (SLEi)', 'HR'),
+    'ribociclib-metastasico': ('Supervivencia global (SG), análisis final', 'HR'),
+    'sacituzumab-pembrolizumab': ('Supervivencia libre de progresión (SLP)', 'HR'),
+    'trastuzumab-deruxtecan-her2-low': ('Supervivencia global (SG)', 'HR'),
+}
+ANCLA15 = '<div class="sec-head"><span class="eyebrow">Evidencia indirecta</span><h2>7. Comparación indirecta ajustada (Bucher)</h2></div>'
+# Nombre corto para la etiqueta del resultado («HR indirecto · SLP»)
+CORTO15 = {'belantamab-mafodotina': 'SLP', 'datopotamab-deruxtecan': 'SLP', 'elacestrant': 'SLP', 'enfortumab-vedotina-pembrolizumab': 'SG', 'guselkumab-colitis-ulcerosa': 'remisión clínica', 'guselkumab-crohn': 'remisión endoscópica', 'isatuximab-vrd': 'SLP', 'nerandomilast': 'CVF', 'ribociclib-adyuvante': 'SLEi', 'ribociclib-metastasico': 'SG', 'sacituzumab-pembrolizumab': 'SLP', 'trastuzumab-deruxtecan-her2-low': 'SG'}
+CSS15 = '.disclaimer.vind{border-left-color:var(--accent);background:var(--accent-soft);font-size:15px}\n'
 
 
 # Delta por informe: HR 0,65 por defecto; la adyuvancia (formulario 1) se decide aparte.
 DELTA = {}
 
 
-def aplicar(t, delta=0.65, form=''):
+def aplicar(t, delta=0.65, form='', slug=''):
     cambiado = False
     if MARCA not in t:
         t = aplicar_v1(t)
@@ -172,6 +197,14 @@ def aplicar(t, delta=0.65, form=''):
     if MARCA14 not in t and ANCLA14 in t:
         assert t.count(ANCLA14) == 1
         t = t.replace(ANCLA14, JS14 + ANCLA14)
+        cambiado = True
+    if MARCA15 not in t and slug in VARIABLES and ANCLA15 in t:
+        var, medida = VARIABLES[slug]
+        t = t.replace(ANCLA15, ANCLA15 + f'\n  <div class="disclaimer vind"><b>Variable comparada:</b> {var} · <b>Medida:</b> {medida}</div>')
+        t = re.sub(r'(<span class="lbl">(?:HR|RR|Diferencia) indirect[oa])((?: \(mL\))?)(</span><span class="big" id="bu-hr">)',
+                   lambda m: m.group(1) + ' · ' + CORTO15[slug] + m.group(2) + m.group(3), t, count=1)
+        fin = t.index('</style>', t.index(MARCA11))
+        t = t[:fin] + CSS15 + t[fin:]
         cambiado = True
     return t, cambiado
 
@@ -203,7 +236,8 @@ if __name__ == '__main__':
         form = args.pop(0).split('=', 1)[1]
     for p in args:
         t = open(p, encoding='utf-8').read()
-        t, cambiado = aplicar(t, delta, form)
+        slug = os.path.basename(os.path.dirname(p)) if os.path.basename(p) == 'index.html' else os.path.splitext(os.path.basename(p))[0]
+        t, cambiado = aplicar(t, delta, form, slug)
         if cambiado:
             open(p, 'w', encoding='utf-8').write(t)
         print(('aplicado ' if cambiado else 'ya estaba ') + p)

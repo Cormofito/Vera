@@ -230,6 +230,7 @@ td.num .nw{white-space:nowrap}
   section{scroll-margin-top:120px}
 }
 @media (min-width:701px){.tbl th:first-child{width:30%}}
+.disclaimer.vind{border-left-color:var(--accent);background:var(--accent-soft);font-size:15px}
 </style>
 
 <nav class="vnav" aria-label="VERA"><div class="vnav-in"><a class="vnav-brand" href="../index.html" target="_top"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="21"/><path d="M13 16 L24 35 L36 11"/></svg><span>VERA</span></a><a class="vnav-back" href="../index.html" target="_top">← Buscador</a></div></nav>
@@ -544,6 +545,7 @@ new MutationObserver(()=>run()).observe(document.documentElement,{childList:true
 
 <section id="indirecta">
   <div class="sec-head"><span class="eyebrow">Evidencia indirecta</span><h2>7. Comparación indirecta ajustada (Bucher)</h2></div>
+  <div class="disclaimer vind"><b>Variable comparada:</b> Supervivencia libre de enfermedad invasiva (SLEi) · <b>Medida:</b> HR</div>
   <p class="lede">Ribociclib (A) frente a abemaciclib (C) a través del comparador común hormonoterapia sola (B), con NATALEE y monarchE. El ensayo 2 se introduce invertido (HR de hormonoterapia frente a abemaciclib, es decir, B frente a C) para que la cadena sea A→B→C. Puedes cambiar los valores.</p>
   <div class="panel abc">
     <div class="ph"><h3>Quién es quién en esta comparación</h3></div>
@@ -577,7 +579,7 @@ new MutationObserver(()=>run()).observe(document.documentElement,{childList:true
   <div class="panel">
     <div class="ph"><h3 id="h-bres">Resultado A frente a C</h3><span class="tag t-calc">Calculado</span></div>
     <div class="result">
-      <div><span class="lbl">HR indirecto</span><span class="big" id="bu-hr">—</span><span class="lbl" id="bu-ci"></span></div>
+      <div><span class="lbl">HR indirecto · SLEi</span><span class="big" id="bu-hr">—</span><span class="lbl" id="bu-ci"></span></div>
       <div><span class="lbl">Error estándar log(HR)</span><span class="big" id="bu-se">—</span><span class="lbl">√(EE₁² + EE₂²)</span></div>
     </div>
     <p class="note" id="bu-int"></p>
@@ -977,7 +979,7 @@ new MutationObserver(()=>run()).observe(document.documentElement,{childList:true
           const c=(x,b)=>({x:x,src:'',colspan:1,bold:!!b}), nf=x=>x.replace('.',',').replace(/^-/,'\u2212');
           if(ch.querySelector('#bA')) out.push({t:'table',heads:['Papel','Tratamiento'],rows:L.map(l=>({nv:false,cells:[c(lab(l)),c(val(l),1)]}))});
           else {const neg=[2,3].some(k=>parseFloat(val(L[k]))<0);
-            out.push({t:'table',heads:['Ensayo',lab(L[1])+' (IC 95 %)'],rows:[{nv:false,cells:[c(val(L[0])),c(nf(val(L[1]))+' ('+nf(val(L[2]))+(neg?' a ':'\u2013')+nf(val(L[3]))+')',1)]}]});}
+            out.push({t:'table',heads:['Ensayo',lab(L[1]).replace(/\s*\(([^)]*)\)$/,' en $1')+' (IC 95 %)'],rows:[{nv:false,cells:[c(val(L[0])),c(nf(val(L[1]))+' ('+nf(val(L[2]))+(neg?' a ':'\u2013')+nf(val(L[3]))+')',1)]}]});}
           continue;}
         if(ch.matches('.form')){out.push({t:'kv',items:[...ch.querySelectorAll('label.f')].map(l=>{const i=l.querySelector('input,select');return [PX(l.childNodes[0].textContent),i.tagName==='SELECT'?i.options[i.selectedIndex].text:i.value];})});continue;}
         if(ch.matches('.svgwrap')){const s=ch.querySelector('svg');
