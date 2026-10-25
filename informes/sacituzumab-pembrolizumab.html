@@ -153,6 +153,7 @@ ol.src{margin:0;padding-left:20px;display:grid;gap:6px;font-size:14px}
 .seal{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;padding:10px 14px;border-radius:8px;font-size:14px}
 .seal.ok{background:var(--ok-bg)}
 .seal.pend{background:var(--warn-bg)}
+html:not(.owner) .seal.pend{display:none!important}
 .seal b{font-weight:600}
 .read .edit-only{display:none!important}
 html:not(.read) .read-only{display:none!important}
@@ -897,7 +898,7 @@ html:not(.read) .read-only{display:none!important}
   (async()=>{
     const c=window.claude; if(!c||!c.use) return;
     const [u,d,dl]=await Promise.all([c.use('user'),c.use('db'),c.use('downloads')]);
-    isOwner=u?await u.isOwner():false;
+    isOwner=u?await u.isOwner():false;document.documentElement.classList.toggle('owner',isOwner);
     if(isOwner){$('modeSeg').hidden=false; if(store.get('modo')==='edit') setMode('edit');}
     downloads=dl; if(dl&&window.jspdf) $('pdfBtn').hidden=false; if(dl) $('docxBtn').hidden=false;
     if(d){
