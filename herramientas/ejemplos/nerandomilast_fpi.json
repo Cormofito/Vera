@@ -515,7 +515,9 @@
    "Validez (juicio del evaluador): la comparación es frágil. En FIBRONEER-IPF el 78 % de los pacientes ya tomaba nintedanib o pirfenidona, así que el efecto medido es en gran parte añadido al antifibrótico; en INPULSIS ninguno lo tomaba. Por eso se muestra también el cálculo con el subgrupo sin antifibrótico, más parecido pero con poca precisión.",
    "Las variables no son idénticas: cambio absoluto de la CVF a la semana 52 (FIBRONEER) frente a tasa anual de pérdida de CVF (INPULSIS), ambas en mL/año. Los ensayos están separados por casi diez años.",
    "Pirfenidona no se ha calculado: las fuentes consultadas no dan el intervalo de confianza de la diferencia en mL (ASCEND: −235 frente a −428 mL a la semana 52; King TE et al. N Engl J Med 2014;370:2083-92)."
-  ]
+  ],
+  "sentido": "Diferencia positiva = menor pérdida de CVF con nerandomilast.",
+  "comun": "placebo"
  },
  "economica": {
   "nota": "Sin precio publicado en España en el documento aportado. Introduce los precios para calcular los costes.",
@@ -555,5 +557,14 @@
    ]
   ],
   "nota": "Fuente externa al documento aportado, consultada por VERA. Comprueba que no haya cambiado."
- }
+ },
+ "brazos": [
+  "Nerandomilast 18 mg",
+  "Placebo"
+ ],
+ "brazos_cortos": [
+  "18 mg",
+  "placebo"
+ ],
+ "farmaco_minus": "nerandomilast"
 }

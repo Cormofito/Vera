@@ -160,6 +160,9 @@ def add_field(run, instr):
 class Informe:
     def __init__(self, data):
         self.d = data
+        self.brazos = data.get('brazos', ['Tratamiento', 'Control'])
+        self.cT, self.cC = data.get('brazos_cortos', self.brazos)
+        self.farm = data.get('farmaco_minus', data['solicitud']['farmaco'].lower())
         self.doc = Document()
         st = self.doc.styles['Normal']
         st.font.name = 'Calibri'; st.font.size = Pt(10); st.font.color.rgb = TINTA
@@ -299,7 +302,7 @@ class Informe:
 
     def eficacia(self):
         self.h('3. Eficacia')
-        armT, armC = 'Nerandomilast 18 mg', 'Placebo'
+        armT, armC = self.brazos
         rows = [[(e['var'], self.pg(e['pag'])), e['t'], e['c'], e['dif']] for e in self.d['eficacia']]
         self.tabla(['Variable', armT, armC, 'Diferencia / HR (IC 95 %)'], rows, [6, 3, 3, 5])
         self.nota(self.d['eficacia_nota'])
@@ -320,7 +323,7 @@ class Informe:
                          (str(alt) if alt else '—', 'HR significativo' if hr_sig else 'HR no significativo')])
             if self._nnt_ref is None:
                 self._nnt_ref = (b['lab'], d, lo, hi)
-        self.tabla(['Variable (tiempo)', '% con el evento (18 mg / placebo)', 'Reducción absoluta', 'NNT', 'NNT (HR, Altman)'], rows, [5, 3.2, 3.6, 2.6, 2.6])
+        self.tabla(['Variable (tiempo)', f'% con el evento ({self.cT} / {self.cC})', 'Reducción absoluta', 'NNT', 'NNT (HR, Altman)'], rows, [5, 3.2, 3.6, 2.6, 2.6])
         self.nota('Cálculo propio a partir de los recuentos del documento: proporciones brutas durante todo el seguimiento (no estimaciones de Kaplan-Meier), sin ajustar por los factores de estratificación. El NNT de Altman usa el HR y supone riesgos proporcionales. Si el IC de la diferencia incluye el 0, el NNT no es significativo.')
 
     def subgrupos(self):
@@ -341,7 +344,7 @@ class Informe:
         ax.axvline(1, color='#888', lw=0.8, ls='--')
         ax.set_xscale('log'); ax.set_xlim(0.05, 5); ax.set_xticks([0.1, 0.25, 0.5, 1, 2, 4]); ax.set_xticklabels(['0,1', '0,25', '0,5', '1', '2', '4'], fontsize=8)
         ax.set_yticks(range(len(data), 0, -1)); ax.set_yticklabels(labels, fontsize=8.5)
-        ax.set_xlabel('HR (escala logarítmica) · <1 favorece a nerandomilast', fontsize=8)
+        ax.set_xlabel(f'HR (escala logarítmica) · <1 favorece a {self.farm}', fontsize=8)
         for sp in ('top', 'right'): ax.spines[sp].set_visible(False)
         fig.tight_layout()
         img = os.path.join(self.tmp, 'forest.png'); fig.savefig(img); plt.close(fig)
@@ -349,7 +352,7 @@ class Informe:
         a, b = s['comparar']
         q, df, pq = interaction_q([rows[a][2], rows[b][2]])
         tab = [[(r[0].strip(), ''), r[1], f"{fmt(r[2][0],2)} ({fmt(r[2][1],2)} a {fmt(r[2][2],2)})"] for r in rows]
-        self.tabla(['Subgrupo', 'Eventos 18 mg · placebo', 'HR (IC 95 %)'], tab, [5, 6, 6])
+        self.tabla(['Subgrupo', f'Eventos {self.cT} · {self.cC}', 'HR (IC 95 %)'], tab, [5, 6, 6])
         self.p(f"Interacción calculada ({rows[a][0].strip()} frente a {rows[b][0].strip().lower()}): Q = {fmt(q,2)}, p = {fmt(pq,3)}. "
                f"Interacción en el documento: p = {s['p_epar']}.")
         self.nota(self.pg(s['pag']) + '. La p calculada usa la Q de Cochran sobre los HR publicados y puede diferir de la del modelo del ensayo.')
@@ -384,7 +387,7 @@ class Informe:
                 lhh = fmt((1 / d) / (1 / dn), 1)
             rows.append([(name, self.pg(pag)), f"{fmt(100*et/nt)} %", f"{fmt(100*ec/nc)} %",
                          (f"{'+' if d > 0 else ''}{fmt(100*d)} ({fmt(100*lo)} a {fmt(100*hi)})", ''), (f'{tipo} {n}', nci), lhh])
-        self.tabla(['Efecto adverso', '18 mg', 'Placebo', 'Diferencia de riesgo, % (IC 95 %)', 'NNH / NNT', 'LHH'], rows, [4.4, 1.6, 1.6, 3.8, 3.6, 1.2], size=8.5)
+        self.tabla(['Efecto adverso', self.cT, self.cC, 'Diferencia de riesgo, % (IC 95 %)', 'NNH / NNT', 'LHH'], rows, [4.4, 1.6, 1.6, 3.8, 3.6, 1.2], size=8.5)
         self.nota(s['nota'] + f' Diferencias con IC de Wald calculados a partir de los recuentos. LHH = NNH / NNT frente a «{lab}» (>1 indica que es más probable el beneficio que el daño).')
         self.p(s['texto'])
 
@@ -394,7 +397,7 @@ class Informe:
         if isinstance(ind, str):
             self.p(ind); return
         u = ind['unidad']
-        self.p(f"Método de Bucher con placebo como comparador común. Variable: {ind['variable']}. Diferencia positiva = menor pérdida con nerandomilast.")
+        self.p(f"Método de Bucher con {ind.get('comun', 'placebo')} como comparador común. Variable: {ind['variable']}. {ind.get('sentido', '')}")
         rows = []
         for key in ('ab', 'ab_alt'):
             if key not in ind: continue
@@ -404,7 +407,7 @@ class Informe:
             rows.append([(a['lab'], a['fuente']), f"{fmt(a['est'][0])} ({fmt(a['est'][1])} a {fmt(a['est'][2])}) {u}",
                          (f"{fmt(d)} {u} ({fmt(lo)} a {fmt(hi)})", f"p = {fmt(p,2)} · {sig}")])
         c = ind['cb']
-        self.tabla(['Nerandomilast frente a placebo (A–C)', 'Efecto A–C', f"Nerandomilast frente a {ind['comparador']} (calculado)"], rows, [6.5, 4.5, 6])
+        self.tabla([f"{self.farm.capitalize()} frente a {ind.get('comun', 'placebo')} (A–C)", 'Efecto A–C', f"{self.farm.capitalize()} frente a {ind['comparador']} (calculado)"], rows, [6.5, 4.5, 6])
         self.p(f"Comparador frente a placebo (B–C): {c['lab']}: {fmt(c['est'][0],2)} {u} ({fmt(c['est'][1],2)} a {fmt(c['est'][2],2)}). Fuente: {c['fuente']}.", size=9)
         self.p('Propuesta automática sobre la validez, pendiente del juicio del evaluador:', italic=True, color=ROJO, size=9)
         for n in ind['notas']:
