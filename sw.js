@@ -1,12 +1,14 @@
 /* VERA · service worker
    - Páginas (portada e informes): primero la red, con copia guardada para usar sin conexión.
      Así, cada vez que se publica algo en la web, la app lo muestra en cuanto hay conexión.
-   - Resto de archivos propios: copia guardada y se renueva en segundo plano.
+   - Scripts y estilos propios (.js, .css): también primero la red, para que un cambio llegue en la
+     primera visita y no en la siguiente.
+   - Resto de archivos propios (iconos, imágenes): copia guardada y se renueva en segundo plano.
    - Librerías y fuentes externas (jsPDF, Google Fonts…): copia guardada.
    - Al instalarse y una vez al día, guarda una copia de todos los informes enlazados
      desde la portada para poder consultarlos sin cobertura.
    Solo hay que cambiar VERSION si se modifica este archivo. */
-const VERSION = 'vera-sw-6';
+const VERSION = 'vera-sw-7';
 const PAGES = VERSION + '-pages';
 const FILES = VERSION + '-files';
 const EXTERNAL = VERSION + '-external';
@@ -70,13 +72,14 @@ self.addEventListener('fetch', event => {
   if (sameOrigin && url.pathname.endsWith('/sw.js')) return;
   const isPage = req.mode === 'navigate' || (sameOrigin && /\.html$|\/$/.test(url.pathname));
   if (isPage && sameOrigin) event.respondWith(networkFirst(event, req));
+  else if (sameOrigin && /\.(js|css|webmanifest)$/.test(url.pathname)) event.respondWith(networkFirst(event, req, FILES));
   else if (sameOrigin) event.respondWith(staleWhileRevalidate(event, req, FILES));
   else if (/fonts\.(googleapis|gstatic)\.com|cdn\.jsdelivr\.net|cdnjs\.cloudflare\.com|unpkg\.com/.test(url.hostname))
     event.respondWith(staleWhileRevalidate(event, req, EXTERNAL));
 });
 
-async function networkFirst(event, req) {
-  const cache = await caches.open(PAGES);
+async function networkFirst(event, req, cacheName) {
+  const cache = await caches.open(cacheName || PAGES);
   // no-cache: revalida con el servidor aunque la caché HTTP del navegador (10 min en GitHub Pages) siga vigente.
   const network = fetch(req.url, { cache: 'no-cache', credentials: 'same-origin' });
   event.waitUntil(network.then(res => res.ok ? cache.put(req, res.clone()) : null).catch(() => {}));
@@ -90,6 +93,7 @@ async function networkFirst(event, req) {
   const cached = await cache.match(req, { ignoreSearch: true });
   if (cached) return cached;
   try { return await network; } catch (e) {}
+  if (cacheName) return new Response('', { status: 504 });
   return (await cache.match('./index.html')) || new Response(
     '<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">' +
     '<p style="font:16px sans-serif;padding:24px">Sin conexión y esta página aún no está guardada en el teléfono. Vuelve a intentarlo cuando tengas cobertura.</p>',

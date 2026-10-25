@@ -38,7 +38,10 @@
   var ua = navigator.userAgent || '';
   var isIOS = /iPhone|iPad|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   var isAndroid = /Android/.test(ua);
-  var inApp = /FBAN|FBAV|FB_IAB|Instagram|LinkedInApp|Line\/|Twitter|MicroMessenger|GSA\/|; wv\)/.test(ua);
+  // Navegador dentro de otra app: por el agente de usuario o porque la abrió una app Android
+  // (WhatsApp, Gmail… abren una pestaña de Chrome con referrer android-app://, sin opción de instalar).
+  var inApp = /FBAN|FBAV|FB_IAB|Instagram|LinkedInApp|Line\/|Twitter|MicroMessenger|GSA\/|; wv\)/.test(ua) ||
+    /^android-app:/.test(document.referrer || '');
   var help = new URL('instalar.html', base).href;
   var deferred = null;
 
@@ -109,7 +112,7 @@
       }
     } else if (isAndroid) {
       if (inApp) {
-        banner('Instala VERA en tu móvil', 'Abre esta página en <b>Chrome</b> (menú ' + DOTS + ' › Abrir en Chrome) para instalarla.' + MORE, null);
+        banner('Instala VERA en tu móvil', 'Toca el menú ' + DOTS + ' › <b>Abrir en Chrome</b> y allí te saldrá el botón para instalarla.' + MORE, null);
       } else if (/SamsungBrowser/.test(ua)) {
         banner('Instala VERA en tu móvil', 'Menú <b>≡</b> › <b>Añadir página a</b> › <b>Pantalla de inicio</b>.' + MORE, null);
       } else if (/Firefox/.test(ua)) {
