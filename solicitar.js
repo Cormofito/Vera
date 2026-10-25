@@ -4,7 +4,7 @@
    Se carga desde la cabecera de index.html, que el regenerado de la web conserva. */
 (function () {
   var PAGE = 'solicitar.html';
-  var TXT = 'Adjunta el EPAR o el ensayo publicado y recibirás en tu correo, en menos de 24 horas, un informe de evaluación en PDF y Word. ' +
+  var TXT = 'Adjunta el EPAR o el ensayo publicado y recibirás en tu correo, normalmente en pocas horas, un informe de evaluación en PDF y Word. ' +
     'Se genera automáticamente y no está revisado por VERA: verificar los datos es responsabilidad tuya.';
 
   function link(cls, text) {
