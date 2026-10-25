@@ -11,6 +11,7 @@ Cambios (idempotente: si el informe ya los tiene, no hace nada):
     verificar como un punto ámbar (con leyenda en la cabecera), en vez de dos líneas más por fila.
   - «Ficha en 30 segundos» sin huecos grises cuando la última fila no se llena.
   - Móvil: el índice pasa a una tira de secciones fija arriba, en vez de ir antes del contenido.
+  - v1.2: bajo el diagrama de bosque de la comparación indirecta, «← Favorece a X | Favorece a Y →».
   - v1.1: las tablas (sobre todo la de eficacia) caben enteras en ordenador y tableta; en el móvil
     siguen desplazándose en horizontal.
 """
@@ -92,6 +93,21 @@ new MutationObserver(()=>run()).observe(document.documentElement,{childList:true
 '''
 
 
+MARCA12 = '/* VERA favorece */'
+# v1.2: bajo el diagrama de bosque de la comparación indirecta, hacia qué lado se favorece a cada
+# tratamiento (A frente a C). El lado sale de la leyenda del propio informe: con HR la izquierda
+# favorece al primer tratamiento; con RR o diferencia de medias, la derecha.
+JS12 = r'''/* VERA favorece */{const x0=+((g.match(/class="ax" x1="([\d.\-]+)"/)||[0,360])[1]),R=__DER__;
+      const izq=R?nC:nA, der=R?nA:nC, mu=css('--muted'), fg=css('--fg');
+      const fit=(n,av)=>n.length*6.6>av?` textLength="${av}" lengthAdjust="spacingAndGlyphs"`:'';
+      g+=`<line x1="${x0}" y1="130" x2="${x0}" y2="160" stroke="${css('--line')}"/>`;
+      g+=`<text x="${x0-10}" y="142" font-size="11.5" text-anchor="end" fill="${mu}">← Favorece a</text>`;
+      g+=`<text x="${x0-10}" y="157" font-size="12" font-weight="600" text-anchor="end" fill="${fg}"${fit(izq,x0-20)}>${esc(izq)}</text>`;
+      g+=`<text x="${x0+10}" y="142" font-size="11.5" fill="${mu}">Favorece a →</text>`;
+      g+=`<text x="${x0+10}" y="157" font-size="12" font-weight="600" fill="${fg}"${fit(der,590-x0)}>${esc(der)}</text>`;}
+    '''
+
+
 def aplicar(t):
     cambiado = False
     if MARCA not in t:
@@ -103,6 +119,13 @@ def aplicar(t):
         t = t[:fin] + CSS11 + t[fin:]
         assert t.count('<div class="wrap">') == 1
         t = t.replace('<div class="wrap">', JS11 + '<div class="wrap">')
+        cambiado = True
+    if MARCA12 not in t and "$('chart-forest').innerHTML=g" in t:
+        der = 'a la derecha favorece al primer tratamiento' in t
+        assert der or 'a la izquierda favorece al primer tratamiento' in t
+        assert t.count("$('chart-forest').innerHTML=g") == 1
+        t = t.replace("$('chart-forest').innerHTML=g", JS12.replace('__DER__', 'true' if der else 'false') + "$('chart-forest').innerHTML=g")
+        t = t.replace('<svg id="chart-forest" viewBox="0 0 600 130"', '<svg id="chart-forest" viewBox="0 0 600 166"')
         cambiado = True
     return t, cambiado
 
