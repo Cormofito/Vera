@@ -11,6 +11,7 @@ Cambios (idempotente: si el informe ya los tiene, no hace nada):
     verificar como un punto ámbar (con leyenda en la cabecera), en vez de dos líneas más por fila.
   - «Ficha en 30 segundos» sin huecos grises cuando la última fila no se llena.
   - Móvil: el índice pasa a una tira de secciones fija arriba, en vez de ir antes del contenido.
+  - v1.6: si no queda ninguna cifra pendiente, la leyenda no menciona el punto ámbar.
   - v1.5: la variable de la comparación indirecta, destacada al inicio de la sección 7.
   - v1.4: en el PDF y el Word, la comparación indirecta en tablas con celdas.
   - v1.3: en oncología y hematología (HR), delta de ESMO-MCBS (0,65) y su inverso (1,54) en discontinuas.
@@ -161,6 +162,7 @@ VARIABLES = {
 ANCLA15 = '<div class="sec-head"><span class="eyebrow">Evidencia indirecta</span><h2>7. Comparación indirecta ajustada (Bucher)</h2></div>'
 # Nombre corto para la etiqueta del resultado («HR indirecto · SLP»)
 CORTO15 = {'belantamab-mafodotina': 'SLP', 'datopotamab-deruxtecan': 'SLP', 'elacestrant': 'SLP', 'enfortumab-vedotina-pembrolizumab': 'SG', 'guselkumab-colitis-ulcerosa': 'remisión clínica', 'guselkumab-crohn': 'remisión endoscópica', 'isatuximab-vrd': 'SLP', 'nerandomilast': 'CVF', 'ribociclib-adyuvante': 'SLEi', 'ribociclib-metastasico': 'SG', 'sacituzumab-pembrolizumab': 'SLP', 'trastuzumab-deruxtecan-her2-low': 'SG'}
+CSS16 = 'body:not(:has(.nv)) .vlegend>span:first-child{display:none}\n'  # v1.6: sin pendientes, la leyenda no habla de ellos
 CSS15 = '.disclaimer.vind{border-left-color:var(--accent);background:var(--accent-soft);font-size:15px}\n'
 
 
@@ -205,6 +207,10 @@ def aplicar(t, delta=0.65, form='', slug=''):
                    lambda m: m.group(1) + ' · ' + CORTO15[slug] + m.group(2) + m.group(3), t, count=1)
         fin = t.index('</style>', t.index(MARCA11))
         t = t[:fin] + CSS15 + t[fin:]
+        cambiado = True
+    if CSS16 not in t:
+        fin = t.index('</style>', t.index(MARCA11))
+        t = t[:fin] + CSS16 + t[fin:]
         cambiado = True
     return t, cambiado
 

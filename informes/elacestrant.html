@@ -8,9 +8,9 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="VERA">
 <script src="../pwa.js" defer></script>
-<script>/* VERA web: entorno de solo lectura (exportado el 25/10/2026) */
+<script>/* VERA web: entorno de solo lectura (exportado el 27/10/2026) */
 (function(){
-  const DOCS={};
+  const DOCS={"informe/verificacion": {"items": {"b1": true, "b2": true, "b3": true, "b4": true, "b5": true, "b6": true, "b7": true, "b8": true, "d1": true, "d2": true, "d3": true, "d4": true, "d5": true, "d6": true, "d7": true, "d8": true, "e1": true, "e10": true, "e11": true, "e2": true, "e3": true, "e4": true, "e5": true, "e6": true, "e7": true, "e8": true, "e9": true, "ind": true, "pos": true, "s0": true, "s1": true, "s2": true, "s3": true, "s4": true, "s5": true, "s6": true, "s7": true, "s8": true, "s9": true, "sg1": true, "t1": true}}};
   const snap=(id,data)=>({id,exists:data!=null,data:()=>data});
   const doc=p=>({onSnapshot(cb){setTimeout(()=>cb(snap(p.split('/').pop(),DOCS[p]??null)),0);return()=>{};},
     get:async()=>snap(p.split('/').pop(),DOCS[p]??null),
@@ -231,6 +231,7 @@ td.num .nw{white-space:nowrap}
 }
 @media (min-width:701px){.tbl th:first-child{width:30%}}
 .disclaimer.vind{border-left-color:var(--accent);background:var(--accent-soft);font-size:15px}
+body:not(:has(.nv)) .vlegend>span:first-child{display:none}
 </style>
 
 <nav class="vnav" aria-label="VERA"><div class="vnav-in"><a class="vnav-brand" href="../index.html" target="_top"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="21"/><path d="M13 16 L24 35 L36 11"/></svg><span>VERA</span></a><a class="vnav-back" href="../index.html" target="_top">← Buscador</a></div></nav>
@@ -1326,5 +1327,5 @@ new MutationObserver(()=>run()).observe(document.documentElement,{childList:true
 })();
 </script>
 
-<p style="max-width:960px;margin:24px auto;padding:0 16px;font:12px/1.5 system-ui,sans-serif;color:#777">Versión web de solo lectura de VERA, exportada el 25/10/2026. <a href="../index.html">Volver a VERA</a></p>
+<p style="max-width:960px;margin:24px auto;padding:0 16px;font:12px/1.5 system-ui,sans-serif;color:#777">Versión web de solo lectura de VERA, exportada el 27/10/2026. <a href="../index.html">Volver a VERA</a></p>
 </body></html>
