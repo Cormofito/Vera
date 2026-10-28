@@ -45,6 +45,7 @@ MAPA = {
     'XmvioBPJv3sJ7zR1fZEsZ3': 'isatuximab-vrd',
     '7VZ1gZy3wnoXwgFHdpWeGu': 'datopotamab-deruxtecan',
     '4xXNJPJZnNSmjgt8MYBh22': 'nerandomilast',
+    '4AZD49ZuJh72vSSoe4ztvR': 'isatuximab-vrd-trasplante',
 }
 SOLICITAR_ABS = 'https://vera-fharma.github.io/Vera/solicitar.html'
 ART = re.compile(r'https://claude\.ai/(?:code/)?artifact/([A-Za-z0-9-]+)')

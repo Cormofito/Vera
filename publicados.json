@@ -82,6 +82,14 @@
    "desde": "2026-10-25"
   },
   {
+   "id": "isatuximab-vrd-tph",
+   "farmaco": "Isatuximab + VRd",
+   "marca": "Sarclisa",
+   "indicacion": "Inducción del mieloma múltiple de nuevo diagnóstico candidato a trasplante autólogo, en combinación con bortezomib, lenalidomida y dexametasona",
+   "url": "https://vera-fharma.github.io/Vera/informes/isatuximab-vrd-trasplante.html",
+   "desde": "2026-10-28"
+  },
+  {
    "id": "datopotamab",
    "farmaco": "Datopotamab deruxtecán",
    "marca": "Datroway",
