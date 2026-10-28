@@ -8,7 +8,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="VERA">
 <script src="../pwa.js" defer></script>
-<script>/* VERA web: entorno de solo lectura (exportado el 27/10/2026) */
+<script>/* VERA web: entorno de solo lectura (exportado el 28/10/2026) */
 (function(){
   const DOCS={};
   const snap=(id,data)=>({id,exists:data!=null,data:()=>data});
@@ -553,8 +553,9 @@ new MutationObserver(()=>run()).observe(document.documentElement,{childList:true
 
 <section id="indirecta">
   <div class="sec-head"><span class="eyebrow">Evidencia indirecta</span><h2>7. Comparación indirecta ajustada (Bucher)</h2></div>
-  <div class="disclaimer vind"><b>Variable comparada:</b> Supervivencia libre de progresión (SLP) · <b>Medida:</b> HR</div>
-  <p class="lede">Isatuximab + VRd (A) frente a daratumumab + VRd (C) a través del comparador común VRd (B), con IMROZ y CEPHEUS. Variable: SLP. El ensayo 2 se introduce invertido. Puedes cambiar los valores.</p>
+  <div class="disclaimer vind" id="bu-var"><b>Variable comparada:</b> Supervivencia libre de progresión (SLP) · <b>Medida:</b> HR</div>
+  <div class="seg" role="group" aria-label="Variable de la comparación indirecta"><button data-bu="pfs" aria-pressed="true">Supervivencia libre de progresión</button><button data-bu="os" aria-pressed="false">Supervivencia global</button></div>
+  <p class="lede" id="bu-lede">Isatuximab + VRd (A) frente a daratumumab + VRd (C) a través del comparador común VRd (B), con IMROZ y el subgrupo no candidato a trasplante de CEPHEUS. Se calcula para dos variables: SLP y SG (el selector cambia los datos de los ensayos). El ensayo 2 se introduce invertido. Puedes cambiar los valores.</p>
   <div class="panel abc">
     <div class="ph"><h3>Quién es quién en esta comparación</h3></div>
     <div class="form">
@@ -577,38 +578,48 @@ new MutationObserver(()=>run()).observe(document.documentElement,{childList:true
     <div class="panel">
       <h3 id="h-b2">Ensayo 2: B frente a C</h3>
       <div class="form">
-        <label class="f">Nombre<input id="b2n" value="CEPHEUS invertido (VRd vs D-VRd)"></label>
-        <label class="f">HR<input id="b2h" type="number" step="0.001" value="1.754"></label>
-        <label class="f">IC 95 % inferior<input id="b2l" type="number" step="0.001" value="1.266"></label>
-        <label class="f">IC 95 % superior<input id="b2u" type="number" step="0.001" value="2.439"></label>
+        <label class="f">Nombre<input id="b2n" value="CEPHEUS no candidatos, invertido (VRd vs D-VRd)"></label>
+        <label class="f">HR<input id="b2h" type="number" step="0.001" value="1.818"></label>
+        <label class="f">IC 95 % inferior<input id="b2l" type="number" step="0.001" value="1.282"></label>
+        <label class="f">IC 95 % superior<input id="b2u" type="number" step="0.001" value="2.564"></label>
       </div>
     </div>
   </div>
   <div class="panel">
     <div class="ph"><h3 id="h-bres">Resultado A frente a C</h3><span class="tag t-calc">Calculado</span></div>
     <div class="result">
-      <div><span class="lbl">HR indirecto · SLP</span><span class="big" id="bu-hr">—</span><span class="lbl" id="bu-ci"></span></div>
+      <div><span class="lbl" id="bu-lbl">HR indirecto · SLP</span><span class="big" id="bu-hr">—</span><span class="lbl" id="bu-ci"></span></div>
       <div><span class="lbl">Error estándar log(HR)</span><span class="big" id="bu-se">—</span><span class="lbl">√(EE₁² + EE₂²)</span></div>
     </div>
     <p class="note" id="bu-int"></p>
     <div class="svgwrap"><svg id="chart-forest" viewBox="0 0 600 166" role="img" aria-label="Diagrama de bosque de los HR" style="width:100%;max-width:640px;min-width:460px;height:auto"></svg></div>
     <p class="note" id="bu-leg"></p>
   <p class="note" id="bu-delta">Líneas discontinuas: delta de relevancia clínica (HR 0,65, umbral de ESMO-MCBS) y su inverso (1,54). Si el IC 95 % del resultado indirecto queda entero entre ambas, las dos opciones pueden considerarse equivalentes en eficacia (guía ATE); si cruza una de ellas, no puede descartarse una diferencia clínicamente relevante.</p>
-    <p class="note">CEPHEUS: daratumumab SC + VRd frente a VRd en mieloma de nuevo diagnóstico no candidato a trasplante o con trasplante diferido, SLP HR 0,57 (0,41–0,79) (Usmani SZ et al., Nat Med 2025; scorecard 105 de ESMO-MCBS:H; fuente secundaria). Su inverso es 1,754 (1,266–2,439).</p>
+    <p class="note" id="bu-src">CEPHEUS: SLP del subgrupo no candidato a trasplante en el análisis final (144 frente a 145 pacientes; seguimiento de más de 6 años), HR 0,55 (0,39–0,78) (J Clin Oncol 2026;44 suppl 16:7513; fuente secundaria; probablemente evaluada por el investigador, mientras que la de IMROZ es por comité independiente). Su inverso es 1,818 (1,282–2,564). La población completa de CEPHEUS (incluye trasplante diferido) dio HR 0,57 (0,41–0,79) en el análisis principal; con ella el indirecto era 1,05 (0,67–1,64). IMROZ: SLP por comité independiente, HR 0,596 (0,438–0,812) (EPAR Tabla 10).</p>
+  </div>
+  <div class="panel">
+    <div class="ph"><h3>Resumen: las dos variables</h3><span class="tag t-calc">Calculado</span></div>
+    <div class="tbl"><table>
+      <thead><tr><th>Variable</th><th>Ensayo 1 · A frente a B (IC 95 %)</th><th>Ensayo 2 · B frente a C (IC 95 %)</th><th>Indirecto · A frente a C (IC 95 %)</th><th>Lectura</th></tr></thead>
+      <tbody id="bu-sum"></tbody>
+    </table></div>
+    <p class="note">SG de IMROZ: análisis descriptivo (69 frente a 59 muertes; EPAR Tabla 14, p. 46–47). El EPAR da el IC 99,97 % (0,41–1,48); el IC 95 % 0,548–1,099 se ha recalculado a partir de él. Si se recalcula con la p de 0,076 el IC es algo más estrecho (0,586–1,027) y el resultado indirecto apenas cambia (HR 0,92; IC 0,57–1,49). SG de CEPHEUS: análisis final del subgrupo no candidato a trasplante (144 frente a 145 pacientes, seguimiento mediano de unos 76 meses; ASCO y EHA 2026, resumen de congreso, fuente secundaria), la misma población que se usa para la SLP. Censurando las muertes por COVID-19 el HR de CEPHEUS es 0,74 (0,49–1,12) y el indirecto sería 1,05 (0,61–1,80). En ninguna de las dos variantes cambia la conclusión.</p>
+    <div class="alert w"><strong>!</strong><span>La SG es inmadura y no significativa en los dos ensayos, y ninguno tiene potencia para ella. El IC 95 % del resultado indirecto en SG cruza las dos líneas del delta: no demuestra diferencias, pero tampoco permite afirmar que IVRd y D-VRd sean equivalentes en supervivencia. Con un delta de HR 0,70 (y su inverso, 1,43) la lectura es la misma.</span></div>
   </div>
   <div class="panel">
     <div class="ph"><h3>Similitud de los ensayos</h3><span class="tag t-judge">Juicio del evaluador</span></div>
     <div class="tbl"><table>
       <thead><tr><th>Aspecto</th><th>IMROZ</th><th>CEPHEUS</th><th>Alerta</th></tr></thead>
       <tbody>
-        <tr><td>Población</td><td>No candidatos a trasplante (≥65 años o comorbilidad); ≤80 años</td><td>No candidatos o con trasplante diferido; ≤80 años</td><td><span class="tag t-warn">diferencia</span></td></tr>
+        <tr><td>Población</td><td>No candidatos a trasplante (≥65 años o comorbilidad); ≤80 años</td><td>Subgrupo no candidato a trasplante (73 % del ensayo; se excluyen los de trasplante diferido); ≤80 años</td><td><span class="tag t-ok">similar</span></td></tr>
         <tr><td>Comparador común</td><td>VRd (4 ciclos de 6 semanas) y luego Rd</td><td>VRd (8 ciclos de 3 semanas) y luego Rd</td><td><span class="tag t-ok">similar</span></td></tr>
         <tr><td>Variable principal</td><td>SLP</td><td>EMR negativa (SLP secundaria clave)</td><td><span class="tag t-warn">diferencia</span></td></tr>
-        <tr><td>Seguimiento</td><td>Mediana 59,7 meses</td><td>Mediana ~58,7 meses</td><td><span class="tag t-ok">similar</span></td></tr>
+        <tr><td>Seguimiento</td><td>Mediana 59,7 meses</td><td>Más de 6 años (análisis final; ~76 meses)</td><td><span class="tag t-warn">diferencia</span></td></tr>
+        <tr><td>Datos de SG</td><td>Población completa; análisis descriptivo; HR 0,78; 13,8 % pasaron a IRd tras progresar (HR ajustado 0,84)</td><td>Subgrupo no candidato a trasplante, análisis final (~76 meses); HR 0,84; 11 muertes por COVID-19 (8 frente a 3)</td><td><span class="tag t-warn">diferencia</span></td></tr>
         <tr><td>Diseño</td><td>Abierto, 3:2</td><td>Abierto, 1:1</td><td><span class="tag t-ok">similar</span></td></tr>
       </tbody>
     </table></div>
-    <div class="alert w"><strong>!</strong><span>Comparador común válido y poblaciones parecidas, aunque CEPHEUS incluyó pacientes con trasplante diferido y su variable principal fue la EMR. El IPT-449 sitúa ambos cuádruples al mismo nivel; el resultado indirecto no permite elegir uno sobre otro por eficacia.</span></div>
+    <div class="alert w"><strong>!</strong><span>Comparador común válido y poblaciones parecidas: de CEPHEUS se usa solo el subgrupo no candidato a trasplante (análisis final), aunque es un subgrupo de un ensayo cuya variable principal fue la EMR, sus datos proceden de un resumen de congreso, el seguimiento es más largo que el de IMROZ y la SLP probablemente la evaluó el investigador. En SG, y la pandemia de COVID-19 afectó más al brazo de daratumumab. El IPT-449 sitúa ambos cuádruples al mismo nivel; el resultado indirecto no permite elegir uno sobre otro por eficacia, ni en SLP ni en SG.</span></div>
   </div>
 </section>
 
@@ -640,7 +651,7 @@ new MutationObserver(()=>run()).observe(document.documentElement,{childList:true
   <div class="panel">
     <div class="ph"><h3>Síntesis</h3><span class="tag t-judge">Juicio del evaluador</span></div>
     <p>En mieloma de nuevo diagnóstico no candidato a trasplante, añadir isatuximab a VRd reduce un 40 % el riesgo de progresión o muerte (HR 0,60) con un seguimiento largo (mediana de 5 años): a 48 meses siguen sin progresión el 70 % frente al 54 % (NNT 7), con más respuestas completas y EMR negativa. La SG aún no es significativa (HR 0,78) y hubo el doble de muertes durante el tratamiento, sobre todo por infecciones, compensadas por menos muertes por progresión. ESMO-MCBS:H 3, igual que D-VRd.</p>
-    <p>La toxicidad aumenta (grado ≥3 91,6 % frente a 84,0 %; neumonía, neutropenia, cataratas y el doble de segundos tumores, sobre todo cutáneos). La población del ensayo es de mayores de 65 años en buena forma: no se aplica a pacientes frágiles ni a mayores de 80. El IPT-449 lo sitúa al mismo nivel que D-VRd y la comparación indirecta no muestra diferencias; la elección puede guiarse por la vía de administración, la experiencia del centro y el coste.</p>
+    <p>La toxicidad aumenta (grado ≥3 91,6 % frente a 84,0 %; neumonía, neutropenia, cataratas y el doble de segundos tumores, sobre todo cutáneos). La población del ensayo es de mayores de 65 años en buena forma: no se aplica a pacientes frágiles ni a mayores de 80. El IPT-449 lo sitúa al mismo nivel que D-VRd y la comparación indirecta no muestra diferencias ni en SLP (HR 1,08) ni en SG (HR 0,92); la elección puede guiarse por la vía de administración, la experiencia del centro y el coste.</p>
     <h3>Conclusión del evaluador y condiciones de uso</h3>
     <div class="concl-text read-only" id="conclText"><span class="concl-empty">Pendiente de la conclusión del evaluador.</span></div>
     <div class="edit-only" style="display:grid;gap:6px">
@@ -660,6 +671,7 @@ new MutationObserver(()=>run()).observe(document.documentElement,{childList:true
     <li>Ministerio de Sanidad. BIFIMED, Sarclisa 100 mg (CN 728802). <a href="https://www.sanidad.gob.es/profesionales/medicamentos.do?metodo=verDetalle&amp;cn=728802" target="_blank" rel="noopener">BIFIMED</a></li>
     <li>ESMO-MCBS:H v1.0, scorecards de IMROZ, CEPHEUS y MAIA. <a href="https://www.esmo.org/guidelines/esmo-mcbs/esmo-mcbs-for-haematological-malignancies/esmo-mcbs-h-scorecards" target="_blank" rel="noopener">ESMO</a></li>
     <li>Usmani SZ et al. Daratumumab + bortezomib, lenalidomide and dexamethasone for transplant-ineligible or transplant-deferred newly diagnosed multiple myeloma (CEPHEUS). Nat Med 2025.</li>
+    <li>DVRd in NDMM: final analysis of transplant-ineligible patients in the phase 3 CEPHEUS study. J Clin Oncol 2026;44(16_suppl):7513 (ASCO 2026; también EHA 2026, S196). Fuente secundaria de la SLP y la SG de CEPHEUS en no candidatos a trasplante. <a href="https://ascopubs.org/doi/10.1200/JCO.2026.44.16_suppl.7513" target="_blank" rel="noopener">Resumen</a></li>
   </ol>
   <div class="disclaimer">Herramienta de apoyo a la evaluación. No sustituye el criterio de la Comisión de Farmacia y Terapéutica ni la lectura de las fuentes originales.</div>
 </section>
@@ -861,28 +873,32 @@ new MutationObserver(()=>run()).observe(document.documentElement,{childList:true
   /* Bucher */
   const v=id=>parseFloat($(id).value);
   const esc=t=>t.replace(/[<>&]/g,'');
-  function bucher(){
-    const h1=v('b1h'),l1=v('b1l'),u1=v('b1u'),h2=v('b2h'),l2=v('b2l'),u2=v('b2u');
-    if([h1,l1,u1,h2,l2,u2].some(x=>!(x>0))){$('bu-hr').textContent='—';return;}
+  /* VERA bucher-variables: SLP y SG */
+  const BU={
+    pfs:{lab:'SLP',vn:'Supervivencia libre de progresión (SLP)',b1n:'IMROZ (IVRd vs VRd)',b1h:'0.596',b1l:'0.438',b1u:'0.812',b2n:'CEPHEUS no candidatos, invertido (VRd vs D-VRd)',b2h:'1.818',b2l:'1.282',b2u:'2.564',
+      src:'CEPHEUS: SLP del subgrupo no candidato a trasplante en el análisis final (144 frente a 145 pacientes; seguimiento de más de 6 años), HR 0,55 (0,39–0,78) (J Clin Oncol 2026;44 suppl 16:7513; fuente secundaria; probablemente evaluada por el investigador, mientras que la de IMROZ es por comité independiente). Su inverso es 1,818 (1,282–2,564). La población completa de CEPHEUS (incluye trasplante diferido) dio HR 0,57 (0,41–0,79) en el análisis principal; con ella el indirecto era 1,05 (0,67–1,64). IMROZ: SLP por comité independiente, HR 0,596 (0,438–0,812) (EPAR Tabla 10).'},
+    os:{lab:'SG',vn:'Supervivencia global (SG)',b1n:'IMROZ (IVRd vs VRd)',b1h:'0.776',b1l:'0.548',b1u:'1.099',b2n:'CEPHEUS no candidatos, invertido (VRd vs D-VRd)',b2h:'1.190',b2l:'0.806',b2u:'1.754',
+      src:'IMROZ: SG descriptiva, HR 0,776 con IC 99,97 % 0,41–1,48 (EPAR Tabla 14, p. 46–47); IC 95 % recalculado 0,548–1,099. CEPHEUS: SG del subgrupo no candidato a trasplante en el análisis final, HR 0,84 (0,57–1,24) (J Clin Oncol 2026;44 suppl 16:7513; fuente secundaria). Su inverso es 1,190 (0,806–1,754).'}};
+  const BUK=['b1n','b1h','b1l','b1u','b2n','b2h','b2l','b2u'];
+  let curBU='pfs';
+  function buLoad(k){curBU=k;const d=BU[k];BUK.forEach(id=>{$(id).value=d[id];});
+    $('bu-var').innerHTML='<b>Variable comparada:</b> '+d.vn+' · <b>Medida:</b> HR';
+    $('bu-lbl').textContent='HR indirecto · '+d.lab; $('bu-src').textContent=d.src;
+    document.querySelectorAll('[data-bu]').forEach(x=>x.setAttribute('aria-pressed',x.dataset.bu===k));}
+  function buCalc(d){
+    const h1=+d.b1h,l1=+d.b1l,u1=+d.b1u,h2=+d.b2h,l2=+d.b2l,u2=+d.b2u;
+    if([h1,l1,u1,h2,l2,u2].some(x=>!(x>0)))return null;
     const se1=(Math.log(u1)-Math.log(l1))/3.92, se2=(Math.log(u2)-Math.log(l2))/3.92;
     const lhr=Math.log(h1)+Math.log(h2), se=Math.sqrt(se1*se1+se2*se2);
-    const hr=Math.exp(lhr), lo=Math.exp(lhr-1.96*se), hi=Math.exp(lhr+1.96*se);
-    $('bu-hr').textContent=fmt(hr,2); $('bu-ci').textContent='IC 95 %: '+fmt(lo,2)+' a '+fmt(hi,2); $('bu-se').textContent=fmt(se,3);
-    const nA=$('bA').value||'A', nB=$('bB').value||'B', nC=$('bC').value||'C';
-    $('h-b1').textContent='Ensayo 1: A ('+nA+') frente a B ('+nB+')';
-    $('h-b2').textContent='Ensayo 2: B ('+nB+') frente a C ('+nC+')';
-    $('h-bres').textContent='Resultado A frente a C: '+nA+' frente a '+nC;
-    const sig=hi<1||lo>1, fav=hr<1?nA:nC, pct=Math.round(Math.abs(1-(hr<1?hr:1/hr))*100);
-    $('bu-int').textContent='Lectura: HR '+fmt(hr,2)+' (IC 95 % '+fmt(lo,2)+'–'+fmt(hi,2)+') de '+nA+' frente a '+nC+'. '+
-      (sig?'Favorece a '+fav+' (riesgo un '+pct+' % menor) y el intervalo no incluye 1.':'El intervalo incluye 1: no se demuestra diferencia entre '+nA+' y '+nC+'.')+
-      ' Es una estimación indirecta; su validez depende de la similitud de los ensayos (tabla siguiente).';
+    return {h1,l1,u1,h2,l2,u2,se,hr:Math.exp(lhr),lo:Math.exp(lhr-1.96*se),hi:Math.exp(lhr+1.96*se)};}
+  function drawForest(svg,r,nA,nC){
     const lx=x=>360+Math.log(x)/Math.log(2)*150;
     let g=`<line class="ax" x1="${lx(1)}" y1="8" x2="${lx(1)}" y2="104"/>`;
     [0.25,0.5,1,2].forEach(t=>{g+=`<text x="${lx(t)}" y="122" font-size="11" text-anchor="middle" fill="${css('--muted')}">${fmt(t,2)}</text>`});
-    [['Ensayo 1: A vs B',h1,l1,u1,css('--armB')],['Ensayo 2: B vs C',h2,l2,u2,css('--armB')],['Indirecto: A vs C',hr,lo,hi,css('--accent')]].forEach((r,i)=>{
+    [['Ensayo 1: A vs B',r.h1,r.l1,r.u1,css('--armB')],['Ensayo 2: B vs C',r.h2,r.l2,r.u2,css('--armB')],['Indirecto: A vs C',r.hr,r.lo,r.hi,css('--accent')]].forEach((q,i)=>{
       const y=22+i*32, cl=x=>Math.max(130,Math.min(590,lx(x)));
-      g+=`<text x="10" y="${y+4}" font-size="12">${esc(r[0])}</text>`;
-      g+=`<line x1="${cl(r[2])}" x2="${cl(r[3])}" y1="${y}" y2="${y}" stroke="${r[4]}" stroke-width="2"/><rect x="${cl(r[1])-5}" y="${y-5}" width="10" height="10" fill="${r[4]}"/>`;
+      g+=`<text x="10" y="${y+4}" font-size="12">${esc(q[0])}</text>`;
+      g+=`<line x1="${cl(q[2])}" x2="${cl(q[3])}" y1="${y}" y2="${y}" stroke="${q[4]}" stroke-width="2"/><rect x="${cl(q[1])-5}" y="${y-5}" width="10" height="10" fill="${q[4]}"/>`;
     });
     /* VERA delta */{const D=0.65, mu=css('--muted');
       [[D,'Δ '+fmt(D,2)],[1/D,'1/Δ '+fmt(1/D,2)]].forEach(([v,lab])=>{const x=lx(v);
@@ -896,10 +912,37 @@ new MutationObserver(()=>run()).observe(document.documentElement,{childList:true
       g+=`<text x="${x0-10}" y="157" font-size="12" font-weight="600" text-anchor="end" fill="${fg}"${fit(izq,x0-20)}>${esc(izq)}</text>`;
       g+=`<text x="${x0+10}" y="142" font-size="11.5" fill="${mu}">Favorece a →</text>`;
       g+=`<text x="${x0+10}" y="157" font-size="12" font-weight="600" fill="${fg}"${fit(der,590-x0)}>${esc(der)}</text>`;}
-    $('chart-forest').innerHTML=g;
-    $('bu-leg').innerHTML='<b>Leyenda:</b> A = '+esc(nA)+' · B = '+esc(nB)+' · C = '+esc(nC)+'. Ensayo 1 = '+esc($('b1n').value)+'; ensayo 2 = '+esc($('b2n').value)+'. Cuadrado = HR; línea = IC 95 %; línea vertical = HR 1 (a la izquierda favorece al primer tratamiento de cada fila).';
+    svg.setAttribute('viewBox','0 0 600 166');
+    svg.innerHTML=g;}
+  window.__buForest=(svg,k)=>{const r=buCalc(BU[k]);if(r)drawForest(svg,r,$('bA').value||'A',$('bC').value||'C');};
+  window.__buKeys=()=>Object.keys(BU).map(k=>[k,BU[k].lab]);
+  function buSummary(){
+    const nA=$('bA').value||'A', nC=$('bC').value||'C', ci=(h,l,u)=>fmt(h,2)+' ('+fmt(l,2)+'–'+fmt(u,2)+')';
+    $('bu-sum').innerHTML=Object.keys(BU).map(k=>{const d=BU[k],r=buCalc(d);if(!r)return '';
+      const sig=r.hi<1||r.lo>1, eq=r.lo>0.65&&r.hi<1/0.65;
+      const lec=sig?'Favorece a '+esc(r.hr<1?nA:nC):(eq?'Sin diferencias; IC dentro del delta (equivalencia)':'Sin diferencias demostradas; no puede descartarse una diferencia relevante');
+      return '<tr><td>'+d.vn+'</td><td class="num">'+ci(r.h1,r.l1,r.u1)+'</td><td class="num">'+ci(r.h2,r.l2,r.u2)+'</td><td class="num"><b>'+ci(r.hr,r.lo,r.hi)+'</b></td><td>'+lec+'</td></tr>';}).join('');}
+  function bucher(){
+    BUK.forEach(id=>{BU[curBU][id]=$(id).value;});
+    const r=buCalc(BU[curBU]);
+    if(!r){$('bu-hr').textContent='—';buSummary();return;}
+    const {hr,lo,hi,se}=r;
+    $('bu-hr').textContent=fmt(hr,2); $('bu-ci').textContent='IC 95 %: '+fmt(lo,2)+' a '+fmt(hi,2); $('bu-se').textContent=fmt(se,3);
+    const nA=$('bA').value||'A', nB=$('bB').value||'B', nC=$('bC').value||'C';
+    $('h-b1').textContent='Ensayo 1: A ('+nA+') frente a B ('+nB+')';
+    $('h-b2').textContent='Ensayo 2: B ('+nB+') frente a C ('+nC+')';
+    $('h-bres').textContent='Resultado A frente a C ('+BU[curBU].lab+'): '+nA+' frente a '+nC;
+    const sig=hi<1||lo>1, fav=hr<1?nA:nC, pct=Math.round(Math.abs(1-(hr<1?hr:1/hr))*100);
+    $('bu-int').textContent='Lectura ('+BU[curBU].lab+'): HR '+fmt(hr,2)+' (IC 95 % '+fmt(lo,2)+'–'+fmt(hi,2)+') de '+nA+' frente a '+nC+'. '+
+      (sig?'Favorece a '+fav+' (riesgo un '+pct+' % menor) y el intervalo no incluye 1.':'El intervalo incluye 1: no se demuestra diferencia entre '+nA+' y '+nC+'.')+
+      ' Es una estimación indirecta; su validez depende de la similitud de los ensayos (tabla siguiente).';
+    drawForest($('chart-forest'),r,nA,nC);
+    $('bu-leg').innerHTML='<b>Leyenda:</b> A = '+esc(nA)+' · B = '+esc(nB)+' · C = '+esc(nC)+'. Ensayo 1 = '+esc($('b1n').value)+'; ensayo 2 = '+esc($('b2n').value)+'. Variable: '+BU[curBU].vn+'. Cuadrado = HR; línea = IC 95 %; línea vertical = HR 1 (a la izquierda favorece al primer tratamiento de cada fila).';
+    buSummary();
   }
   ['bA','bB','bC','b1n','b1h','b1l','b1u','b2n','b2h','b2l','b2u'].forEach(id=>$(id).addEventListener('input',bucher));
+  document.querySelectorAll('[data-bu]').forEach(b=>b.addEventListener('click',()=>{BUK.forEach(id=>{BU[curBU][id]=$(id).value;});buLoad(b.dataset.bu);bucher();}));
+  buLoad('pfs');
 
   /* Económica */
   function econRows(rows){const tb=$('econ-body');tb.innerHTML='';rows.forEach(r=>{const tr=document.createElement('tr');
@@ -995,6 +1038,7 @@ new MutationObserver(()=>run()).observe(document.documentElement,{childList:true
         if(ch.matches('.form')){out.push({t:'kv',items:[...ch.querySelectorAll('label.f')].map(l=>{const i=l.querySelector('input,select');return [PX(l.childNodes[0].textContent),i.tagName==='SELECT'?i.options[i.selectedIndex].text:i.value];})});continue;}
         if(ch.matches('.svgwrap')){const s=ch.querySelector('svg');
           if(s.id==='chart-sg'){SGV.forEach(v=>{out.push({t:'h4',x:'Subgrupos · '+v.lab},{t:'svg',svg:mkSG(v.k)});});}
+          else if(s.id==='chart-forest'&&window.__buForest){window.__buKeys().forEach(([k,lab])=>{const f=document.createElementNS('http://www.w3.org/2000/svg','svg');window.__buForest(f,k);out.push({t:'h4',x:'Comparación indirecta · '+lab},{t:'svg',svg:f});});}
           else out.push({t:'svg',svg:s});continue;}
         if(ch.matches('.alert')){out.push({t:'callout',kind:'warn',x:T(ch.querySelector('span'))});continue;}
         if(ch.matches('.disclaimer')){out.push({t:'callout',kind:'info',x:T(ch)});continue;}
@@ -1335,5 +1379,5 @@ new MutationObserver(()=>run()).observe(document.documentElement,{childList:true
 })();
 </script>
 
-<p style="max-width:960px;margin:24px auto;padding:0 16px;font:12px/1.5 system-ui,sans-serif;color:#777">Versión web de solo lectura de VERA, exportada el 27/10/2026. <a href="../index.html">Volver a VERA</a></p>
+<p style="max-width:960px;margin:24px auto;padding:0 16px;font:12px/1.5 system-ui,sans-serif;color:#777">Versión web de solo lectura de VERA, exportada el 28/10/2026. <a href="../index.html">Volver a VERA</a></p>
 </body></html>
